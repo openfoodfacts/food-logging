@@ -17,7 +17,7 @@ The next section describes the proposed standard with following sections providi
 | Source | Where data about a Food or Food Facet came from | Producer, Label, CIQUAL | Provenance |
 | Facet | Any kind of information about food that can be aggregated to give insights into nutrition, health, the environment, etc. | 234 kJ per 100g, 68g CO2 per 100ml | Nutrients, Environmental Footprint |
 | Facet Type | Description of the facet and its unit of measure per 100 g / ml of the food | kJ, Carbohydrates, CO2, Land usage | Attribute
-| Recipe | A collection of Foods that are combined to for the component of a meal | (for a cake) 100g flour, 50g sugar, 50g butter | Course, Plate, Dish, Ingredients |
+| Recipe | A collection of Foods that are combined to form the component of a Meal | (for a cake) 100g flour, 50g sugar, 50g butter | Course, Plate, Dish, Ingredients |
 | Preparation | The way that the Food is processed before eating | Baked, Fried, Re-heated | Processing |
 | Meal | An occasion when Food was consumed | This morning's breakfast | Snack |
 | Meal Type | Classification of the nature and timing of the meal | Breakfast, Lunch, Snack | 
