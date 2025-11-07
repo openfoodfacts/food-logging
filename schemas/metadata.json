@@ -3,7 +3,15 @@
     "type": "object",
     "properties": {
         "columns": {
-            "type": "object"
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {"type": "string"},
+                    "type": {"type": "string"}
+                },
+                "required": ["name", "type"]
+            }
         },
         "locale": {
             "type": "string",

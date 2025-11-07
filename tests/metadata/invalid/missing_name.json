@@ -1,5 +1,9 @@
 {
-    "columns": [],
+    "columns": [
+        {
+            "name": "Meal"
+        }
+    ],
     "locale": "ab-GH",
     "timezone": "Europe/London",
     "https://openfoodfacts.org/metadata.json": {
