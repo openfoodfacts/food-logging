@@ -4,23 +4,78 @@
 
 The reason for developing a standard for food logging data exchange is to ensure that people are not locked in to a single application once they start logging food data. For example, they might want to switch to a different application for logging, use another application to analyze their food logging history or supply data to a third party, such as researchers or medical practitioners.
 
-The next section describes the proposed standard with following sections providing background context and documentation of the design process.
+The next section describes the proposed standard.
 
 ## Standard
 
 ### Glossary
 
-| Entity | Description | Examples | Also known as |
-|---|---|---|---|
-| Consumer | The individual that this food log relates to. Note could possibly be an animal in the case of a pet food diary | Me, John Smith | User, Person
-| Food | Something that can be ingested in the form that it was purchase by the Consumer | Apple, Lasagne, Soda | Product, fruit, vegetable |
-| Source | Where data about a Food or Food Facet came from | Producer, Label, CIQUAL | Provenance |
-| Facet | Any kind of information about food that can be aggregated to give insights into nutrition, health, the environment, etc. | 234 kJ per 100g, 68g CO2 per 100ml | Nutrients, Environmental Footprint |
-| Facet Type | Description of the facet and its unit of measure per 100 g / ml of the food | kJ, Carbohydrates, CO2, Land usage | Attribute
-| Recipe | A collection of Foods that are combined to form the component of a Meal | (for a cake) 100g flour, 50g sugar, 50g butter | Course, Plate, Dish, Ingredients |
-| Preparation | The way that the Food is processed before eating | Baked, Fried, Re-heated | Processing |
-| Meal | An occasion when Food was consumed | This morning's breakfast | Snack |
-| Meal Type | Classification of the nature and timing of the meal | Breakfast, Lunch, Snack | 
+<table>
+    <thead>
+        <tr>
+            <th>Entity</th>
+            <th>Description</th>
+            <th>Examples</th>
+            <th>Also known as</th>
+        <tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Consumer</td>
+            <td>The individual that this food log relates to. Might not be a person, e.g. in the case of a pet food diary</td>
+            <td>Me, John Smith</td>
+            <td>User, Person</td>
+        </tr>
+        <tr>
+            <td>Food</td>
+            <td>Something that can be ingested, in the form that it was procured by the Consumer</td>
+            <td>Apple, Lasagne, Soda</td>
+            <td>Product, fruit, vegetable</td>
+        </tr>
+        <tr>
+            <td>Source</td>
+            <td>Where data about a Food or Food Facet came from</td>
+            <td>Producer, Label, CIQUAL</td>
+            <td>Provenance</td>
+        </tr>
+        <tr>
+            <td>Facet</td>
+            <td>Any kind of information about food that can be aggregated to give insights into nutrition, health, the environment, etc.</td>
+            <td>234 kJ per 100g, 68g CO<sub>2</sub> per 100ml</td>
+            <td>Nutrients, Environmental Footprint</td>
+        </tr>
+        <tr>
+            <td>Facet Type</td>
+            <td>Description of the facet and its unit of measure per 100g / 100ml of the food</td>
+            <td>kJ, Carbohydrates, CO<sub>2</sub>, Land usage</td>
+            <td>Attribute</td>
+        </tr>
+        <tr>
+            <td>Recipe</td>
+            <td>A collection of Foods that are combined to form a component of a Meal</td>
+            <td>(for a cake) 100g flour, 50g sugar, 50g butter</td>
+            <td>Course, Plate, Dish, Ingredients</td>
+        </tr>
+        <tr>
+            <td>Preparation</td>
+            <td>The way that the Food is processed before eating</td>
+            <td>Baked, Fried, Re-heated</td>
+            <td>Processing</td>
+        </tr>
+        <tr>
+            <td>Meal</td>
+            <td>An occasion when Food was consumed</td>
+            <td>This morning's breakfast</td>
+            <td>Snack</td>
+        </tr>
+        <tr>
+            <td>Meal Type</td>
+            <td>Classification of the nature and timing of the meal</td>
+            <td>Breakfast, Lunch, Snack</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
 
 ### Export Packaging
 
@@ -31,24 +86,104 @@ Exports will be packaged in a zip file with an arbitrary name (determined by the
 
 ### Meals
 
-This is a CSV file to make it as simple as possible for moderately technical Consumers or delegated third-parties to analyze their own data in a spreadsheet or database. All columns names should be human readable in the user's chosen language. A Metadata file will cross-reference the column names against pre-defined properties, like meal time, Meal Type, Food and nutrients.
+This is a CSV file to make it as simple as possible for moderately technical Consumers or delegated third-parties to analyze their own data in a spreadsheet or database. All column names should be human readable in the user's chosen language. A Metadata file will cross-reference the column names against pre-defined properties, like Meal time, Meal Type, Food and Nutrients.
 
-Foods will include the human readable name, e.g. "Heinz Baked Beans" that was presented to the user when they selected the Food.
+Foods will include the human readable name, e.g. "Baked Beans", that was presented to the user when they selected the Food.
 
-Date / times will be recorded in the user's local format and timezone, which would be identified in the metadata. Items consumed as part of the same meal should have exactly the same date / time to allow grouping of meals if needed.
+Date times will be recorded in the user's local format and timezone, as identified in the metadata. Items consumed as part of the same meal should have exactly the same date time to allow grouping of Meals for display or analysis purposes.
 
-Facets, like Nutrients, would have a single column name with a consistent unit of measure (identified in the metadata). The exporter could choose to include the unit in the column name if they feel this would be helpful. All Facets that were retrieved from the source of the Food information that were either presented to the user or used in calculations should be included in the export.
+Facets, like Nutrients, will have a single column name with a consistent unit of measure (identified in the metadata). The exporter could choose to include the unit in the column name if they feel this would be helpful. All Facets that were retrieved from the Source of the Food information that were either presented to the user or used in calculations should be included in the export.
 
-It is suggested that more system oriented fields, such as the Source, Global Trade Item Number (GTIN) and Image URLs are included at the "end" of the export line (this might be the leftmost columns in a right to left language).
+It is suggested that fields of less interest to the Consumer, such as the Source, Global Trade Item Number (GTIN) and Image URLs are included at the "end" of the export line (this might be the leftmost columns in a right to left language).
 
 An example might look like this (formatted as a table):
 
-| Time | Meal | Recipe | Food | Amount | Measure | Quantity | Unit | Protein | Carbohydrate | Fat | Source | Code | Image |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1-May-2025 6:00am | Breakfast |  | Kelloggs Corn Flakes | 1 | serving | 30 | g | 0.3 | 24 | 1 | GTIN | 5059319030487 | https://images.openfoodfacts.org/images/products/505/931/903/0487/front_en.3.400.jpg |
-| 1-May-2025 6:00am | Breakfast |  | Full Fat Milk | 0.5 | pint | 284 | ml | 3.1 | 10.2 | 4.3 | GTIN | 5060066960071 | https://images.openfoodfacts.org/images/products/506/006/696/0071/front_en.3.400.jpg |
-| 1-May-2025 9:00am | Snack | White Coffee | Instant Coffee Powder | 1 | teaspoon | 4 | g | 0 | 0.1 | 0 | GTIN | 4056489440628 | https://images.openfoodfacts.net/images/products/405/648/944/0628/front_en.26.400.jpg |
-| 1-May-2025 9:00am | Snack | White Coffee | Full Fat Milk | 20 | ml | 20 | ml | 1.3 | 1.2 | 1.2 | GTIN | 5060066960071 | https://images.openfoodfacts.org/images/products/506/006/696/0071/front_en.3.400.jpg |
+<table>
+    <thead>
+        <tr>
+            <th>Time</th>
+            <th>Meal</th>
+            <th>Recipe</th>
+            <th>Food</th>
+            <th>Amount</th>
+            <th>Measure</th>
+            <th>Quantity</th>
+            <th>Unit</th>
+            <th>Protein</th>
+            <th>Carbohydrate</th>
+            <th>Fat</th>
+            <th>Source</th>
+            <th>Code</th>
+            <th>Image</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1-May-2025 6:00am</td>
+            <td>Breakfast</td>
+            <td></td>
+            <td>Kelloggs Corn Flakes</td>
+            <td>1</td>
+            <td>serving</td>
+            <td>30</td>
+            <td>g</td>
+            <td>0.3</td>
+            <td>24</td>
+            <td>1</td>
+            <td>GTIN</td>
+            <td>5059319030487</td>
+            <td>https://images.openfoodfacts.org/images/products/505/931/903/0487/front_en.3.400.jpg</td>
+        </tr>
+        <tr>
+            <td>1-May-2025 6:00am</td>
+            <td>Breakfast</td>
+            <td></td>
+            <td>Full Fat Milk</td>
+            <td>0.5</td>
+            <td>pint</td>
+            <td>284</td>
+            <td>ml</td>
+            <td>3.1</td>
+            <td>10.2</td>
+            <td>4.3</td>
+            <td>GTIN</td>
+            <td>5060066960071</td>
+            <td>https://images.openfoodfacts.org/images/products/506/006/696/0071/front_en.3.400.jpg</td>
+        </tr>
+        <tr>
+            <td>1-May-2025 9:00am</td>
+            <td>Snack</td>
+            <td>White Coffee</td>
+            <td>Instant Coffee Powder</td>
+            <td>1</td>
+            <td>teaspoon</td>
+            <td>4</td>
+            <td>g</td>
+            <td>0</td>
+            <td>0.1</td>
+            <td>0</td>
+            <td>GTIN</td>
+            <td>4056489440628</td>
+            <td>https://images.openfoodfacts.net/images/products/405/648/944/0628/front_en.26.400.jpg</td>
+        </tr>
+        <tr>
+            <td>1-May-2025 9:00am</td>
+            <td>Snack</td>
+            <td>White Coffee</td>
+            <td>Full Fat Milk</td>
+            <td>20</td>
+            <td>ml</td>
+            <td>20</td>
+            <td>ml</td>
+            <td>1.3</td>
+            <td>1.2</td>
+            <td>1.2</td>
+            <td>GTIN</td>
+            <td>5060066960071</td>
+            <td>https://images.openfoodfacts.org/images/products/506/006/696/0071/front_en.3.400.jpg</td>
+        </tr>
+    </tbody>
+</table>
 
 ### Metadata
 
@@ -58,14 +193,47 @@ The main component of the Metadata file is the "columns" property which is a sin
 
 The full list of properties on the root Metadata object are as follows:
 
-| Property | Description | Example |
-|---|---|---|
-| columns | Object with a key for each column name used in the Meals CSV file | <pre>"columns":{<br/>  "Food": {"type": "food"}<br/>}</pre> |
-| locale | Combination of the user's [ISO 639 2-letter language code](https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes) and [ISO 3166 2-letter country code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) separated with a hyphen | <pre>"locale": "en-US"</pre> |
-| timezone | A standard [IANA TZ identifier](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) | <pre>"timezone": "Europe/London"</pre> |
-| {additional properties} | Applications may add their own global properties. It is suggested that each application just adds one root property using a URI owned by that application as the key name. This URI would ideally point to a JSON Schema document describing the structure of the custom properties, but this is not essential. | <pre>"https://openfoodfacts.org/metadata.json": {<br/>  ...</br>}</pre> |
+<table>
+    <thead>
+        <tr>
+            <th>Property</th>
+            <th>Description</th>
+            <th>Example</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>columns</td>
+            <td>Object with a key for each column name used in the Meals CSV file</td>
+            <td>
+<pre>"columns":{
+    "Food": {"type": "food"}
+}</pre>
+            </td>
+        </tr>
+        <tr>
+            <td>locale</td>
+            <td>Combination of the user's <a href="https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes">ISO 639 2-letter language code</a> and <a href="https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes">ISO 3166 2-letter country code</a> separated with a hyphen</td>
+            <td><pre>"locale": "en-US"</pre></td>
+        </tr>
+        <tr>
+            <td>timezone</td>
+            <td>A standard <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">IANA TZ identifier</a></td>
+            <td><pre>"timezone": "Europe/London"</pre></td>
+        </tr>
+        <tr>
+            <td>{additional properties}</td>
+            <td>Applications may add their own global properties. It is suggested that each application adds just one root property using a URI owned by that application as the key name. This URI would ideally point to a JSON Schema document describing the structure of the custom properties, but this is not essential.</td>
+            <td>
+<pre>"https://openfoodfacts.org/metadata.json": {
+    ...
+}</pre>
+            </td>
+        </tr>
+    </tbody>
+</table>
 
-All dates / times in the Meals CSV file will be formatted according to the default format associated with their locale as would be generated by the [JavaScript Intl.DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat) object or equivalent.
+All date times in the Meals CSV file will be formatted according to the default associated with their locale as would be generated by the [JavaScript Intl.DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat) object or equivalent.
 
 However, numbers in both the Meals CSV and Metadata files should follow the [JSON number standard](https://www.rfc-editor.org/rfc/rfc8259#page-7) to avoid the need for unnecessary CSV escaping in regions that normally use a comma as the decimal separator.
 
@@ -90,79 +258,139 @@ The following table lists the different column types and additional attributes t
         <tr>
             <td>meal</td>
             <td>values</td>
-            <td>The different meal type names used, keyed with the value used in the CSV file. The value will be one of the following (derived from <a href="https://en.wikipedia.org/wiki/Outline_of_meals">here</a>):<ul><li>breakfast</li><li>second-breakfast</li><li>brunch</li><li>elevenses</li><li>lunch</li><li>tea</li><li>dinner</li><li>supper</li><li>high-tea</li><li>siu-yeh</li><li>snack</li><li>daily</li></ul>Note the "daily" item refers to entries where the user has just recorded overall consumption throughout the day, e.g. 6 cups of coffee</td>
-            <td><pre>"Meal": {<br/>  "type": "meal",<br/>  "values": {<br/>    "Breakfast": "breakfast",<br/>    "Mail Meal": "dinner",<br/>    "Daily Allowance": "daily"<br/>  }<br/>}</pre></td>
+            <td>
+                The different meal type names used, keyed with the value used in the CSV file. The value will be one of the following (derived from <a href="https://en.wikipedia.org/wiki/Outline_of_meals">here</a>):
+                <ul>
+                    <li>breakfast</li>
+                    <li>second-breakfast</li>
+                    <li>brunch</li>
+                    <li>elevenses</li>
+                    <li>lunch</li>
+                    <li>tea</li>
+                    <li>dinner</li>
+                    <li>supper</li>
+                    <li>high-tea</li>
+                    <li>siu-yeh</li>
+                    <li>snack</li>
+                    <li>daily</li>
+                </ul>
+                Note the "daily" item refers to entries where the user has just recorded overall consumption throughout the day, e.g. 6 cups of coffee
+            </td>
+            <td>
+<pre>"Meal": {
+    "type": "meal",
+    "values": {
+        "Breakfast": "breakfast",
+        "Mail Meal": "dinner",
+        "Daily Allowance": "daily"
+    }
+}</pre>
+            </td>
         </tr>
         <tr>
             <td>recipe</td>
             <td>[None]</td>
-            <td>The name of a Recipe used that links multiple related foods in the meal</td>
+            <td>The name of a Recipe used that links multiple related Foods in the Meal</td>
             <td><pre>"Recipe": {"type": "recipe"}</pre></td>
         </tr>
         <tr>
             <td>food</td>
             <td>[None]</td>
-            <td>The name of the Food as it was presented to the user when they selected it from the source</td>
+            <td>The name of the Food as it was presented to the user when they selected it from the Source</td>
             <td><pre>"Food": {"type": "food"}</pre></td>
         </tr>
         <tr>
             <td>entered_quantity</td>
             <td>[None]</td>
-            <td>The amount of the food that the user recorded in the specified "entered_unit". Formatted as a <a href="https://www.rfc-editor.org/rfc/rfc8259#page-7">JSON number</a></td>
+            <td>The amount of the Food that the user recorded in the specified "entered_unit". Formatted as a <a href="https://www.rfc-editor.org/rfc/rfc8259#page-7">JSON number</a></td>
             <td><pre>"Amount": {"type": "entered_quantity"}</pre></td>
         </tr>
         <tr>
             <td>entered_unit</td>
             <td>[None]</td>
-            <td>The unit used when recording the quantity of food. This is a free format string in the end-user's language</td>
+            <td>The unit used when recording the quantity of Food. This is a free format string in the end-user's language</td>
             <td><pre>"Measure": {"type": "entered_unit"}</pre></td>
         </tr>
         <tr>
             <td>quantity</td>
             <td>[None]</td>
-            <td>The amount of the food in normalized units (g for weight, ml for volume). Formatted as a <a href="https://www.rfc-editor.org/rfc/rfc8259#page-7">JSON number</a></td>
+            <td>The amount of the Food in normalized units (grams for weight, milliliters for volume). Formatted as a <a href="https://www.rfc-editor.org/rfc/rfc8259#page-7">JSON number</a></td>
             <td><pre>"Quantity": {"type": "quantity"}</pre></td>
         </tr>
         <tr>
             <td>unit</td>
             <td>[None]</td>
-            <td>The normalized unit type. "g" for weight or "ml" for volume. Not localized. This should match the unit used in the source, see the note on Units below.</td>
+            <td>The normalized unit type. "g" for weight or "ml" for volume. Not localized. This should match the unit used in the Source.</td>
             <td><pre>"Unit": {"type": "unit"}</pre></td>
         </tr>
         <tr>
             <td rowspan="2">facet</td>
             <td>code</td>
-            <td>The facet type as defined in this standard (TBA). e.g. "protein", "carbohydrates-total", "vitamin-b12", "energy-kj"</td>
-            <td rowspan="2"><pre>"Protein": {<br/>  "type": "facet",<br/>  "code": "protein"<br/>},<br/>"Iron (g)": {<br/>  "type": "facet",<br/>  "code": "iron"<br/>},<br/>"Vitamin B12 (µg)": {<br/>  "type": "facet",<br/>  "code": "vitamin-b12",<br/>  "factor": 1000000<br/>}</pre></td>
+            <td>The Facet type as defined in this standard (TBA). e.g. "protein", "carbohydrates-total", "vitamin-b12", "energy-kj"</td>
+            <td rowspan="2">
+<pre>"Protein": {
+    "type": "facet",
+    "code": "protein"
+},
+"Iron (g)": {
+    "type": "facet",
+    "code": "iron"
+},
+"Vitamin B12 (µg)": {
+    "type": "facet",
+    "code": "vitamin-b12",
+    "factor": 1000000
+}</pre>
+            </td>
         </tr>
         <tr>
             <td>factor</td>
-            <td>Value that the quantity of the facet in the Meals CSV file must be divided by in order to convert it to the unit defined for the facet type. Note that most nutrients will have a units of "g" but energy will be in "kJ" or "kcal" e.g. 1000 if the values in the Meals CSV are expressed in mg. Defaults to 1 if omitted.</td>
+            <td>Value that the quantity of the Facet in the Meals CSV file must be divided by in order to convert it to the unit defined for the Facet type. Note that most nutrients will have a units of "g" but energy will be in "kJ" or "kcal". For example, a factor of 1000 would be specified if the values in the Meals CSV are expressed in mg. Defaults to 1 if omitted.</td>
         </tr>
         <tr>
             <td>source</td>
             <td>values</td>
-            <td>The type of Food identifier used, keyed by the value used in the Meals CSV.
-The value has a source, which can be "gtin" or "plu" and a location code, e.g. for GTIN this would be the <a href="https://navigator.gs1.org/gdsn/class-details?name=GLN&version=12">Global Location Number</a></td>
-            <td><pre>"Source": {<br/>  "type": "source",<br/>  "values": {<br/>    "Bar code": {<br/>      "source": "gtin",<br/>      "location": "3014517900101"<br/>    },<br/>    "Food code": {<br/>      "source": "plu"<br/>    }<br/>  }<br/>}</pre></td>
+            <td>
+                The type of Food identifier used, keyed by the value used in the Meals CSV.<br/>
+                The value has a source, which can be "gtin" or "plu" and a location code, e.g. for GTIN this would be the <a href="https://navigator.gs1.org/gdsn/class-details?name=GLN&version=12">Global Location Number</a>
+            </td>
+            <td>
+<pre>"Source": {
+    "type": "source",
+    "values": {
+        "Bar code": {
+            "source": "gtin",
+            "location": "3014517900101"
+        },
+        "Food code": {
+            "source": "plu"
+        }
+    }
+}</pre>
+            </td>
         </tr>
         <tr>
             <td>code</td>
             <td>[None]</td>
-            <td>The identifier for the Food in the specified source</td>
+            <td>The identifier for the Food in the specified Source</td>
             <td><pre>"Code": {"type": "code"}</pre></td>
         </tr>
         <tr>
             <td>image</td>
             <td>[None]</td>
-            <td>URL to an image that was presented to the user when they selected the food from the source</td>
+            <td>URL to an image that was presented to the user when they selected the Food from the Source</td>
             <td><pre>"Image": {"type": "image"}</pre></td>
         </tr>
         <tr>
             <td>{additional properties}</td>
             <td>[Any]</td>
-            <td>Application properties that are specific to the individual meal. It is suggested that each application adds type for each custom column using a URI owned by that application as the key name. This URI would ideally point to a JSON Schema document describing the structure of the custom type, but this is not essential.</td>
-            <td><pre>"Green Score": {<br/>&nbsp;&nbsp;"type":"https://openfoodfacts.org/green.json",<br/>&nbsp;&nbsp;...<br/>}</pre></td>
+            <td>Application properties that are specific to the individual meal. It is suggested that each application adds one type for each custom column using a URI owned by that application as the key name. This URI would ideally point to a JSON Schema document describing the structure of the custom type, but this is not essential.</td>
+            <td>
+<pre>"Green Score": {
+&nbsp;&nbsp;"type":"https://openfoodfacts.org/green.json",
+  ...
+}</pre>
+        </td>
         </tr>
     </tbody>
 </table>
@@ -171,51 +399,54 @@ A full example of a Meal Metadata file follows:
 
 ```json
 {
-  "columns": {
-    "Heure": {
-      "type": "time"
+    "columns": {
+        "Heure": {
+            "type": "time"
+        },
+        "Repas": {
+            "type": "meal",
+            "values": {
+                "Petit-déjeuner": "breakfast",
+                "Dîner": "dinner"
+            }
+        },
+        "Recette": {
+            "type": "recipe"
+        },
+        "Nourriture": {
+            "type": "food"
+        },
+        "Nombre": {
+            "type": "entered_quantity"
+        },
+        "Mesure": {
+            "type": "entered_unit"
+        },
+        "Quantité": {
+            "type": "quantity"
+        },
+        "Unité": {
+            "type": "unit"
+        },
+        "Protéines": {
+            "type": "facet",
+            "code": "protein"
+        },
+        "Fer (g)": {
+            "type": "facet",
+            "code": "iron"
+        },
+        "Vitamine B12 (µg)": {
+            "type": "facet",
+            "code": "vitamin-b12",
+            "factor": 1000000
+        },
+        "Green-Score": {
+            "type":"https://openfoodfacts.org/green.json",
+        }
     },
-    "Repas": {
-      "type": "meal",
-      "values": {
-        "Petit-déjeuner": "breakfast",
-        "Dîner": "dinner"
-      }
-    },
-    "Recette": {
-      "type": "recipe"
-    },
-    "Nourriture": {
-      "type": "food"
-    },
-    "Nombre": {
-      "type": "entered_quantity"
-    },
-    "Mesure": {
-      "type": "entered_unit"
-    },
-    "Quantité": {
-      "type": "quantity"
-    },
-    "Unité": {
-      "type": "unit"
-    },
-    "Protéines": {
-      "type": "facet",
-      "code": "protein"
-    },
-    "Fer (g)": {
-      "type": "facet",
-      "code": "iron"
-    },
-    "Vitamine B12 (µg)": {
-      "type": "facet",
-      "code": "vitamin-b12",
-      "factor": 1000000
-    }
-  },
-  "locale": "fr-FR",
-  "timezone": "Europe/Paris"
+    "locale": "fr-FR",
+    "timezone": "Europe/Paris"
 }
 ```
 
@@ -225,7 +456,7 @@ Storing and retrieving data via an API would be performed by an application rath
 
 #### Authentication
 
-APIs should be secured using OAuth using Beater tokens supplied in the [HTTP Authorization Request Header](https://datatracker.ietf.org/doc/html/rfc6750#section-2.1). The method of authentication and obtaining and renewing access tokens is beyond the scope of this specification.
+APIs should be secured using OAuth using Bearer tokens supplied in the [HTTP Authorization Request Header](https://datatracker.ietf.org/doc/html/rfc6750#section-2.1). The method of authentication and obtaining and renewing access tokens is beyond the scope of this specification.
 
 #### Metadata
 
@@ -238,7 +469,7 @@ Meals should be structured as an array of JSON objects with the following schema
 <table>
     <thead>
         <tr>
-            <th>property</th>
+            <th>Property</th>
             <th>Description</th>
             <th>Example</th>
         </tr>
@@ -251,48 +482,69 @@ Meals should be structured as an array of JSON objects with the following schema
         </tr>
         <tr>
             <td>time</td>
-            <td>The time that the meal was consumed in UTC following the <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8061</a> format</td>
+            <td>The time that the Meal was consumed in UTC following the <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8061</a> format</td>
             <td><pre>"time": "2025-07-30T15:56:32Z"</pre></td>
         </tr>
         <tr>
             <td>meal</td>
-            <td>The meal type. The value will be one of the following (derived from <a href="https://en.wikipedia.org/wiki/Outline_of_meals">here</a>):<ul><li>breakfast</li><li>second-breakfast</li><li>brunch</li><li>elevenses</li><li>lunch</li><li>tea</li><li>dinner</li><li>supper</li><li>high-tea</li><li>siu-yeh</li><li>snack</li><li>daily</li></ul>Note the "daily" item refers to entries where the user has just recorded overall consumption throughout the day, e.g. 6 cups of coffee</td>
+            <td>
+                The Meal Type. The value will be one of the following (derived from <a href="https://en.wikipedia.org/wiki/Outline_of_meals">here</a>):
+                <ul>
+                    <li>breakfast</li>
+                    <li>second-breakfast</li>
+                    <li>brunch</li>
+                    <li>elevenses</li>
+                    <li>lunch</li>
+                    <li>tea</li>
+                    <li>dinner</li>
+                    <li>supper</li>
+                    <li>high-tea</li>
+                    <li>siu-yeh</li>
+                    <li>snack</li>
+                    <li>daily</li>
+                </ul>
+                Note the "daily" item refers to entries where the user has just recorded overall consumption throughout the day, e.g. 6 cups of coffee
+            </td>
             <td><pre>"meal": "breakfast"</pre></td>
         </tr>
         <tr>
             <td>recipe [optional]</td>
-            <td>The name of a Recipe used that links multiple related foods in the meal</td>
+            <td>The name of a Recipe used that links multiple related Foods in the meal</td>
             <td><pre>"recipe": "White coffee"</pre></td>
         </tr>
         <tr>
             <td>food</td>
-            <td>The name of the Food as it was presented to the user when they selected it from the source</td>
+            <td>The name of the Food as it was presented to the user when they selected it from the Source</td>
             <td><pre>"food": "Instant Coffee Powder"</pre></td>
         </tr>
         <tr>
             <td>entered_quantity</td>
-            <td>The amount of the food that the user recorded in the specified "entered_unit". Formatted according to the <a href="https://www.rfc-editor.org/rfc/rfc8259#page-7">JSON number standard</a></td>
+            <td>The amount of the Food that the user recorded in the specified "entered_unit". Formatted according to the <a href="https://www.rfc-editor.org/rfc/rfc8259#page-7">JSON number standard</a></td>
             <td><pre>"entered_quantity": 1</pre></td>
         </tr>
         <tr>
             <td>entered_unit</td>
-            <td>The unit used when recording the quantity of food. This is a free format string in the end-user's language</td>
+            <td>The unit used when recording the quantity of Food. This is a free format string in the end-user's language</td>
             <td><pre>"entered_unit": "tsp"</pre></td>
         </tr>
         <tr>
             <td>quantity</td>
-            <td>The amount of the food in normalized units (g for weight, ml for volume). Formatted according to the <a href="https://www.rfc-editor.org/rfc/rfc8259#page-7">JSON number standard</a></td>
+            <td>The amount of the Food in normalized units (grams for weight, milliliters for volume). Formatted according to the <a href="https://www.rfc-editor.org/rfc/rfc8259#page-7">JSON number standard</a></td>
             <td><pre>"quantity": 15</pre></td>
         </tr>
         <tr>
             <td>unit</td>
-            <td>The normalized unit type. "g" for weight or "ml" for volume. This should match the unit used in the source, see the note on Units below.</td>
+            <td>The normalized unit type. "g" for weight or "ml" for volume. This should match the unit used in the source.</td>
             <td><pre>"unit": "ml"</pre></td>
         </tr>
         <tr>
             <td>{facet}</td>
-            <td>The property name will be a facet type as defined in this standard (TBA). e.g. "protein", "carbohydrates-total", "vitamin-b12", "energy-kj". The value will in "g" in most cases but energy will be in "kJ" or "kcal"</td>
-            <td><pre>"protein": 0,<br/>"iron": 0.02,<br/>"vitamin-b12": 1.2e-6</pre></td>
+            <td>The property name will be a facet type as defined in this standard (TBA). e.g. "protein", "carbohydrates-total", "vitamin-b12", "energy-kj". The value will in grams in most cases but energy will be in kJ or kcal</td>
+            <td>
+<pre>"protein": 0,
+"iron": 0.02,
+"vitamin-b12": 1.2e-6</pre>
+            </td>
         </tr>
         <tr>
             <td>source</td>
@@ -301,18 +553,18 @@ Meals should be structured as an array of JSON objects with the following schema
         </tr>
         <tr>
             <td>location [optional]</td>
-            <td>The location code for the source, e.g. for GTIN this would be the <a href="https://navigator.gs1.org/gdsn/class-details?name=GLN&version=12">Global Location Number</a></td>
+            <td>The location code for the Source, e.g. for GTIN this would be the <a href="https://navigator.gs1.org/gdsn/class-details?name=GLN&version=12">Global Location Number</a></td>
             <td><pre>"location": "3014517900101"</pre></td>
         </tr>
         <tr>
             <td>code</td>
-            <td>The identifier for the Food in the specified source</td>
+            <td>The identifier for the Food in the specified Source</td>
             <td><pre>"code": "4056489440628"</pre></td>
         </tr>
         <tr>
             <td>image</td>
-            <td>URL to an image that was presented to the user when they selected the food from the source</td>
-            <td><pre>"image": "https://images.openfoodfacts.net/images/products/405/648/944/0628/front_en.26.400.jpg"</pre></td>
+            <td>URL to an image that was presented to the user when they selected the Food from the Source</td>
+            <td><pre>"image":"https://images.openfoodfacts.net/images/products/405/648/944/0628/front_en.26.400.jpg"</pre></td>
         </tr>
         <tr>
             <td>{additional properties}</td>
