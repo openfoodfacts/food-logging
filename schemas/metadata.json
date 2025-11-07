@@ -1,2 +1,19 @@
 {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+        "columns": {
+            "type": "object"
+        },
+        "locale": {
+            "type": "string",
+            "pattern": "^[a-z]{2}-[A-Z]{2}$"
+        },
+        "timezone": {
+            "type": "string",
+            "pattern": "^(?:(?:[A-Za-z_\\-]+\\/[A-Za-z_\\-]+(?:\\/[A-Za-z_\\-]+)?)|(?:Etc\\/[A-Za-z0-9+\\-]+(?:\\/[A-Za-z0-9]+)?|(?:CET|CST6CDT|EET|EST|EST5EDT|MET|MST|MST7MDT|PST8PDT|HST)))$"
+        }
+    },
+    "required": ["columns", "locale"],
+    "additionalProperties": true
 }
