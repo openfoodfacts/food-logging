@@ -1,0 +1,19 @@
+{
+    "columns": {
+        "Recipe":{
+            "type": "recipe",
+            "sequence": 2
+        },
+        "New One": {
+            "type": "custom",
+            "code": "http://test.com",
+            "extra_stuff": [1,2,3],
+            "sequence": 1
+        }
+    },
+    "locale": "ab-GH",
+    "timezone": "Europe/London",
+    "https://openfoodfacts.org/metadata.json": {
+        "test": 1
+    }
+}
