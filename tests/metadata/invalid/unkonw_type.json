@@ -1,9 +1,9 @@
 {
-    "columns": [
-        {
-            "name": "Meal"
+    "columns": {
+        "Made up": {
+            "type": "does not exist"
         }
-    ],
+    },
     "locale": "ab-GH",
     "timezone": "Europe/London",
     "https://openfoodfacts.org/metadata.json": {

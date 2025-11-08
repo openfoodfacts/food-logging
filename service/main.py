@@ -1,12 +1,11 @@
-from typing import Annotated, List, Literal, Union
+from typing import Annotated, Dict, List, Literal, Union
 from fastapi import FastAPI
 from pydantic import BaseModel, Extra, Field
 
 app = FastAPI()
 
 class BaseColumn(BaseModel):
-    name: str
-    type: str
+    sequence: int
 
 class FoodColumn(BaseColumn, extra=Extra.forbid):
     type: Literal["food"]
@@ -16,10 +15,11 @@ class RecipeColumn(BaseColumn, extra=Extra.forbid):
 
 class CustomColumn(BaseColumn, extra=Extra.allow):
     type: Literal["custom"]
+    code: str
 
 
 class FoodMetadata(BaseModel):
-    columns: List[Annotated[FoodColumn | RecipeColumn | CustomColumn, Field(discriminator='type')]]
+    columns: Dict[str, Annotated[FoodColumn | RecipeColumn | CustomColumn, Field(discriminator='type')]]
 
 @app.put("/metadata")
 def put_metadata(metadata: FoodMetadata):

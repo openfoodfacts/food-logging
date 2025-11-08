@@ -1,10 +1,9 @@
 {
-    "columns": [
-        {
-            "name": "Recipe",
+    "columns": {
+        "Recipe":{
             "type": "recipe"
         }
-    ],
+    },
     "locale": "ab-GH",
     "timezone": "Europe/London",
     "https://openfoodfacts.org/metadata.json": {

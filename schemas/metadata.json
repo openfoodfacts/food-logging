@@ -1,59 +1,63 @@
 {
-    "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "type": "object",
-    "properties": {
-        "columns": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "anyOf": [
-                    {
-                        "properties": {
-                            "name": {
-                                "type": "string"
-                            },
-                            "type": {
-                                "const": "food"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    {
-                        "type": "object",
-                        "properties": {
-                            "name": {
-                                "type": "string"
-                            },
-                            "type": {
-                                "const": "recipe"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    {
-                        "type": "object",
-                        "properties": {
-                            "name": {
-                                "type": "string"
-                            },
-                            "type": {
-                                "type": "string"
-                            }
-                        }
-                    }
-                ],
-                "required": ["name","type"]
-            }
-        },
-        "locale": {
-            "type": "string",
-            "pattern": "^[a-z]{2}-[A-Z]{2}$"
-        },
-        "timezone": {
-            "type": "string",
-            "pattern": "^(?:(?:[A-Za-z_\\-]+\\/[A-Za-z_\\-]+(?:\\/[A-Za-z_\\-]+)?)|(?:Etc\\/[A-Za-z0-9+\\-]+(?:\\/[A-Za-z0-9]+)?|(?:CET|CST6CDT|EET|EST|EST5EDT|MET|MST|MST7MDT|PST8PDT|HST)))$"
-        }
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "columns": {
+      "type": "object",
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "properties": {
+              "type": {
+                "const": "food"
+              },
+              "sequence": {
+                "type": "integer"
+              }
+            },
+            "required": ["type"],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "recipe"
+              },
+              "sequence": {
+                "type": "integer"
+              }
+            },
+            "required": ["type"],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "custom"
+              },
+              "code": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "integer"
+              }
+            },
+            "required": ["type", "code"]
+          }
+        ]
+      }
     },
-    "required": ["columns", "locale"],
-    "additionalProperties": true
+    "locale": {
+      "type": "string",
+      "pattern": "^[a-z]{2}-[A-Z]{2}$"
+    },
+    "timezone": {
+      "type": "string",
+      "pattern": "^(?:(?:[A-Za-z_\\-]+\\/[A-Za-z_\\-]+(?:\\/[A-Za-z_\\-]+)?)|(?:Etc\\/[A-Za-z0-9+\\-]+(?:\\/[A-Za-z0-9]+)?|(?:CET|CST6CDT|EET|EST|EST5EDT|MET|MST|MST7MDT|PST8PDT|HST)))$"
+    }
+  },
+  "required": ["columns", "locale"],
+  "additionalProperties": true
 }
