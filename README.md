@@ -189,9 +189,7 @@ An example might look like this (formatted as a table):
 
 The Metadata in an export provides a translation between the human readable column names and enumerations used in the Meals file and standardized representations of these. Applications with limited user-customization could potentially hard-code this Metadata file (per user language supported) if their exports always include the same standard column names.
 
-The main component of the Metadata file is the "columns" property which is an array of objects describing each column in the Meals CSV file. Each column object has a name property, matching the column heading used in the CSV file, and a "type", which determines the standardized property the column represents. Additional attributes, specific to the type, will identify other data relevant to that property, e.g. the standard nutrient code and unit for a "facet" column.
-
-The order of columns in the CSV does not need to match the order of the columns in the metadata, but the order in the metadata may be used when generating a CSV file from raw meal data.
+The main component of the Metadata file is the "columns" property which is a single object with a key for each column name mentioned in the Meals CSV file. The value associated with each column is an object whose "type" column will determine the standardized property the column represents. Additional attributes, specific to the type, will identify other data relevant to that property, e.g. the standard nutrient code and unit for a "facet" column.
 
 The full list of properties on the root Metadata object are as follows:
 
@@ -206,14 +204,11 @@ The full list of properties on the root Metadata object are as follows:
     <tbody>
         <tr>
             <td>columns</td>
-            <td>Array with an entry for each column used in the Meals CSV file</td>
+            <td>Object with a key for each column name used in the Meals CSV file</td>
             <td>
-<pre>"columns":[
-    {
-        "name": "Food",
-        "type": "food"
-    }
-]</pre>
+<pre>"columns":{
+    "Food": {"type": "food"}
+}</pre>
             </td>
         </tr>
         <tr>
@@ -258,7 +253,7 @@ The following table lists the different column types and additional attributes t
             <td>time</td>
             <td>[None]</td>
             <td>The time that the meal was consumed</td>
-            <td><pre>{"name": "Time", "type": "time"}</pre></td>
+            <td><pre>"Time": {"type": "time"}</pre></td>
         </tr>
         <tr>
             <td>meal</td>
@@ -282,8 +277,7 @@ The following table lists the different column types and additional attributes t
                 Note the "daily" item refers to entries where the user has just recorded overall consumption throughout the day, e.g. 6 cups of coffee
             </td>
             <td>
-<pre>{
-    "name": "Meal",
+<pre>"Meal": {
     "type": "meal",
     "values": {
         "Breakfast": "breakfast",
@@ -303,49 +297,46 @@ The following table lists the different column types and additional attributes t
             <td>food</td>
             <td>[None]</td>
             <td>The name of the Food as it was presented to the user when they selected it from the Source</td>
-            <td><pre>{"name": "Food", "type": "food"}</pre></td>
+            <td><pre>"Food": {"type": "food"}</pre></td>
         </tr>
         <tr>
             <td>entered_quantity</td>
             <td>[None]</td>
             <td>The amount of the Food that the user recorded in the specified "entered_unit". Formatted as a <a href="https://www.rfc-editor.org/rfc/rfc8259#page-7">JSON number</a></td>
-            <td><pre>{"name: "Amount", "type": "entered_quantity"}</pre></td>
+            <td><pre>"Amount": {"type": "entered_quantity"}</pre></td>
         </tr>
         <tr>
             <td>entered_unit</td>
             <td>[None]</td>
             <td>The unit used when recording the quantity of Food. This is a free format string in the end-user's language</td>
-            <td><pre>{"name:" "Measure", "type": "entered_unit"}</pre></td>
+            <td><pre>"Measure": {"type": "entered_unit"}</pre></td>
         </tr>
         <tr>
             <td>quantity</td>
             <td>[None]</td>
             <td>The amount of the Food in normalized units (grams for weight, milliliters for volume). Formatted as a <a href="https://www.rfc-editor.org/rfc/rfc8259#page-7">JSON number</a></td>
-            <td><pre>{"name": "Quantity", "type": "quantity"}</pre></td>
+            <td><pre>"Quantity": {"type": "quantity"}</pre></td>
         </tr>
         <tr>
             <td>unit</td>
             <td>[None]</td>
             <td>The normalized unit type. "g" for weight or "ml" for volume. Not localized. This should match the unit used in the Source.</td>
-            <td><pre>{"name": "Unit", "type": "unit"}</pre></td>
+            <td><pre>"Unit": {"type": "unit"}</pre></td>
         </tr>
         <tr>
             <td rowspan="2">facet</td>
             <td>code</td>
             <td>The Facet type as defined in this standard (TBA). e.g. "protein", "carbohydrates-total", "vitamin-b12", "energy-kj"</td>
             <td rowspan="2">
-<pre>{
-    "name": "Protein",
+<pre>"Protein": {
     "type": "facet",
     "code": "protein"
 },
-{
-    "name": "Iron (g)",
+"Iron (g)": {
     "type": "facet",
     "code": "iron"
 },
-{
-    "name": "Vitamin B12 (µg)",
+"Vitamin B12 (µg)": {
     "type": "facet",
     "code": "vitamin-b12",
     "factor": 1000000
@@ -364,8 +355,7 @@ The following table lists the different column types and additional attributes t
                 The value has a source, which can be "gtin" or "plu" and a location code, e.g. for GTIN this would be the <a href="https://navigator.gs1.org/gdsn/class-details?name=GLN&version=12">Global Location Number</a>
             </td>
             <td>
-<pre>{
-    "name": "Source",
+<pre>"Source": {
     "type": "source",
     "values": {
         "Bar code": {
@@ -383,23 +373,22 @@ The following table lists the different column types and additional attributes t
             <td>code</td>
             <td>[None]</td>
             <td>The identifier for the Food in the specified Source</td>
-            <td><pre>{"name": "Code", "type": "code"}</pre></td>
+            <td><pre>"Code": {"type": "code"}</pre></td>
         </tr>
         <tr>
             <td>image</td>
             <td>[None]</td>
             <td>URL to an image that was presented to the user when they selected the Food from the Source</td>
-            <td><pre>{"name": "Image", "type": "image"}</pre></td>
+            <td><pre>"Image": {"type": "image"}</pre></td>
         </tr>
         <tr>
             <td>{additional properties}</td>
             <td>[Any]</td>
             <td>Application properties that are specific to the individual meal. It is suggested that each application adds one type for each custom column using a URI owned by that application as the key name. This URI would ideally point to a JSON Schema document describing the structure of the custom type, but this is not essential.</td>
             <td>
-<pre>{
-    "name": "Green Score",
-&nbsp;&nbsp;&nbsp;&nbsp;"type":"https://openfoodfacts.org/green.json",
-    ...
+<pre>"Green Score": {
+&nbsp;&nbsp;"type":"https://openfoodfacts.org/green.json",
+  ...
 }</pre>
         </td>
         </tr>
@@ -410,64 +399,52 @@ A full example of a Meal Metadata file follows:
 
 ```json
 {
-    "columns": [
-        {
-            "name": "Heure",
+    "columns": {
+        "Heure": {
             "type": "time"
         },
-        {
-            "name": "Repas",
+        "Repas": {
             "type": "meal",
             "values": {
                 "Petit-déjeuner": "breakfast",
                 "Dîner": "dinner"
             }
         },
-        {
-            "name": "Recette",
+        "Recette": {
             "type": "recipe"
         },
-        {
-            "name": "Nourriture",
+        "Nourriture": {
             "type": "food"
         },
-        {
-            "name": "Nombre",
+        "Nombre": {
             "type": "entered_quantity"
         },
-        {
-            "name": "Mesure",
+        "Mesure": {
             "type": "entered_unit"
         },
-        {
-            "name": "Quantité",
+        "Quantité": {
             "type": "quantity"
         },
-        {
-            "name": "Unité",
+        "Unité": {
             "type": "unit"
         },
-        {
-            "name": "Protéines",
+        "Protéines": {
             "type": "facet",
             "code": "protein"
         },
-        {
-            "name": "Fer (g)",
+        "Fer (g)": {
             "type": "facet",
             "code": "iron"
         },
-        {
-            "name": "Vitamine B12 (µg)",
+        "Vitamine B12 (µg)": {
             "type": "facet",
             "code": "vitamin-b12",
             "factor": 1000000
         },
-        {
-            "name": "Green-Score",
+        "Green-Score": {
             "type":"https://openfoodfacts.org/green.json",
         }
-    ],
+    },
     "locale": "fr-FR",
     "timezone": "Europe/Paris"
 }
