@@ -1,0 +1,11 @@
+{
+    "columns": [
+        {
+            "name": "New One",
+            "type": "http://test.com",
+            "extra_stuff": [1,2,3]
+        }
+    ],
+    "locale": "ab-GH",
+    "timezone": "Europe/London"
+}

@@ -6,11 +6,43 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "properties": {
-                    "name": {"type": "string"},
-                    "type": {"type": "string"}
-                },
-                "required": ["name", "type"]
+                "anyOf": [
+                    {
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "const": "food"
+                            }
+                        },
+                        "additionalProperties": false
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "const": "recipe"
+                            }
+                        },
+                        "additionalProperties": false
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "required": ["name","type"]
             }
         },
         "locale": {
