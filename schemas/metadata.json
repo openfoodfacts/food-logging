@@ -9,7 +9,99 @@
           {
             "properties": {
               "type": {
+                "const": "time"
+              },
+              "sequence": {
+                "type": "integer"
+              }
+            },
+            "required": ["type"],
+            "additionalProperties": false
+          },
+          {
+            "properties": {
+              "type": {
+                "const": "meal"
+              },
+              "sequence": {
+                "type": "integer"
+              },
+              "values": {
+                "type": "object",
+                "additionalProperties": {
+                  "enum": [
+                    "breakfast",
+                    "second-breakfast",
+                    "brunch",
+                    "elevenses",
+                    "lunch",
+                    "tea",
+                    "dinner",
+                    "supper",
+                    "high-tea",
+                    "siu-yeh",
+                    "snack",
+                    "daily"
+                  ]
+                }
+              }
+            },
+            "title": "Test for values",
+            "required": ["type"],
+            "additionalProperties": false
+          },
+          {
+            "properties": {
+              "type": {
+                "const": "recipe"
+              },
+              "sequence": {
+                "type": "integer"
+              }
+            },
+            "required": ["type"],
+            "additionalProperties": false
+          },
+          {
+            "properties": {
+              "type": {
                 "const": "food"
+              },
+              "sequence": {
+                "type": "integer"
+              }
+            },
+            "required": ["type"],
+            "additionalProperties": false
+          },
+          {
+            "properties": {
+              "type": {
+                "const": "entered_quantity"
+              },
+              "sequence": {
+                "type": "integer"
+              }
+            },
+            "required": ["type"],
+            "additionalProperties": false
+          },
+          {
+            "properties": {
+              "type": {
+                "const": "entered_unit"
+              },
+              "sequence": {
+                "type": "integer"
+              }
+            },
+            "required": ["type"],
+            "additionalProperties": false
+          },
+          {
+            "properties": {
+              "type": {
+                "const": "quantity"
               },
               "sequence": {
                 "type": "integer"
@@ -22,7 +114,75 @@
             "type": "object",
             "properties": {
               "type": {
-                "const": "recipe"
+                "const": "unit"
+              },
+              "sequence": {
+                "type": "integer"
+              }
+            },
+            "required": ["type"],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "facet"
+              },
+              "sequence": {
+                "type": "integer"
+              },
+              "code": {
+                "type": "string"
+              },
+              "factor": {
+                "type": "integer"
+              }
+            },
+            "title": "Replace code with enums from nutriments taxonomy",
+            "required": ["type", "code"],
+            "additionalProperties": false
+          },
+          {
+            "properties": {
+              "type": {
+                "const": "source"
+              },
+              "sequence": {
+                "type": "integer"
+              },
+              "values": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "object",
+                  "properties": {
+                    "source": {"enum": ["gtin","plu"]},
+                    "location": {"type": "string"}
+                  },
+                  "required": ["source"]
+                }
+              }
+            },
+            "title": "TBA tests for sources and ",
+            "required": ["type", "values"],
+            "additionalProperties": false
+          },
+          {
+            "properties": {
+              "type": {
+                "const": "code"
+              },
+              "sequence": {
+                "type": "integer"
+              }
+            },
+            "required": ["type"],
+            "additionalProperties": false
+          },
+          {
+            "properties": {
+              "type": {
+                "const": "image"
               },
               "sequence": {
                 "type": "integer"
