@@ -1,0 +1,1 @@
+This folder contains details of general architectural patterns that have been agreed for this project. This is based on the MADR format. To start a new discussion on a decision, copy the template.md and create a PR.
