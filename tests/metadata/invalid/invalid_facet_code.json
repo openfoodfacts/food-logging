@@ -1,0 +1,10 @@
+{
+    "columns": {
+        "Proteins": {
+            "type": "facet",
+            "code": "fruit-and-veg"
+        }
+    },
+    "locale": "ab-GH",
+    "timezone": "Europe/London"
+}

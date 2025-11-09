@@ -119,7 +119,9 @@
               {
                 "properties": {
                   "type": { "const": "facet" },
-                  "code": { "type": "string" },
+                  "code": {
+                    "enum": ["proteins", "fats", "carbohydrates"]
+                  },
                   "factor": { "type": "integer" }
                 },
                 "title": "Replace code with enums from nutriments taxonomy",
