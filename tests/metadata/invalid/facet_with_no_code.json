@@ -1,0 +1,12 @@
+{
+    "columns": {
+        "Proteins": {
+            "type": "facet"
+        }
+    },
+    "locale": "ab-GH",
+    "timezone": "Europe/London",
+    "https://openfoodfacts.org/metadata.json": {
+        "test": 1
+    }
+}

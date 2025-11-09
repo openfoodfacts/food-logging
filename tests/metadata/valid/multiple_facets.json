@@ -1,0 +1,14 @@
+{
+    "columns": {
+        "Fats":{
+            "type": "facet",
+            "code": "fats"
+        },
+        "Proteins": {
+            "type": "facet",
+            "code": "proteins"
+        }
+    },
+    "locale": "ab-GH",
+    "timezone": "Europe/London"
+}

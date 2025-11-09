@@ -1,0 +1,10 @@
+{
+    "columns": {
+        "Meal":{
+            "type": "source",
+            "sequence": 2
+        }
+    },
+    "locale": "ab-GH",
+    "timezone": "Europe/London"
+}

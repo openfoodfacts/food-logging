@@ -1,0 +1,12 @@
+{
+    "columns": {
+        "Proteins": {
+            "code": "proteins"
+        }
+    },
+    "locale": "ab-GH",
+    "timezone": "Europe/London",
+    "https://openfoodfacts.org/metadata.json": {
+        "test": 1
+    }
+}

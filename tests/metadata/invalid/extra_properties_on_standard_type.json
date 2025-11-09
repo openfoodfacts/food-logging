@@ -1,0 +1,10 @@
+{
+    "columns": {
+        "Recipe":{
+            "type": "recipe",
+            "not_allowed": "test"
+        }
+    },
+    "locale": "ab-GH",
+    "timezone": "Europe/London"
+}
