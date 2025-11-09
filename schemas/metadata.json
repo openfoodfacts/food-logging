@@ -8,24 +8,16 @@
         "oneOf": [
           {
             "properties": {
-              "type": {
-                "const": "time"
-              },
-              "sequence": {
-                "type": "integer"
-              }
+              "type": { "const": "time" },
+              "sequence": { "type": "integer" }
             },
             "required": ["type"],
             "additionalProperties": false
           },
           {
             "properties": {
-              "type": {
-                "const": "meal"
-              },
-              "sequence": {
-                "type": "integer"
-              },
+              "type": { "const": "meal" },
+              "sequence": { "type": "integer" },
               "values": {
                 "type": "object",
                 "additionalProperties": {
@@ -46,66 +38,45 @@
                 }
               }
             },
-            "title": "Test for values",
             "required": ["type"],
             "additionalProperties": false
           },
           {
             "properties": {
-              "type": {
-                "const": "recipe"
-              },
-              "sequence": {
-                "type": "integer"
-              }
+              "type": { "const": "recipe" },
+              "sequence": { "type": "integer" }
             },
             "required": ["type"],
             "additionalProperties": false
           },
           {
             "properties": {
-              "type": {
-                "const": "food"
-              },
-              "sequence": {
-                "type": "integer"
-              }
+              "type": { "const": "food" },
+              "sequence": { "type": "integer" }
             },
             "required": ["type"],
             "additionalProperties": false
           },
           {
             "properties": {
-              "type": {
-                "const": "entered_quantity"
-              },
-              "sequence": {
-                "type": "integer"
-              }
+              "type": { "const": "entered_quantity" },
+              "sequence": { "type": "integer" }
             },
             "required": ["type"],
             "additionalProperties": false
           },
           {
             "properties": {
-              "type": {
-                "const": "entered_unit"
-              },
-              "sequence": {
-                "type": "integer"
-              }
+              "type": { "const": "entered_unit" },
+              "sequence": { "type": "integer" }
             },
             "required": ["type"],
             "additionalProperties": false
           },
           {
             "properties": {
-              "type": {
-                "const": "quantity"
-              },
-              "sequence": {
-                "type": "integer"
-              }
+              "type": { "const": "quantity" },
+              "sequence": { "type": "integer" }
             },
             "required": ["type"],
             "additionalProperties": false
@@ -113,12 +84,8 @@
           {
             "type": "object",
             "properties": {
-              "type": {
-                "const": "unit"
-              },
-              "sequence": {
-                "type": "integer"
-              }
+              "type": { "const": "unit" },
+              "sequence": { "type": "integer" }
             },
             "required": ["type"],
             "additionalProperties": false
@@ -126,18 +93,10 @@
           {
             "type": "object",
             "properties": {
-              "type": {
-                "const": "facet"
-              },
-              "sequence": {
-                "type": "integer"
-              },
-              "code": {
-                "type": "string"
-              },
-              "factor": {
-                "type": "integer"
-              }
+              "type": { "const": "facet" },
+              "sequence": { "type": "integer" },
+              "code": { "type": "string" },
+              "factor": { "type": "integer" }
             },
             "title": "Replace code with enums from nutriments taxonomy",
             "required": ["type", "code"],
@@ -145,48 +104,35 @@
           },
           {
             "properties": {
-              "type": {
-                "const": "source"
-              },
-              "sequence": {
-                "type": "integer"
-              },
+              "type": { "const": "source" },
+              "sequence": { "type": "integer" },
               "values": {
                 "type": "object",
                 "additionalProperties": {
                   "type": "object",
                   "properties": {
-                    "source": {"enum": ["gtin","plu"]},
-                    "location": {"type": "string"}
+                    "source": { "enum": ["gtin", "plu"] },
+                    "location": { "type": "string" }
                   },
                   "required": ["source"]
                 }
               }
             },
-            "title": "TBA tests for sources and ",
             "required": ["type", "values"],
             "additionalProperties": false
           },
           {
             "properties": {
-              "type": {
-                "const": "code"
-              },
-              "sequence": {
-                "type": "integer"
-              }
+              "type": { "const": "code" },
+              "sequence": { "type": "integer" }
             },
             "required": ["type"],
             "additionalProperties": false
           },
           {
             "properties": {
-              "type": {
-                "const": "image"
-              },
-              "sequence": {
-                "type": "integer"
-              }
+              "type": { "const": "image" },
+              "sequence": { "type": "integer" }
             },
             "required": ["type"],
             "additionalProperties": false
@@ -194,15 +140,9 @@
           {
             "type": "object",
             "properties": {
-              "type": {
-                "const": "custom"
-              },
-              "code": {
-                "type": "string"
-              },
-              "sequence": {
-                "type": "integer"
-              }
+              "type": { "const": "custom" },
+              "code": { "type": "string" },
+              "sequence": { "type": "integer" }
             },
             "required": ["type", "code"]
           }

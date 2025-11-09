@@ -1,0 +1,14 @@
+{
+    "columns": {
+        "Meal":{
+            "type": "meal",
+            "sequence": 2,
+            "values":{
+                "Bfast": "breakfast",
+                "Elevenses": "tenses"
+            }
+        }
+    },
+    "locale": "ab-GH",
+    "timezone": "Europe/London"
+}

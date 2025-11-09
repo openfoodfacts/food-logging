@@ -1,0 +1,19 @@
+{
+    "columns": {
+        "Meal":{
+            "type": "source",
+            "sequence": 2,
+            "values":{
+                "GTIN": {
+                    "source": "gtin",
+                    "location": "12345"
+                },
+                "USDA": {
+                    "source": "usda"
+                }
+            }
+        }
+    },
+    "locale": "ab-GH",
+    "timezone": "Europe/London"
+}
