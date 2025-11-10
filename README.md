@@ -541,13 +541,22 @@ Meals should be structured as an array of JSON objects with the following schema
         </tr>
         <tr>
             <td>facets</td>
-            <td>An object where the property names will be a facet code as defined in this standard (TBA). e.g. "protein", "carbohydrates-total", "vitamin-b12", "energy-kj". The value will in grams in most cases but energy will be in kJ or kcal</td>
+            <td>An array of objects where the <pre>code</pre> property will be a facet code as defined in this standard (TBA). e.g. "proteins", "carbohydrates-total", "vitamin-b12", "energy-kj" and the <pre>value</pre> property gives teh quantity of the facet, which will be in grams in most cases but energy will be in kJ or kcal</td>
             <td>
-<pre>"facets": {
-    "protein": 0,
-    "iron": 0.02,
-    "vitamin-b12": 1.2e-6
-}</pre>
+<pre>"facets": [
+    {
+        "code": "protein",
+        "value": 0
+    },
+    {
+        "code": "iron",
+        "value": 0.02
+    },
+    {
+        "code": "vitamin-b12",
+        "value": 1.2e-6
+    }
+]</pre>
             </td>
         </tr>
         <tr>
@@ -571,11 +580,14 @@ Meals should be structured as an array of JSON objects with the following schema
             <td><pre>"image":"https://images.openfoodfacts.net/images/products/405/648/944/0628/front_en.26.400.jpg"</pre></td>
         </tr>
         <tr>
-            <td>custom</td>
-            <td>Application properties that are specific to the individual meal. The keys within this object should match the code specified in the metadata</td>
+            <td>{additional properties}</td>
+            <td>[Any]</td>
+            <td>Application properties that are specific to the individual meal. It is suggested that each application adds one type for each custom column using a URI owned by that application as the key name. This URI would ideally point to a JSON Schema document describing the structure of the custom type, but this is not essential.</td>
+            </td>
             <td>
-<pre>"custom": {
-    "https://openfoodfacts.org/green.json": 34
+<pre>"Green Score": {
+&nbsp;&nbsp;"type":"https://openfoodfacts.org/green.json",
+  ...
 }</pre>
             </td>
         </tr>
@@ -594,18 +606,25 @@ The following shows the data from the above CSV example in JSON format, with the
         "entered_unit": "serving",
         "quantity": 30,
         "unit": "g",
-        "facets": {
-            "protein": 0.3,
-            "carbohydrate": 24,
-            "fat": 1,
-        }
+        "facets": [
+            {
+                "code": "proteins",
+                "value": 0.3
+            },
+            {
+                "code": "carbohydrate",
+                "value": 24
+            },
+            {
+                "code": "fat",
+                "value": 1
+            }
+        ],
         "source": "gtin",
         "location": "3014517900101",
         "code": "5059319030487",
         "image": "https://images.openfoodfacts.org/images/products/505/931/903/0487/front_en.3.400.jpg",
-        "custom": {
-            "https://openfoodfacts.org/green.json": 53
-        }
+        "https://openfoodfacts.org/green.json": 53
     },
     {
         "time": "2025-05-01T05:00:00Z",
@@ -615,18 +634,25 @@ The following shows the data from the above CSV example in JSON format, with the
         "entered_unit": "pint",
         "quantity": 284,
         "unit": "ml",
-        "facets": {
-            "protein": 3.1,
-            "carbohydrate": 10.2,
-            "fat": 4.3
-        },
+        "facets": [
+            {
+                "code": "proteins",
+                "value": 3.1
+            },
+            {
+                "code": "carbohydrate",
+                "value": 10.2
+            },
+            {
+                "code": "fat",
+                "value": 4.3
+            }
+        ],
         "source": "gtin",
         "location": "3014517900101",
         "code": "5060066960071",
         "image": "https://images.openfoodfacts.org/images/products/506/006/696/0071/front_en.3.400.jpg",
-        "custom": {
-            "https://openfoodfacts.org/green.json": 31
-        }
+        "https://openfoodfacts.org/green.json": 31
     },
     {
         "time": "2025-05-01T08:00:00Z",
@@ -637,18 +663,25 @@ The following shows the data from the above CSV example in JSON format, with the
         "entered_unit": "teaspoon",
         "quantity": 4,
         "unit": "g",
-        "facets": {
-            "protein": 0,
-            "carbohydrate": 0.1,
-            "fat": 0
-        },
+        "facets": [
+            {
+                "code": "proteins",
+                "value": 0
+            },
+            {
+                "code": "carbohydrate",
+                "value": 0.1
+            },
+            {
+                "code": "fat",
+                "value": 0
+            }
+        ],
         "source": "gtin",
         "location": "3014517900101",
         "code": "4056489440628",
         "image": "https://images.openfoodfacts.net/images/products/405/648/944/0628/front_en.26.400.jpg",
-        "custom": {
-            "https://openfoodfacts.org/green.json": 45
-        }
+        "https://openfoodfacts.org/green.json": 45
     },
     {
         "time": "2025-05-01T08:00:00Z",
@@ -659,18 +692,25 @@ The following shows the data from the above CSV example in JSON format, with the
         "entered_unit": "ml",
         "quantity": 20,
         "unit": "ml",
-        "facets": {
-            "protein": 1.3,
-            "carbohydrate": 1.2,
-            "fat": 1.2
-        },
+        "facets": [
+            {
+                "code": "proteins",
+                "value": 1.3
+            },
+            {
+                "code": "carbohydrate",
+                "value": 1.2
+            },
+            {
+                "code": "fat",
+                "value": 1.2
+            }
+        ],
         "source": "gtin",
         "location": "3014517900101",
         "code": "5060066960071",
         "image": "https://images.openfoodfacts.org/images/products/506/006/696/0071/front_en.3.400.jpg",
-        "custom": {
-            "https://openfoodfacts.org/green.json": 31
-        }
+        "https://openfoodfacts.org/green.json": 31
     }
 ]
 ```

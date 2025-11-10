@@ -1,0 +1,20 @@
+{
+  "$id": "https://static.openfoodfacts.org/food-logging/meal.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "facets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": {"$ref": "https://static.openfoodfacts.org/food-logging/facets.json#/$defs/facetCode"},
+          "value": {"type":"number"}
+        },
+        "required": ["code", "value"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": true
+}
