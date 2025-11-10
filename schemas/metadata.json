@@ -1,4 +1,5 @@
 {
+  "$id": "https://static.openfoodfacts.org/food-logging/metadata.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
   "properties": {
@@ -120,7 +121,7 @@
                 "properties": {
                   "type": { "const": "facet" },
                   "code": {
-                    "enum": ["proteins", "fats", "carbohydrates"]
+                    "$ref": "https://static.openfoodfacts.org/food-logging/facets.json#/$defs/code"
                   },
                   "factor": { "type": "integer" }
                 },

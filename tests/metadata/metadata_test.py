@@ -1,7 +1,8 @@
 import json
 import os
 import unittest
-from jsonschema import ValidationError, validate
+from jsonschema import Draft202012Validator, ValidationError, validate
+from referencing import Registry, Resource
 
 script_dir = os.path.dirname(__file__)
 
@@ -15,16 +16,20 @@ def load_json(file_name):
     
 class MetadataTests(unittest.TestCase):
     def test_metadata(self):
+        registry = Registry()
+        registry = Resource.from_contents(load_json('../../schemas/facets.json')) @ registry
+
         schema = load_json('../../schemas/metadata.json')
+        validator = Draft202012Validator(schema, registry=registry)
 
         for invalid_file in sorted(os.listdir(relative_path('invalid'))):
             invalid_json = load_json(os.path.join('invalid', invalid_file))
             with self.assertRaises(ValidationError, msg=invalid_file):
-                validate(invalid_json, schema)
+                validator.validate(invalid_json)
 
         for valid_file in sorted(os.listdir(relative_path('valid'))):
             valid_json = load_json(os.path.join('valid', valid_file))
             try:
-                validate(valid_json, schema)
+                validator.validate(valid_json)
             except ValidationError as e:
                 self.fail(f"Valid file: {valid_file} raised {e.message}")

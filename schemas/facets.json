@@ -1,0 +1,9 @@
+{
+  "$id": "https://static.openfoodfacts.org/food-logging/facets.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "code": {
+      "enum": ["proteins", "fats", "carbohydrates"]
+    }
+  }
+}
