@@ -62,7 +62,7 @@
             "values": {
               "type": "object",
               "additionalProperties": {
-                "$ref": "https://static.openfoodfacts.org/food-logging/meal-type.json#/$defs/mealType"
+                "$ref": "meal-type.json#/$defs/mealType"
               }
             }
           }
@@ -143,7 +143,7 @@
           "properties": {
             "type": { "const": "facet" },
             "code": {
-              "$ref": "https://static.openfoodfacts.org/food-logging/facets.json#/$defs/facetCode"
+              "$ref": "facets.json#/$defs/facetCode"
             },
             "factor": { "type": "integer" }
           },
@@ -174,7 +174,7 @@
     "sourceValue": {
       "type": "object",
       "properties": {
-        "source": { "$ref": "https://static.openfoodfacts.org/food-logging/source-type.json#/$defs/sourceType" },
+        "source": { "$ref": "source-type.json#/$defs/sourceType" },
         "location": { "type": "string" }
       },
       "required": ["source"]

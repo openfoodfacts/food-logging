@@ -15,7 +15,7 @@
       "pattern": "^(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+)|(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d)|(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d)$"
     },
     "meal": {
-      "$ref": "https://static.openfoodfacts.org/food-logging/meal-type.json#/$defs/mealType"
+      "$ref": "meal-type.json#/$defs/mealType"
     },
     "recipe": {"type": "string" },
     "food": {"type": "string" },
@@ -29,7 +29,7 @@
         "type": "object",
         "properties": {
           "code": {
-            "$ref": "https://static.openfoodfacts.org/food-logging/facets.json#/$defs/facetCode"
+            "$ref": "facets.json#/$defs/facetCode"
           },
           "value": { "type": "number" }
         },
@@ -37,7 +37,7 @@
         "additionalProperties": false
       }
     },
-    "source": { "$ref": "https://static.openfoodfacts.org/food-logging/source-type.json#/$defs/sourceType" },
+    "source": { "$ref": "source-type.json#/$defs/sourceType" },
     "location": { "type": "string" },
     "code": { "type": "string" },
     "image": { "type": "string" }
