@@ -7,187 +7,19 @@
       "type": "object",
       "additionalProperties": {
         "oneOf": [
-          {
-            "allOf": [
-              { "$ref": "#/$defs/baseColumn" },
-              {
-                "properties": {
-                  "type": { "const": "time" }
-                }
-              }
-            ],
-            "unevaluatedProperties": false
-          },
-          {
-            "allOf": [
-              { "$ref": "#/$defs/baseColumn" },
-              {
-                "properties": {
-                  "type": { "const": "meal" },
-                  "values": {
-                    "type": "object",
-                    "additionalProperties": {
-                      "enum": [
-                        "breakfast",
-                        "second-breakfast",
-                        "brunch",
-                        "elevenses",
-                        "lunch",
-                        "tea",
-                        "dinner",
-                        "supper",
-                        "high-tea",
-                        "siu-yeh",
-                        "snack",
-                        "daily"
-                      ]
-                    }
-                  }
-                }
-              }
-            ],
-            "unevaluatedProperties": false
-          },
-          {
-            "allOf": [
-              { "$ref": "#/$defs/baseColumn" },
-              {
-                "properties": {
-                  "type": { "const": "recipe" }
-                }
-              }
-            ],
-            "unevaluatedProperties": false
-          },
-          {
-            "allOf": [
-              { "$ref": "#/$defs/baseColumn" },
-              {
-                "properties": {
-                  "type": { "const": "food" }
-                }
-              }
-            ],
-            "unevaluatedProperties": false
-          },
-          {
-            "allOf": [
-              { "$ref": "#/$defs/baseColumn" },
-              {
-                "properties": {
-                  "type": { "const": "entered_quantity" }
-                }
-              }
-            ],
-            "unevaluatedProperties": false
-          },
-          {
-            "allOf": [
-              { "$ref": "#/$defs/baseColumn" },
-              {
-                "properties": {
-                  "type": { "const": "entered_unit" }
-                }
-              }
-            ],
-            "unevaluatedProperties": false
-          },
-          {
-            "allOf": [
-              { "$ref": "#/$defs/baseColumn" },
-              {
-                "properties": {
-                  "type": { "const": "quantity" }
-                }
-              }
-            ],
-            "unevaluatedProperties": false
-          },
-          {
-            "allOf": [
-              { "$ref": "#/$defs/baseColumn" },
-              {
-                "properties": {
-                  "type": { "const": "unit" }
-                }
-              }
-            ],
-            "unevaluatedProperties": false
-          },
-          {
-            "allOf": [
-              { "$ref": "#/$defs/baseColumn" },
-              {
-                "properties": {
-                  "type": { "const": "facet" },
-                  "code": {
-                    "$ref": "https://static.openfoodfacts.org/food-logging/facets.json#/$defs/code"
-                  },
-                  "factor": { "type": "integer" }
-                },
-                "title": "Replace code with enums from nutriments taxonomy",
-                "required": ["code"]
-              }
-            ],
-            "unevaluatedProperties": false
-          },
-          {
-            "allOf": [
-              { "$ref": "#/$defs/baseColumn" },
-              {
-                "properties": {
-                  "type": { "const": "source" },
-                  "values": {
-                    "type": "object",
-                    "additionalProperties": {
-                      "type": "object",
-                      "properties": {
-                        "source": { "enum": ["gtin", "plu"] },
-                        "location": { "type": "string" }
-                      },
-                      "required": ["source"]
-                    }
-                  }
-                },
-                "required": ["values"]
-              }
-            ],
-            "unevaluatedProperties": false
-          },
-          {
-            "allOf": [
-              { "$ref": "#/$defs/baseColumn" },
-              {
-                "properties": {
-                  "type": { "const": "code" }
-                }
-              }
-            ],
-            "unevaluatedProperties": false
-          },
-          {
-            "allOf": [
-              { "$ref": "#/$defs/baseColumn" },
-              {
-                "properties": {
-                  "type": { "const": "image" }
-                }
-              }
-            ],
-            "unevaluatedProperties": false
-          },
-          {
-            "allOf": [
-              { "$ref": "#/$defs/baseColumn" },
-              {
-                "properties": {
-                  "type": { "const": "custom" },
-                  "code": { "type": "string" }
-                },
-                "required": ["code"]
-              }
-            ]
-          }
+          { "$ref": "#/$defs/timeColumn" },
+          { "$ref": "#/$defs/mealColumn" },
+          { "$ref": "#/$defs/recipeColumn" },
+          { "$ref": "#/$defs/foodColumn" },
+          { "$ref": "#/$defs/enteredQuantityColumn" },
+          { "$ref": "#/$defs/enteredUnitColumn" },
+          { "$ref": "#/$defs/quantityColumn" },
+          { "$ref": "#/$defs/unitColumn" },
+          { "$ref": "#/$defs/facetColumn" },
+          { "$ref": "#/$defs/sourceColumn" },
+          { "$ref": "#/$defs/codeColumn" },
+          { "$ref": "#/$defs/imageColumn" },
+          { "$ref": "#/$defs/customColumn" }
         ]
       }
     },
@@ -209,6 +41,197 @@
         "sequence": { "type": "integer" }
       },
       "required": ["type"]
+    },
+    "timeColumn": {
+      "allOf": [
+        { "$ref": "#/$defs/baseColumn" },
+        {
+          "properties": {
+            "type": { "const": "time" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "mealColumn": {
+      "allOf": [
+        { "$ref": "#/$defs/baseColumn" },
+        {
+          "properties": {
+            "type": { "const": "meal" },
+            "values": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/$defs/mealType"
+              }
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "mealType": {
+      "enum": [
+        "breakfast",
+        "second-breakfast",
+        "brunch",
+        "elevenses",
+        "lunch",
+        "tea",
+        "dinner",
+        "supper",
+        "high-tea",
+        "siu-yeh",
+        "snack",
+        "daily"
+      ]
+    },
+    "recipeColumn": {
+      "allOf": [
+        { "$ref": "#/$defs/baseColumn" },
+        {
+          "properties": {
+            "type": { "const": "recipe" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "foodColumn": {
+      "allOf": [
+        { "$ref": "#/$defs/baseColumn" },
+        {
+          "properties": {
+            "type": { "const": "food" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "enteredQuantityColumn": {
+      "allOf": [
+        { "$ref": "#/$defs/baseColumn" },
+        {
+          "properties": {
+            "type": { "const": "entered_quantity" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "enteredUnitColumn": {
+      "allOf": [
+        { "$ref": "#/$defs/baseColumn" },
+        {
+          "properties": {
+            "type": { "const": "entered_unit" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "quantityColumn": {
+      "allOf": [
+        { "$ref": "#/$defs/baseColumn" },
+        {
+          "properties": {
+            "type": { "const": "quantity" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "unitColumn": {
+      "allOf": [
+        { "$ref": "#/$defs/baseColumn" },
+        {
+          "properties": {
+            "type": { "const": "unit" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "facetColumn": {
+      "allOf": [
+        { "$ref": "#/$defs/baseColumn" },
+        {
+          "properties": {
+            "type": { "const": "facet" },
+            "code": {
+              "$ref": "https://static.openfoodfacts.org/food-logging/facets.json#/$defs/facetCode"
+            },
+            "factor": { "type": "integer" }
+          },
+          "title": "Replace code with enums from nutriments taxonomy",
+          "required": ["code"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "sourceColumn": {
+      "allOf": [
+        { "$ref": "#/$defs/baseColumn" },
+        {
+          "properties": {
+            "type": { "const": "source" },
+            "values": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/$defs/sourceValue"
+              }
+            }
+          },
+          "required": ["values"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "sourceValue": {
+      "type": "object",
+      "properties": {
+        "source": { "$ref": "#/$defs/sourceType" },
+        "location": { "type": "string" }
+      },
+      "required": ["source"]
+    },
+    "sourceType": {
+      "enum": ["gtin", "plu"]
+    },
+    "codeColumn": {
+      "allOf": [
+        { "$ref": "#/$defs/baseColumn" },
+        {
+          "properties": {
+            "type": { "const": "code" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "imageColumn": {
+      "allOf": [
+        { "$ref": "#/$defs/baseColumn" },
+        {
+          "properties": {
+            "type": { "const": "image" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "customColumn": {
+      "allOf": [
+        { "$ref": "#/$defs/baseColumn" },
+        {
+          "properties": {
+            "type": { "const": "custom" },
+            "code": { "type": "string" }
+          },
+          "required": ["code"]
+        }
+      ],
+      "additionalProperties": true
     }
   }
 }
