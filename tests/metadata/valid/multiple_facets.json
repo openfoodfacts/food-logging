@@ -2,7 +2,7 @@
     "columns": {
         "Fats":{
             "type": "facet",
-            "code": "fats"
+            "code": "fat"
         },
         "Proteins": {
             "type": "facet",
