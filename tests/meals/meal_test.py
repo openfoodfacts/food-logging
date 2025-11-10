@@ -23,6 +23,7 @@ class MealTests(unittest.TestCase):
         registry = [
             Resource.from_contents(load_json("../../schemas/facets.json")),
             Resource.from_contents(load_json("../../schemas/meal-type.json")),
+            Resource.from_contents(load_json("../../schemas/source-type.json")),
         ] @ registry
 
         schema = load_json("../../schemas/meal.json")

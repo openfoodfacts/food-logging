@@ -174,13 +174,10 @@
     "sourceValue": {
       "type": "object",
       "properties": {
-        "source": { "$ref": "#/$defs/sourceType" },
+        "source": { "$ref": "https://static.openfoodfacts.org/food-logging/source-type.json#/$defs/sourceType" },
         "location": { "type": "string" }
       },
       "required": ["source"]
-    },
-    "sourceType": {
-      "enum": ["gtin", "plu"]
     },
     "codeColumn": {
       "allOf": [

@@ -17,6 +17,12 @@
     "meal": {
       "$ref": "https://static.openfoodfacts.org/food-logging/meal-type.json#/$defs/mealType"
     },
+    "recipe": {"type": "string" },
+    "food": {"type": "string" },
+    "entered_quantity": {"type": "number" },
+    "entered_unit": {"type": "string" },
+    "quantity": {"type": "number" },
+    "unit": {"enum": ["g", "ml"] },
     "facets": {
       "type": "array",
       "items": {
@@ -30,7 +36,11 @@
         "required": ["code", "value"],
         "additionalProperties": false
       }
-    }
+    },
+    "source": { "$ref": "https://static.openfoodfacts.org/food-logging/source-type.json#/$defs/sourceType" },
+    "location": { "type": "string" },
+    "code": { "type": "string" },
+    "image": { "type": "string" }
   },
   "additionalProperties": true
 }

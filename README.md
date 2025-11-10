@@ -191,7 +191,7 @@ The Metadata in an export provides a translation between the human readable colu
 
 The main component of the Metadata file is the "columns" property which is a single object with a key for each column name mentioned in the Meals CSV file. The value associated with each column is an object whose "type" column will determine the standardized property the column represents. Additional attributes, specific to the type, will identify other data relevant to that property, e.g. the standard nutrient code and unit for a "facet" column.
 
-The full list of properties on the root Metadata object are as follows:
+The JSON Schema for a Metadata object can be found [here](schemas/metadata.json), and is further described below:
 
 <table>
     <thead>
@@ -326,7 +326,7 @@ The following table lists the different column types and additional attributes t
         <tr>
             <td rowspan="2">facet</td>
             <td>code</td>
-            <td>The Facet type as defined in this standard (TBA). e.g. "protein", "carbohydrates-total", "vitamin-b12", "energy-kj"</td>
+            <td>The Facet type as defined in <a href="schemas/facets.json">this</a> schema. e.g. "protein", "carbohydrates-total", "vitamin-b12", "energy-kj"</td>
             <td rowspan="2">
 <pre>"Protein": {
     "type": "facet",
@@ -466,7 +466,7 @@ The metadata format is already in a suitable form for use in a REST API. API bac
 
 #### Meals
 
-Meals should be structured as an array of JSON objects with the following schema:
+Meals should be structured as an array of JSON objects confirming to [this](schemas/meal.json) schema, described below:
 
 <table>
     <thead>
@@ -541,7 +541,7 @@ Meals should be structured as an array of JSON objects with the following schema
         </tr>
         <tr>
             <td>facets</td>
-            <td>An array of objects where the <pre>code</pre> property will be a facet code as defined in this standard (TBA). e.g. "proteins", "carbohydrates-total", "vitamin-b12", "energy-kj" and the <pre>value</pre> property gives teh quantity of the facet, which will be in grams in most cases but energy will be in kJ or kcal</td>
+            <td>An array of objects where the <pre>code</pre> property will be a facet code as defined in <a href="schemas/facets.json">this</a> schema. e.g. "proteins", "carbohydrates-total", "vitamin-b12", "energy-kj" and the <pre>value</pre> property gives the quantity of the facet, which will be in grams in most cases but energy will be in kJ or kcal</td>
             <td>
 <pre>"facets": [
     {
@@ -581,7 +581,6 @@ Meals should be structured as an array of JSON objects with the following schema
         </tr>
         <tr>
             <td>{additional properties}</td>
-            <td>[Any]</td>
             <td>Application properties that are specific to the individual meal. It is suggested that each application adds one type for each custom column using a URI owned by that application as the key name. This URI would ideally point to a JSON Schema document describing the structure of the custom type, but this is not essential.</td>
             </td>
             <td>

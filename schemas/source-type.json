@@ -1,0 +1,12 @@
+{
+  "$id": "https://static.openfoodfacts.org/food-logging/source-type.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "sourceType": {
+      "enum": [
+        "gtin",
+        "plu"
+      ]
+    }
+  }
+}
