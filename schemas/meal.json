@@ -3,13 +3,29 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
   "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+      "$comment": "Could use format alone but this is not currently enforced by many validators"
+    },
+    "time": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+)|(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d)|(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d)$"
+    },
+    "meal": {
+      "$ref": "https://static.openfoodfacts.org/food-logging/meal-type.json#/$defs/mealType"
+    },
     "facets": {
       "type": "array",
       "items": {
         "type": "object",
         "properties": {
-          "code": {"$ref": "https://static.openfoodfacts.org/food-logging/facets.json#/$defs/facetCode"},
-          "value": {"type":"number"}
+          "code": {
+            "$ref": "https://static.openfoodfacts.org/food-logging/facets.json#/$defs/facetCode"
+          },
+          "value": { "type": "number" }
         },
         "required": ["code", "value"],
         "additionalProperties": false

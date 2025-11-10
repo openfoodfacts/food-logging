@@ -62,29 +62,13 @@
             "values": {
               "type": "object",
               "additionalProperties": {
-                "$ref": "#/$defs/mealType"
+                "$ref": "https://static.openfoodfacts.org/food-logging/meal-type.json#/$defs/mealType"
               }
             }
           }
         }
       ],
       "unevaluatedProperties": false
-    },
-    "mealType": {
-      "enum": [
-        "breakfast",
-        "second-breakfast",
-        "brunch",
-        "elevenses",
-        "lunch",
-        "tea",
-        "dinner",
-        "supper",
-        "high-tea",
-        "siu-yeh",
-        "snack",
-        "daily"
-      ]
     },
     "recipeColumn": {
       "allOf": [

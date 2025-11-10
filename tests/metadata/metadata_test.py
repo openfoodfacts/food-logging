@@ -17,7 +17,10 @@ def load_json(file_name):
 class MetadataTests(unittest.TestCase):
     def test_metadata(self):
         registry = Registry()
-        registry = Resource.from_contents(load_json('../../schemas/facets.json')) @ registry
+        registry = [
+            Resource.from_contents(load_json("../../schemas/facets.json")),
+            Resource.from_contents(load_json("../../schemas/meal-type.json")),
+        ] @ registry
 
         schema = load_json('../../schemas/metadata.json')
         validator = Draft202012Validator(schema, registry=registry)
