@@ -1,155 +1,599 @@
 {
   "$defs": {
     "code": {
-      "enum": [
-        "acidity",
-        "added-salt",
-        "added-sugars",
-        "alcohol",
-        "alpha-linolenic-acid",
-        "ammonium-chloride",
-        "arachidic-acid",
-        "arachidonic-acid",
-        "bcaa",
-        "behenic-acid",
-        "beta-alanine",
-        "beta-carotene",
-        "beta-glucan",
-        "bicarbonate",
-        "biotin",
-        "butyric-acid",
-        "caffeine",
-        "calcium",
-        "calcium-iodate-anhydrous",
-        "capric-acid",
-        "caproic-acid",
-        "caprylic-acid",
-        "carbohydrates",
-        "carbohydrates-total",
-        "carbon-footprint",
-        "carnitine",
-        "casein",
-        "cassia-gum",
-        "cerotic-acid",
-        "chloride",
-        "chlorophyl",
-        "cholesterol",
-        "choline",
-        "choline-chloride",
-        "chromium",
-        "copper",
-        "copper-ii-sulphate-pentahydrate",
-        "creatine",
-        "dihomo-gamma-linolenic-acid",
-        "docosahexaenoic-acid",
-        "dry-residue",
-        "eicosapentaenoic-acid",
-        "elaidic-acid",
-        "energy",
-        "energy-from-fat",
-        "energy-kcal",
-        "energy-kj",
-        "erucic-acid",
-        "erythritol",
-        "fat",
-        "fiber",
-        "fluoride",
-        "folates",
-        "fructose",
-        "galactose",
-        "gamma-linolenic-acid",
-        "gamma-oryzanol",
-        "glucose",
-        "glycemic-index",
-        "gondoic-acid",
-        "hydrogencarbonate",
-        "inositol",
-        "insoluble-fiber",
-        "iodine",
-        "iron",
-        "iron-ii-sulphate-monohydrate",
-        "isomalt",
-        "l-arginine",
-        "l-citrulline",
-        "l-cysteine",
-        "l-glutamine",
-        "l-glutathione",
-        "l-isoleucine",
-        "l-leucine",
-        "l-valine",
-        "lactose",
-        "lauric-acid",
-        "lignoceric-acid",
-        "linoleic-acid",
-        "magnesium",
-        "maltitol",
-        "maltodextrins",
-        "maltose",
-        "manganese",
-        "manganous-sulphate-monohydrate",
-        "mead-acid",
-        "melatonin",
-        "melissic-acid",
-        "methylsulfonylmethane",
-        "molybdenum",
-        "monounsaturated-fat",
-        "montanic-acid",
-        "myristic-acid",
-        "nervonic-acid",
-        "nitrate",
-        "nitrite",
-        "nucleotides",
-        "oleic-acid",
-        "oligosaccharide",
-        "omega-3-fat",
-        "omega-6-fat",
-        "omega-9-fat",
-        "palmitic-acid",
-        "pantothenic-acid",
-        "ph",
-        "phosphorus",
-        "phylloquinone",
-        "polydextrose",
-        "polyols",
-        "polyunsaturated-fat",
-        "potassium",
-        "potassium-iodide",
-        "protein-value",
-        "proteins",
-        "psicose",
-        "salt",
-        "saturated-fat",
-        "selenium",
-        "serum-proteins",
-        "silica",
-        "sodium",
-        "sodium-selenite",
-        "soluble-fiber",
-        "sorbitol",
-        "spermidine",
-        "starch",
-        "stearic-acid",
-        "sucrose",
-        "sugars",
-        "sulphate",
-        "taurine",
-        "trans-fat",
-        "unsaturated-fat",
-        "vitamin-a",
-        "vitamin-b1",
-        "vitamin-b12",
-        "vitamin-b2",
-        "vitamin-b6",
-        "vitamin-b9",
-        "vitamin-c",
-        "vitamin-d",
-        "vitamin-e",
-        "vitamin-k",
-        "vitamin-pp",
-        "water",
-        "water-hardness",
-        "zinc",
-        "zinc-sulphate-monohydrate"
+      "anyOf": [
+        {
+          "const": "acidity",
+          "description": "Acidity"
+        },
+        {
+          "const": "added-salt",
+          "description": "Added salt"
+        },
+        {
+          "const": "added-sugars",
+          "description": "Added sugars"
+        },
+        {
+          "const": "alcohol",
+          "description": "Alcohol"
+        },
+        {
+          "const": "alpha-linolenic-acid",
+          "description": "Alpha-linolenic acid"
+        },
+        {
+          "const": "ammonium-chloride",
+          "description": "Ammonium chloride"
+        },
+        {
+          "const": "arachidic-acid",
+          "description": "Arachidic acid"
+        },
+        {
+          "const": "arachidonic-acid",
+          "description": "Arachidonic acid"
+        },
+        {
+          "const": "bcaa",
+          "description": "BCAA"
+        },
+        {
+          "const": "behenic-acid",
+          "description": "Behenic acid"
+        },
+        {
+          "const": "beta-alanine",
+          "description": "Beta-Alanine"
+        },
+        {
+          "const": "beta-carotene",
+          "description": "Beta carotene"
+        },
+        {
+          "const": "beta-glucan",
+          "description": "Beta-glucan"
+        },
+        {
+          "const": "bicarbonate",
+          "description": "Bicarbonate"
+        },
+        {
+          "const": "biotin",
+          "description": "Biotin"
+        },
+        {
+          "const": "butyric-acid",
+          "description": "Butyric acid"
+        },
+        {
+          "const": "caffeine",
+          "description": "Caffeine"
+        },
+        {
+          "const": "calcium",
+          "description": "Calcium"
+        },
+        {
+          "const": "calcium-iodate-anhydrous",
+          "description": "Calcium iodate anhydrous"
+        },
+        {
+          "const": "capric-acid",
+          "description": "Capric acid"
+        },
+        {
+          "const": "caproic-acid",
+          "description": "Caproic acid"
+        },
+        {
+          "const": "caprylic-acid",
+          "description": "Caprylic acid"
+        },
+        {
+          "const": "carbohydrates",
+          "description": "Carbohydrates"
+        },
+        {
+          "const": "carbohydrates-total",
+          "description": "Total carbohydrates (includes fiber)"
+        },
+        {
+          "const": "carbon-footprint",
+          "description": "Carbon footprint"
+        },
+        {
+          "const": "carnitine",
+          "description": "Carnitine"
+        },
+        {
+          "const": "casein",
+          "description": "Casein"
+        },
+        {
+          "const": "cassia-gum",
+          "description": "Cassia gum"
+        },
+        {
+          "const": "cerotic-acid",
+          "description": "Cerotic acid"
+        },
+        {
+          "const": "chloride",
+          "description": "Chloride"
+        },
+        {
+          "const": "chlorophyl",
+          "description": "Chlorophyl"
+        },
+        {
+          "const": "cholesterol",
+          "description": "Cholesterol"
+        },
+        {
+          "const": "choline",
+          "description": "Choline"
+        },
+        {
+          "const": "choline-chloride",
+          "description": "Choline chloride"
+        },
+        {
+          "const": "chromium",
+          "description": "Chromium"
+        },
+        {
+          "const": "copper",
+          "description": "Copper"
+        },
+        {
+          "const": "copper-ii-sulphate-pentahydrate",
+          "description": "Copper II sulphate pentahydrate"
+        },
+        {
+          "const": "creatine",
+          "description": "Creatine"
+        },
+        {
+          "const": "dihomo-gamma-linolenic-acid",
+          "description": "Dihomo-gamma-linolenic acid"
+        },
+        {
+          "const": "docosahexaenoic-acid",
+          "description": "Docosahexaenoic acid"
+        },
+        {
+          "const": "dry-residue",
+          "description": "Dry residue"
+        },
+        {
+          "const": "eicosapentaenoic-acid",
+          "description": "Eicosapentaenoic acid"
+        },
+        {
+          "const": "elaidic-acid",
+          "description": "Elaidic acid"
+        },
+        {
+          "const": "energy",
+          "description": "Energy"
+        },
+        {
+          "const": "energy-from-fat",
+          "description": "Energy from fat"
+        },
+        {
+          "const": "energy-kcal",
+          "description": "Energy (kcal)"
+        },
+        {
+          "const": "energy-kj",
+          "description": "Energy (kJ)"
+        },
+        {
+          "const": "erucic-acid",
+          "description": "Erucic acid"
+        },
+        {
+          "const": "erythritol",
+          "description": "Erythritol"
+        },
+        {
+          "const": "fat",
+          "description": "Fat"
+        },
+        {
+          "const": "fiber",
+          "description": "Fiber"
+        },
+        {
+          "const": "fluoride",
+          "description": "Fluoride"
+        },
+        {
+          "const": "folates",
+          "description": "Folates (total folates)"
+        },
+        {
+          "const": "fructose",
+          "description": "Fructose"
+        },
+        {
+          "const": "galactose",
+          "description": "Galactose"
+        },
+        {
+          "const": "gamma-linolenic-acid",
+          "description": "Gamma-linolenic acid"
+        },
+        {
+          "const": "gamma-oryzanol",
+          "description": "Oryzanol"
+        },
+        {
+          "const": "glucose",
+          "description": "Glucose"
+        },
+        {
+          "const": "glycemic-index",
+          "description": "Glycemic Index"
+        },
+        {
+          "const": "gondoic-acid",
+          "description": "Gondoic acid"
+        },
+        {
+          "const": "hydrogencarbonate",
+          "description": "Hydrogencarbonate"
+        },
+        {
+          "const": "inositol",
+          "description": "Inositol"
+        },
+        {
+          "const": "insoluble-fiber",
+          "description": "Insoluble fiber"
+        },
+        {
+          "const": "iodine",
+          "description": "Iodine"
+        },
+        {
+          "const": "iron",
+          "description": "Iron"
+        },
+        {
+          "const": "iron-ii-sulphate-monohydrate",
+          "description": "Iron II sulphate monohydrate"
+        },
+        {
+          "const": "isomalt",
+          "description": "Isomalt"
+        },
+        {
+          "const": "l-arginine",
+          "description": "L-Arginine"
+        },
+        {
+          "const": "l-citrulline",
+          "description": "L-citrulline"
+        },
+        {
+          "const": "l-cysteine",
+          "description": "L-Cysteine"
+        },
+        {
+          "const": "l-glutamine",
+          "description": "L-Glutamine"
+        },
+        {
+          "const": "l-glutathione",
+          "description": "L-Glutathione"
+        },
+        {
+          "const": "l-isoleucine",
+          "description": "L-Isoleucine"
+        },
+        {
+          "const": "l-leucine",
+          "description": "L-Leucine"
+        },
+        {
+          "const": "l-valine",
+          "description": "L-Valine"
+        },
+        {
+          "const": "lactose",
+          "description": "Lactose"
+        },
+        {
+          "const": "lauric-acid",
+          "description": "Lauric acid"
+        },
+        {
+          "const": "lignoceric-acid",
+          "description": "Lignoceric acid"
+        },
+        {
+          "const": "linoleic-acid",
+          "description": "Linoleic acid"
+        },
+        {
+          "const": "magnesium",
+          "description": "Magnesium"
+        },
+        {
+          "const": "maltitol",
+          "description": "Maltitol"
+        },
+        {
+          "const": "maltodextrins",
+          "description": "Maltodextrins"
+        },
+        {
+          "const": "maltose",
+          "description": "Maltose"
+        },
+        {
+          "const": "manganese",
+          "description": "Manganese"
+        },
+        {
+          "const": "manganous-sulphate-monohydrate",
+          "description": "Manganous sulphate monohydrate"
+        },
+        {
+          "const": "mead-acid",
+          "description": "Mead acid"
+        },
+        {
+          "const": "melatonin",
+          "description": "Melatonin"
+        },
+        {
+          "const": "melissic-acid",
+          "description": "Melissic acid"
+        },
+        {
+          "const": "methylsulfonylmethane",
+          "description": "Methylsulfonylmethane"
+        },
+        {
+          "const": "molybdenum",
+          "description": "Molybdenum"
+        },
+        {
+          "const": "monounsaturated-fat",
+          "description": "Monounsaturated fat"
+        },
+        {
+          "const": "montanic-acid",
+          "description": "Montanic acid"
+        },
+        {
+          "const": "myristic-acid",
+          "description": "Myristic acid"
+        },
+        {
+          "const": "nervonic-acid",
+          "description": "Nervonic acid"
+        },
+        {
+          "const": "nitrate",
+          "description": "Nitrate"
+        },
+        {
+          "const": "nitrite",
+          "description": "Nitrite"
+        },
+        {
+          "const": "nucleotides",
+          "description": "Nucleotides"
+        },
+        {
+          "const": "oleic-acid",
+          "description": "Oleic acid"
+        },
+        {
+          "const": "oligosaccharide",
+          "description": "Oligosaccharide"
+        },
+        {
+          "const": "omega-3-fat",
+          "description": "Omega 3 fat"
+        },
+        {
+          "const": "omega-6-fat",
+          "description": "Omega 6 fat"
+        },
+        {
+          "const": "omega-9-fat",
+          "description": "Omega 9 fat"
+        },
+        {
+          "const": "palmitic-acid",
+          "description": "Palmitic acid"
+        },
+        {
+          "const": "pantothenic-acid",
+          "description": "Vitamin B5 (Pantothenic acid)"
+        },
+        {
+          "const": "ph",
+          "description": "PH"
+        },
+        {
+          "const": "phosphorus",
+          "description": "Phosphorus"
+        },
+        {
+          "const": "phylloquinone",
+          "description": "Vitamin K1 (Phylloquinone)"
+        },
+        {
+          "const": "polydextrose",
+          "description": "Polydextrose"
+        },
+        {
+          "const": "polyols",
+          "description": "Polyols (sugar alcohols)"
+        },
+        {
+          "const": "polyunsaturated-fat",
+          "description": "Polyunsaturated fat"
+        },
+        {
+          "const": "potassium",
+          "description": "Potassium"
+        },
+        {
+          "const": "potassium-iodide",
+          "description": "Potassium iodide"
+        },
+        {
+          "const": "protein-value",
+          "description": "Protein value"
+        },
+        {
+          "const": "proteins",
+          "description": "Proteins"
+        },
+        {
+          "const": "psicose",
+          "description": "Psicose (Allulose)"
+        },
+        {
+          "const": "salt",
+          "description": "Salt"
+        },
+        {
+          "const": "saturated-fat",
+          "description": "Saturated fat"
+        },
+        {
+          "const": "selenium",
+          "description": "Selenium"
+        },
+        {
+          "const": "serum-proteins",
+          "description": "Serum proteins"
+        },
+        {
+          "const": "silica",
+          "description": "Silica"
+        },
+        {
+          "const": "sodium",
+          "description": "Sodium"
+        },
+        {
+          "const": "sodium-selenite",
+          "description": "Sodium selenite"
+        },
+        {
+          "const": "soluble-fiber",
+          "description": "Soluble fiber"
+        },
+        {
+          "const": "sorbitol",
+          "description": "Sorbitol"
+        },
+        {
+          "const": "spermidine",
+          "description": "Spermidine"
+        },
+        {
+          "const": "starch",
+          "description": "Starch"
+        },
+        {
+          "const": "stearic-acid",
+          "description": "Stearic acid"
+        },
+        {
+          "const": "sucrose",
+          "description": "Sucrose"
+        },
+        {
+          "const": "sugars",
+          "description": "Sugars"
+        },
+        {
+          "const": "sulphate",
+          "description": "Sulphate"
+        },
+        {
+          "const": "taurine",
+          "description": "Taurine"
+        },
+        {
+          "const": "trans-fat",
+          "description": "Trans fat"
+        },
+        {
+          "const": "unsaturated-fat",
+          "description": "Unsaturated fat"
+        },
+        {
+          "const": "vitamin-a",
+          "description": "Vitamin A"
+        },
+        {
+          "const": "vitamin-b1",
+          "description": "Vitamin B1 (Thiamin)"
+        },
+        {
+          "const": "vitamin-b12",
+          "description": "Vitamin B12 (cobalamin)"
+        },
+        {
+          "const": "vitamin-b2",
+          "description": "Vitamin B2 (Riboflavin)"
+        },
+        {
+          "const": "vitamin-b6",
+          "description": "Vitamin B6 (Pyridoxin)"
+        },
+        {
+          "const": "vitamin-b9",
+          "description": "Vitamin B9 (Folic acid)"
+        },
+        {
+          "const": "vitamin-c",
+          "description": "Vitamin C (ascorbic acid)"
+        },
+        {
+          "const": "vitamin-d",
+          "description": "Vitamin D (D3)"
+        },
+        {
+          "const": "vitamin-e",
+          "description": "Vitamin E"
+        },
+        {
+          "const": "vitamin-k",
+          "description": "Vitamin K"
+        },
+        {
+          "const": "vitamin-pp",
+          "description": "Vitamin B3/PP (Niacin)"
+        },
+        {
+          "const": "water",
+          "description": "Water"
+        },
+        {
+          "const": "water-hardness",
+          "description": "Water hardness"
+        },
+        {
+          "const": "zinc",
+          "description": "Zinc"
+        },
+        {
+          "const": "zinc-sulphate-monohydrate",
+          "description": "Zinc sulphate monohydrate"
+        }
       ]
     }
   },

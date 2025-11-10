@@ -10,8 +10,11 @@ with urllib.request.urlopen(
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "$defs": {
             "code": {
-                "enum": [
-                    nutrient[0].split(":")[1]
+                "anyOf": [
+                    { 
+                      "const": nutrient[0].split(":")[1],
+                      "description": nutrient[1].get("name",{}).get("en", nutrient[0].split(":")[1].capitalize())
+                    }
                     for nutrient in sorted(nutrients.items())
                     if nutrient[1].get("automatically_computed", {}).get("en") != "yes" and nutrient[1].get("unit", {}).get("en") != "%"
                 ]
