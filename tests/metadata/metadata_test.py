@@ -1,8 +1,8 @@
 import json
 import os
 import unittest
-from jsonschema import Draft202012Validator, ValidationError, validate
-from referencing import Registry, Resource
+from jsonschema import Draft202012Validator, ValidationError
+from referencing import Registry, Resource, jsonschema
 
 script_dir = os.path.dirname(__file__)
 
@@ -14,16 +14,16 @@ def load_json(file_name):
         json_data = json.load(f)
     return json_data
     
+def resource_tuple(file_name):
+    return (file_name, Resource.from_contents(load_json("../../schemas/" + file_name), jsonschema.DRAFT202012))
+
 class MetadataTests(unittest.TestCase):
     def test_metadata(self):
-        registry = Registry()
-        registry = [
-            Resource.from_contents(load_json("../../schemas/facets.json")),
-            Resource.from_contents(load_json("../../schemas/meal-type.json")),
-            Resource.from_contents(load_json("../../schemas/source-type.json")),
-        ] @ registry
+        registry = Registry().with_resources([
+            resource_tuple("openapi.json"),
+        ])
 
-        schema = load_json('../../schemas/metadata.json')
+        schema = load_json('../../schemas/metadata-file.json')
         validator = Draft202012Validator(schema, registry=registry)
 
         for invalid_file in sorted(os.listdir(relative_path('invalid'))):

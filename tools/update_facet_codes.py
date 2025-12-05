@@ -5,20 +5,18 @@ with urllib.request.urlopen(
     "https://static.openfoodfacts.org/data/taxonomies/nutrients.json"
 ) as url:
     nutrients = json.load(url)
-    schema = {
-        "$id": "https://static.openfoodfacts.org/food-logging/facets.json",
-        "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$defs": {
-            "facetCode": {
-                "enum": [
-                    nutrient[0].split(":")[1]
-                    for nutrient in sorted(nutrients.items())
-                    if nutrient[1].get("automatically_computed", {}).get("en") != "yes" and nutrient[1].get("unit", {}).get("en") != "%"
-                ]
-            }
-        },
-    }
+    facet_enum = [
+                        nutrient[0].split(":")[1]
+                        for nutrient in sorted(nutrients.items())
+                        if nutrient[1].get("automatically_computed", {}).get("en")
+                        != "yes"
+                        and nutrient[1].get("unit", {}).get("en") != "%"
+                    ]
 
-    filename = os.path.join(os.path.dirname(__file__), "../schemas/facets.json")
+    filename = os.path.join(os.path.dirname(__file__), "../schemas/openapi.json")
+    with open(filename, "r", encoding="utf-8") as f:
+        schema = json.load(f)
+        
+    schema['components']['schemas']['facetCode']['enum'] = facet_enum
     with open(filename, "w", encoding="utf-8") as f:
-        f.write(json.dumps(schema, ensure_ascii=False, sort_keys=True, indent=2))
+        f.write(json.dumps(schema, ensure_ascii=False, indent=2))

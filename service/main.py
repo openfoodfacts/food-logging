@@ -6,7 +6,7 @@ from pydantic import BaseModel, Extra, Field
 app = FastAPI()
 
 class BaseColumn(BaseModel):
-    sequence: int
+    sequence: int = Field(title = 'Sequence number', description='The order of things, as defined [here](http://johngom.com)')
 
 class FoodColumn(BaseColumn, extra=Extra.forbid):
     type: Literal["food"]
