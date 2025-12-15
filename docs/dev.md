@@ -5,3 +5,10 @@ datamodel-codegen  --input schemas/openapi.json --input-file-type openapi --outp
 ```
 
 Note that currently datamodel-code-generator doesn't handle `unevaluatedProperties`
+
+To generate the openapi.md from the API docs use:
+
+```
+npx widdershins --code true --omitHeader schemas/openapi.json -o schemas/openapi.md
+```
+

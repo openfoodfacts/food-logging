@@ -74,143 +74,66 @@
             "type": "object",
             "description": "Object with a key for each column name used in the Meals CSV file",
             "additionalProperties": {
-              "x-additionalPropertiesName": "ColumnName",
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/timeColumn"
-                },
-                {
-                  "$ref": "#/components/schemas/mealColumn"
-                },
-                {
-                  "$ref": "#/components/schemas/recipeColumn"
-                },
-                {
-                  "$ref": "#/components/schemas/foodColumn"
-                },
-                {
-                  "$ref": "#/components/schemas/enteredQuantityColumn"
-                },
-                {
-                  "$ref": "#/components/schemas/enteredUnitColumn"
-                },
-                {
-                  "$ref": "#/components/schemas/quantityColumn"
-                },
-                {
-                  "$ref": "#/components/schemas/unitColumn"
-                },
-                {
-                  "$ref": "#/components/schemas/facetColumn"
-                },
-                {
-                  "$ref": "#/components/schemas/sourceColumn"
-                },
-                {
-                  "$ref": "#/components/schemas/codeColumn"
-                },
-                {
-                  "$ref": "#/components/schemas/imageColumn"
-                },
-                {
-                  "$ref": "#/components/schemas/customColumn"
-                }
-              ]
+              "$ref": "#/components/schemas/column"
             }
           },
           "locale": {
             "type": "string",
             "pattern": "^[a-z]{2}-[A-Z]{2}$",
-            "examples": [
-              "fr-FR"
-            ]
+            "examples": ["fr-FR"]
           },
           "timezone": {
             "type": "string",
             "pattern": "^(?:(?:[A-Za-z_\\-]+\\/[A-Za-z_\\-]+(?:\\/[A-Za-z_\\-]+)?)|(?:Etc\\/[A-Za-z0-9+\\-]+(?:\\/[A-Za-z0-9]+)?|(?:CET|CST6CDT|EET|EST|EST5EDT|MET|MST|MST7MDT|PST8PDT|HST)))$",
-            "examples": [
-              "Europe/France"
-            ]
+            "examples": ["Europe/France"]
           }
         },
-        "required": [
-          "columns",
-          "locale"
-        ],
+        "required": ["columns", "locale"],
         "additionalProperties": true
       },
-      "meal": {
-        "type": "object",
-        "title": "meal",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
-            "$comment": "Could use format alone but this is not currently enforced by many validators"
+      "column": {
+        "x-additionalPropertiesName": "ColumnName",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/timeColumn"
           },
-          "time": {
-            "type": "string",
-            "format": "date-time",
-            "pattern": "^(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+)|(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d)|(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d)$"
+          {
+            "$ref": "#/components/schemas/mealColumn"
           },
-          "meal": {
-            "$ref": "#/components/schemas/mealType"
+          {
+            "$ref": "#/components/schemas/recipeColumn"
           },
-          "recipe": {
-            "type": "string"
+          {
+            "$ref": "#/components/schemas/foodColumn"
           },
-          "food": {
-            "type": "string"
+          {
+            "$ref": "#/components/schemas/enteredQuantityColumn"
           },
-          "entered_quantity": {
-            "type": "number"
+          {
+            "$ref": "#/components/schemas/enteredUnitColumn"
           },
-          "entered_unit": {
-            "type": "string"
+          {
+            "$ref": "#/components/schemas/quantityColumn"
           },
-          "quantity": {
-            "type": "number"
+          {
+            "$ref": "#/components/schemas/unitColumn"
           },
-          "unit": {
-            "enum": [
-              "g",
-              "ml"
-            ]
+          {
+            "$ref": "#/components/schemas/facetColumn"
           },
-          "facets": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "code": {
-                  "$ref": "#/components/schemas/facetCode"
-                },
-                "value": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "code",
-                "value"
-              ],
-              "additionalProperties": false
-            }
+          {
+            "$ref": "#/components/schemas/sourceColumn"
           },
-          "source": {
-            "$ref": "#/components/schemas/sourceType"
+          {
+            "$ref": "#/components/schemas/codeColumn"
           },
-          "location": {
-            "type": "string"
+          {
+            "$ref": "#/components/schemas/imageColumn"
           },
-          "code": {
-            "type": "string"
-          },
-          "image": {
-            "type": "string"
+          {
+            "$ref": "#/components/schemas/customColumn"
           }
-        },
-        "additionalProperties": true
+        ]
       },
       "baseColumn": {
         "title": "baseColumn",
@@ -222,9 +145,7 @@
             "type": "integer"
           }
         },
-        "required": [
-          "type"
-        ]
+        "required": ["type"]
       },
       "timeColumn": {
         "title": "timeColumn",
@@ -396,9 +317,7 @@
               }
             },
             "title": "Facet",
-            "required": [
-              "code"
-            ]
+            "required": ["code"]
           }
         ],
         "unevaluatedProperties": false
@@ -574,9 +493,7 @@
                 }
               }
             },
-            "required": [
-              "values"
-            ]
+            "required": ["values"]
           }
         ],
         "unevaluatedProperties": false
@@ -592,16 +509,11 @@
             "type": "string"
           }
         },
-        "required": [
-          "source"
-        ]
+        "required": ["source"]
       },
       "sourceType": {
         "title": "sourceType",
-        "enum": [
-          "gtin",
-          "plu"
-        ]
+        "enum": ["gtin", "plu"]
       },
       "codeColumn": {
         "title": "codeColumn",
@@ -651,11 +563,76 @@
                 "type": "string"
               }
             },
-            "required": [
-              "code"
-            ]
+            "required": ["code"]
           }
         ],
+        "additionalProperties": true
+      },
+      "meal": {
+        "type": "object",
+        "title": "meal",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "$comment": "Could use format alone but this is not currently enforced by many validators"
+          },
+          "time": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+)|(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d)|(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d)$"
+          },
+          "meal": {
+            "$ref": "#/components/schemas/mealType"
+          },
+          "recipe": {
+            "type": "string"
+          },
+          "food": {
+            "type": "string"
+          },
+          "entered_quantity": {
+            "type": "number"
+          },
+          "entered_unit": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "number"
+          },
+          "unit": {
+            "enum": ["g", "ml"]
+          },
+          "facets": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "$ref": "#/components/schemas/facetCode"
+                },
+                "value": {
+                  "type": "number"
+                }
+              },
+              "required": ["code", "value"],
+              "additionalProperties": false
+            }
+          },
+          "source": {
+            "$ref": "#/components/schemas/sourceType"
+          },
+          "location": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string"
+          }
+        },
         "additionalProperties": true
       }
     }

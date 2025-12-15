@@ -37,3 +37,5 @@ Markdown formatting is used as per the OpenAPI specification, even though this i
 It looks like the Python `datamodel-codegen` tool doesn't recognize additionalProperties when this is an object and not just `true` when specified on a schema that also has other non-custom properties.
 
 To work around this the documentation for additionalProperties is included in the root of the schema.
+
+Also it was found that widdershins coped better if the schema for additionalProperties was included as a reference rather than inline.
