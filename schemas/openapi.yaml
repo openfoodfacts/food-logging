@@ -42,7 +42,9 @@ components:
       title: metadata
       description: |
         Metadata provides a translation between the human readable column names and enumerations used in a Meals CSV file and standardized representations of these. Applications with limited user-customization could potentially hard-code their Metadata (per user language supported) if their exports always include the same standard column names.
+
         The main component of the Metadata is the "columns" property which is a single object with a key for each column name mentioned in a Meals CSV file. The value associated with each column is an object whose "type" column will determine the standardized property the column represents. Additional attributes, specific to the type, will identify other data relevant to that property, e.g. the standard nutrient code and unit for a "facet" column.
+
         Applications may add their own global properties. It is suggested that each application adds just one root property using a URI owned by that application as the key name. This URI would ideally point to a JSON Schema document describing the structure of the custom properties, but this is not essential.
       type: object
       properties:

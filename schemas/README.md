@@ -1,4 +1,3 @@
-<!-- Generator: Widdershins v4.0.1 -->
 
 <h1 id="food-consumption-logging-data-exchange">Food Consumption Logging Data Exchange v0.0.1</h1>
 
@@ -131,7 +130,7 @@ This operation does not require authentication
 # Schemas
 
 <h2 id="tocS_metadata">metadata</h2>
-<!-- backwards compatibility -->
+
 <a id="schemametadata"></a>
 <a id="schema_metadata"></a>
 <a id="tocSmetadata"></a>
@@ -157,6 +156,12 @@ This operation does not require authentication
 
 metadata
 
+Metadata provides a translation between the human readable column names and enumerations used in a Meals CSV file and standardized representations of these. Applications with limited user-customization could potentially hard-code their Metadata (per user language supported) if their exports always include the same standard column names.
+
+The main component of the Metadata is the "columns" property which is a single object with a key for each column name mentioned in a Meals CSV file. The value associated with each column is an object whose "type" column will determine the standardized property the column represents. Additional attributes, specific to the type, will identify other data relevant to that property, e.g. the standard nutrient code and unit for a "facet" column.
+
+Applications may add their own global properties. It is suggested that each application adds just one root property using a URI owned by that application as the key name. This URI would ideally point to a JSON Schema document describing the structure of the custom properties, but this is not essential.
+
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
@@ -167,7 +172,7 @@ metadata
 |timezone|string|false|none|none|
 
 <h2 id="tocS_column">column</h2>
-<!-- backwards compatibility -->
+
 <a id="schemacolumn"></a>
 <a id="schema_column"></a>
 <a id="tocScolumn"></a>
@@ -262,7 +267,7 @@ xor
 |*anonymous*|[customColumn](#schemacustomcolumn)|false|none|Application properties that are specific to the individual meal. It is suggested that each application adds one code for each custom column using a URI owned by that application. This URI would ideally point to a JSON Schema document describing the structure of the custom type, but this is not essential.|
 
 <h2 id="tocS_baseColumn">baseColumn</h2>
-<!-- backwards compatibility -->
+
 <a id="schemabasecolumn"></a>
 <a id="schema_baseColumn"></a>
 <a id="tocSbasecolumn"></a>
@@ -284,7 +289,7 @@ baseColumn
 |sequence|integer|false|none|The column number when exporting as CSV|
 
 <h2 id="tocS_timeColumn">timeColumn</h2>
-<!-- backwards compatibility -->
+
 <a id="schematimecolumn"></a>
 <a id="schema_timeColumn"></a>
 <a id="tocStimecolumn"></a>
@@ -320,7 +325,7 @@ and
 |» type|any|false|none|none|
 
 <h2 id="tocS_mealColumn">mealColumn</h2>
-<!-- backwards compatibility -->
+
 <a id="schemamealcolumn"></a>
 <a id="schema_mealColumn"></a>
 <a id="tocSmealcolumn"></a>
@@ -362,7 +367,7 @@ and
 |»» **additionalProperties**|[mealType](#schemamealtype)|false|none|none|
 
 <h2 id="tocS_mealType">mealType</h2>
-<!-- backwards compatibility -->
+
 <a id="schemamealtype"></a>
 <a id="schema_mealType"></a>
 <a id="tocSmealtype"></a>
@@ -399,7 +404,7 @@ mealType
 |mealType|daily|
 
 <h2 id="tocS_recipeColumn">recipeColumn</h2>
-<!-- backwards compatibility -->
+
 <a id="schemarecipecolumn"></a>
 <a id="schema_recipeColumn"></a>
 <a id="tocSrecipecolumn"></a>
@@ -435,7 +440,7 @@ and
 |» type|any|false|none|none|
 
 <h2 id="tocS_foodColumn">foodColumn</h2>
-<!-- backwards compatibility -->
+
 <a id="schemafoodcolumn"></a>
 <a id="schema_foodColumn"></a>
 <a id="tocSfoodcolumn"></a>
@@ -471,7 +476,7 @@ and
 |» type|any|false|none|none|
 
 <h2 id="tocS_enteredQuantityColumn">enteredQuantityColumn</h2>
-<!-- backwards compatibility -->
+
 <a id="schemaenteredquantitycolumn"></a>
 <a id="schema_enteredQuantityColumn"></a>
 <a id="tocSenteredquantitycolumn"></a>
@@ -507,7 +512,7 @@ and
 |» type|any|false|none|none|
 
 <h2 id="tocS_enteredUnitColumn">enteredUnitColumn</h2>
-<!-- backwards compatibility -->
+
 <a id="schemaenteredunitcolumn"></a>
 <a id="schema_enteredUnitColumn"></a>
 <a id="tocSenteredunitcolumn"></a>
@@ -543,7 +548,7 @@ and
 |» type|any|false|none|none|
 
 <h2 id="tocS_quantityColumn">quantityColumn</h2>
-<!-- backwards compatibility -->
+
 <a id="schemaquantitycolumn"></a>
 <a id="schema_quantityColumn"></a>
 <a id="tocSquantitycolumn"></a>
@@ -579,7 +584,7 @@ and
 |» type|any|false|none|none|
 
 <h2 id="tocS_unitColumn">unitColumn</h2>
-<!-- backwards compatibility -->
+
 <a id="schemaunitcolumn"></a>
 <a id="schema_unitColumn"></a>
 <a id="tocSunitcolumn"></a>
@@ -615,7 +620,7 @@ and
 |» type|any|false|none|none|
 
 <h2 id="tocS_facetColumn">facetColumn</h2>
-<!-- backwards compatibility -->
+
 <a id="schemafacetcolumn"></a>
 <a id="schema_facetColumn"></a>
 <a id="tocSfacetcolumn"></a>
@@ -655,7 +660,7 @@ and
 |» factor|integer|false|none|none|
 
 <h2 id="tocS_facetCode">facetCode</h2>
-<!-- backwards compatibility -->
+
 <a id="schemafacetcode"></a>
 <a id="schema_facetCode"></a>
 <a id="tocSfacetcode"></a>
@@ -828,7 +833,7 @@ facetCode
 |facetCode|zinc-sulphate-monohydrate|
 
 <h2 id="tocS_sourceColumn">sourceColumn</h2>
-<!-- backwards compatibility -->
+
 <a id="schemasourcecolumn"></a>
 <a id="schema_sourceColumn"></a>
 <a id="tocSsourcecolumn"></a>
@@ -876,7 +881,7 @@ and
 |»» **additionalProperties**|[sourceValue](#schemasourcevalue)|false|none|none|
 
 <h2 id="tocS_sourceValue">sourceValue</h2>
-<!-- backwards compatibility -->
+
 <a id="schemasourcevalue"></a>
 <a id="schema_sourceValue"></a>
 <a id="tocSsourcevalue"></a>
@@ -900,7 +905,7 @@ sourceValue
 |location|string|false|none|none|
 
 <h2 id="tocS_sourceType">sourceType</h2>
-<!-- backwards compatibility -->
+
 <a id="schemasourcetype"></a>
 <a id="schema_sourceType"></a>
 <a id="tocSsourcetype"></a>
@@ -927,7 +932,7 @@ sourceType
 |sourceType|plu|
 
 <h2 id="tocS_codeColumn">codeColumn</h2>
-<!-- backwards compatibility -->
+
 <a id="schemacodecolumn"></a>
 <a id="schema_codeColumn"></a>
 <a id="tocScodecolumn"></a>
@@ -963,7 +968,7 @@ and
 |» type|any|false|none|none|
 
 <h2 id="tocS_imageColumn">imageColumn</h2>
-<!-- backwards compatibility -->
+
 <a id="schemaimagecolumn"></a>
 <a id="schema_imageColumn"></a>
 <a id="tocSimagecolumn"></a>
@@ -999,7 +1004,7 @@ and
 |» type|any|false|none|none|
 
 <h2 id="tocS_customColumn">customColumn</h2>
-<!-- backwards compatibility -->
+
 <a id="schemacustomcolumn"></a>
 <a id="schema_customColumn"></a>
 <a id="tocScustomcolumn"></a>
@@ -1015,6 +1020,8 @@ and
 ```
 
 customColumn
+
+Application properties that are specific to the individual meal. It is suggested that each application adds one code for each custom column using a URI owned by that application. This URI would ideally point to a JSON Schema document describing the structure of the custom type, but this is not essential.
 
 ### Properties
 
@@ -1033,7 +1040,7 @@ and
 |» code|string|true|none|none|
 
 <h2 id="tocS_meal">meal</h2>
-<!-- backwards compatibility -->
+
 <a id="schemameal"></a>
 <a id="schema_meal"></a>
 <a id="tocSmeal"></a>
@@ -1093,4 +1100,6 @@ meal
 |---|---|
 |unit|g|
 |unit|ml|
+
+undefined
 

@@ -9,7 +9,7 @@ Note that currently datamodel-code-generator doesn't handle `unevaluatedProperti
 To generate the openapi.md from the API docs use:
 
 ```
-npx widdershins --code true --omitHeader schemas/openapi.yaml -o schemas/README.md
+npx widdershins --code true --omitHeader --user_templates templates schemas/openapi.yaml -o schemas/README.md
 ```
 
 To refresh the facet list from the OFF taxonomy use:
