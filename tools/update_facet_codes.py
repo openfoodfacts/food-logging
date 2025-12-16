@@ -1,6 +1,8 @@
 import os
 import urllib.request, json
 
+from ruyaml import YAML
+
 with urllib.request.urlopen(
     "https://static.openfoodfacts.org/data/taxonomies/nutrients.json"
 ) as url:
@@ -13,10 +15,12 @@ with urllib.request.urlopen(
                         and nutrient[1].get("unit", {}).get("en") != "%"
                     ]
 
-    filename = os.path.join(os.path.dirname(__file__), "../schemas/openapi.json")
+    filename = os.path.join(os.path.dirname(__file__), "../schemas/openapi.yaml")
+    yaml = YAML()
+    yaml.indent(mapping=2, sequence=4, offset=2)
     with open(filename, "r", encoding="utf-8") as f:
-        schema = json.load(f)
+        schema = yaml.load(f)
         
     schema['components']['schemas']['facetCode']['enum'] = facet_enum
     with open(filename, "w", encoding="utf-8") as f:
-        f.write(json.dumps(schema, ensure_ascii=False, indent=2))
+        yaml.dump(schema, f)
