@@ -3,6 +3,29 @@
 
 The reason for developing a standard for food logging data exchange is to ensure that people are not locked in to a single application once they start logging food data. For example, they might want to switch to a different application for logging, use another application to analyze their food logging history or supply data to a third party, such as researchers or medical practitioners.
 
+This document describes an API for storing food logging data and metadata. The metadata is also used to describe the structure of a Meals CSV file used for import / export operations.
+
+Exports will be packaged in a zip file with an arbitrary name (determined by the user). Each zip file will contain the following:
+
+* meals.csv
+* meals_metadata.json
+
+### meals.csv
+
+This is a CSV file to make it as simple as possible for moderately technical Consumers or delegated third-parties to analyze their own data in a spreadsheet or database. All column names should be human readable in the user's chosen language. A Metadata file will cross-reference the column names against pre-defined properties, like Meal time, Meal Type, Food and Nutrients.
+
+Foods will include the human readable name, e.g. "Baked Beans", that was presented to the user when they selected the Food.
+
+Date times will be recorded in the user's local format and timezone, as identified in the metadata. Items consumed as part of the same meal should have exactly the same date time to allow grouping of Meals for display or analysis purposes.
+
+Facets, like Nutrients, will have a single column name with a consistent unit of measure (identified in the metadata). The exporter could choose to include the unit in the column name if they feel this would be helpful. All Facets that were retrieved from the Source of the Food information that were either presented to the user or used in calculations should be included in the export.
+
+It is suggested that fields of less interest to the Consumer, such as the Source, Global Trade Item Number (GTIN) and Image URLs are included at the "end" of the export line (this might be the leftmost columns in a right to left language).
+
+### meals_metadata.json
+
+This is a JSON representation of the [metadata](#schemametadata) that describes the structure of the Meals CSV file.
+
 <h1 id="food-consumption-logging-data-exchange-default">Methods</h1>
 
 ## GET /metadata
@@ -14,9 +37,23 @@ The reason for developing a standard for food logging data exchange is to ensure
 ```json
 {
   "columns": {
-    "columns": {
-      "Food": {
-        "type": "food"
+    "Food": {
+      "type": "food"
+    },
+    "Code": {
+      "type": "code"
+    },
+    "Protein": {
+      "type": "facet",
+      "code": "protein"
+    },
+    "Source": {
+      "type": "source",
+      "values": {
+        "Bar Code": {
+          "source": "gtin",
+          "location": 3014517900101
+        }
       }
     }
   },
@@ -42,9 +79,23 @@ This operation does not require authentication
 ```json
 {
   "columns": {
-    "columns": {
-      "Food": {
-        "type": "food"
+    "Food": {
+      "type": "food"
+    },
+    "Code": {
+      "type": "code"
+    },
+    "Protein": {
+      "type": "facet",
+      "code": "protein"
+    },
+    "Source": {
+      "type": "source",
+      "values": {
+        "Bar Code": {
+          "source": "gtin",
+          "location": 3014517900101
+        }
       }
     }
   },
@@ -141,9 +192,23 @@ Applications may add their own global properties. It is suggested that each appl
 ```json
 {
   "columns": {
-    "columns": {
-      "Food": {
-        "type": "food"
+    "Food": {
+      "type": "food"
+    },
+    "Code": {
+      "type": "code"
+    },
+    "Protein": {
+      "type": "facet",
+      "code": "protein"
+    },
+    "Source": {
+      "type": "source",
+      "values": {
+        "Bar Code": {
+          "source": "gtin",
+          "location": 3014517900101
+        }
       }
     }
   },
