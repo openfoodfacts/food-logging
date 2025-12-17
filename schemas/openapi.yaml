@@ -1,6 +1,8 @@
 openapi: 3.1.1
 info:
   title: Food Consumption Logging Data Exchange
+  description: |
+    The reason for developing a standard for food logging data exchange is to ensure that people are not locked in to a single application once they start logging food data. For example, they might want to switch to a different application for logging, use another application to analyze their food logging history or supply data to a third party, such as researchers or medical practitioners.
   version: 0.0.1
 paths:
   /metadata:
@@ -49,19 +51,26 @@ components:
       type: object
       properties:
         columns:
-          title: columns
           type: object
           description: |
             Object with a key for each column name used in the Meals CSV file
           additionalProperties:
             $ref: '#/components/schemas/columnDefinition'
+          examples:
+            - columns:
+                Food: 
+                  type: food
         locale:
           type: string
+          description: |
+            Combination of the user's [ISO 639 2-letter language code](https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes) and [ISO 3166 2-letter country code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) separated with a hyphen
           pattern: ^[a-z]{2}-[A-Z]{2}$
           examples:
             - fr-FR
         timezone:
           type: string
+          description: |
+            A standard [IANA TZ identifier](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
           pattern: ^(?:(?:[A-Za-z_\-]+\/[A-Za-z_\-]+(?:\/[A-Za-z_\-]+)?)|(?:Etc\/[A-Za-z0-9+\-]+(?:\/[A-Za-z0-9]+)?|(?:CET|CST6CDT|EET|EST|EST5EDT|MET|MST|MST7MDT|PST8PDT|HST)))$
           examples:
             - Europe/France
@@ -89,6 +98,7 @@ components:
         - $ref: '#/components/schemas/customColumn'
     timeColumn:
       title: timeColumn
+      description: The time that the meal was consumed
       properties:
         type:
           const: time
@@ -97,13 +107,21 @@ components:
       required:
         - type
       additionalProperties: false
+      examples:
+        - type: time
     mealColumn:
       title: mealColumn
+      description: |
+        The different meal type names used, keyed with the value used in the CSV file.
+
+        Note the "daily" item refers to entries where the user has just recorded overall consumption throughout the day, e.g. 6 cups of coffee
       properties:
         type:
           const: meal
         values:
           type: object
+          description: |
+            Object whose key is the value that appears in the CSV file
           additionalProperties:
             $ref: '#/components/schemas/mealType'
         sequence:
@@ -112,8 +130,16 @@ components:
         - type
         - values
       additionalProperties: false
+      examples:
+        - type: meal
+          values:
+            Breakfast: breakfast
+            Mail Meal: dinner
+            Daily Allowance: daily
     mealType:
       title: mealType
+      description: |
+        Standardized identifier for the kind of meal, derived from [here](https://en.wikipedia.org/wiki/Outline_of_meals)
       enum:
         - breakfast
         - second-breakfast
@@ -129,6 +155,8 @@ components:
         - daily
     recipeColumn:
       title: recipeColumn
+      description: |
+        The name of a Recipe used that links multiple related Foods in the Meal
       properties:
         type:
           const: recipe
@@ -137,8 +165,12 @@ components:
       required:
         - type
       additionalProperties: false
+      examples:
+        - type: recipe
     foodColumn:
       title: foodColumn
+      description: |
+        The name of the Food as it was presented to the user when they selected it from the Source
       properties:
         type:
           const: food
@@ -147,8 +179,12 @@ components:
       required:
         - type
       additionalProperties: false
+      examples:
+        - type: food
     enteredQuantityColumn:
       title: enteredQuantityColumn
+      description: |
+        The amount of the Food that the user recorded in the specified "entered_unit". Formatted as a [JSON number](https://www.rfc-editor.org/rfc/rfc8259#page-7)
       properties:
         type:
           const: entered_quantity
@@ -157,8 +193,12 @@ components:
       required:
         - type
       additionalProperties: false
+      examples:
+        - type: entered_quantity
     enteredUnitColumn:
       title: enteredUnitColumn
+      description: |
+        The unit used when recording the quantity of Food. This is a free format string in the end-user's language
       properties:
         type:
           const: entered_unit
@@ -167,8 +207,12 @@ components:
       required:
         - type
       additionalProperties: false
+      examples:
+        - type: unit
     quantityColumn:
       title: quantityColumn
+      description: |
+        The amount of the Food in normalized units (grams for weight, milliliters for volume). Formatted as a [JSON number](https://www.rfc-editor.org/rfc/rfc8259#page-7)
       properties:
         type:
           const: quantity
@@ -177,8 +221,12 @@ components:
       required:
         - type
       additionalProperties: false
+      examples:
+        - type: quantity
     unitColumn:
       title: unitColumn
+      description: |
+        The normalized unit type. "g" for weight or "ml" for volume. Not localized. This should match the unit used in the Source.
       properties:
         type:
           const: unit
@@ -187,14 +235,20 @@ components:
       required:
         - type
       additionalProperties: false
+      examples:
+        - type: unit
     facetColumn:
       title: facetColumn
+      description: |
+        A particular facet of the food, typically a nutrient
       properties:
         type:
           const: facet
         code:
           $ref: '#/components/schemas/facetCode'
         factor:
+          description: |
+            Value that the quantity of the Facet in the Meals CSV file must be divided by in order to convert it to the unit defined for the Facet type. Note that most nutrients will have a units of "g" but energy will be in "kJ" or "kcal". For example, a factor of 1000 would be specified if the values in the Meals CSV are expressed in mg. Defaults to 1 if omitted.
           type: integer
         sequence:
           $ref: '#/components/schemas/sequence'
@@ -202,8 +256,18 @@ components:
         - type
         - code
       additionalProperties: false
+      examples:
+        - type: facet
+          code: protein
+        - type: facet
+          code: iron
+        - type: facet
+          code: vitamin-b12
+          factor: 1000000
     facetCode:
       title: facetCode
+      description: |
+        Standard identifier for the facet, typically a nutrient
       enum:
         - acidity
         - added-salt
@@ -355,11 +419,17 @@ components:
         - zinc-sulphate-monohydrate
     sourceColumn:
       title: sourceColumn
+      description: |
+        The type of Food identifier used, keyed by the value used in the Meals CSV.
+
+        The value has a source and a location code, e.g. for GTIN the location code would be the [Global Location Number](https://navigator.gs1.org/gdsn/class-details?name=GLN&version=12)
       properties:
         type:
           const: source
         values:
           type: object
+          description: |
+            Object whose key is the value that appears in the CSV file
           additionalProperties:
             $ref: '#/components/schemas/sourceValue'
         sequence:
@@ -368,8 +438,18 @@ components:
         - type
         - values
       additionalProperties: false
+      examples:
+        - type: source
+          values:
+            Bar code:
+              source: gtin
+              location: 3014517900101
+            Food code:
+              source: plu
     sourceValue:
       title: sourceValue
+      description: |
+        Describes where the food code came from.
       type: object
       properties:
         source:
@@ -380,11 +460,15 @@ components:
         - source
     sourceType:
       title: sourceType
+      description: |
+        The type of Food identifier used
       enum:
         - gtin
         - plu
     codeColumn:
       title: codeColumn
+      description: |
+        The identifier for the Food in the specified Source
       properties:
         type:
           const: code
@@ -393,8 +477,12 @@ components:
       required:
         - type
       additionalProperties: false
+      examples:
+       - type: food
     imageColumn:
       title: imageColumn
+      description: |
+        URL to an image that was presented to the user when they selected the Food from the Source
       properties:
         type:
           const: image
@@ -403,6 +491,8 @@ components:
       required:
         - type
       additionalProperties: false
+      examples:
+        - type: image
     customColumn:
       title: customColumn
       description: |
@@ -412,12 +502,17 @@ components:
           const: custom
         code:
           type: string
+          description: |
+            The application specific identifier for the custom column. Ideally a URI owned by the application.
         sequence:
           $ref: '#/components/schemas/sequence'
       required:
         - type
         - code
       additionalProperties: true
+      examples:
+        - type: custom
+          code: https://openfoodfacts.org/green.json
     sequence:
       title: Column sequence
       description: The column number when exporting as CSV
@@ -425,35 +520,67 @@ components:
     meal:
       type: object
       title: meal
+      description: |
+        A specific instance of a food that has been consumed.
+
+        Applications may add their own custom properties that are specific to the individual meal. It is suggested that each application adds one type for each custom column using a URI owned by that application as the key name. This URI would ideally point to a JSON Schema document describing the structure of the custom type, but this is not essential.
       properties:
         id:
           type: string
+          description: |
+            A UUID string formatted according to [RFC 9562](https://datatracker.ietf.org/doc/html/rfc9562#name-uuid-format). Optional on new entries (will be generated by the receiving service)
           format: uuid
           pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
           $comment: |
             Could use format alone but this is not currently enforced by many validators
+          examples:
+            - f81d4fae-7dec-11d0-a765-00a0c91e6bf6
         time:
           type: string
+          description: |
+            The time that the Meal was consumed in UTC following the [ISO 8061](https://en.wikipedia.org/wiki/ISO_8601) format
           format: date-time
           pattern: ^(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)$
+          examples:
+            - 2025-07-30T15:56:32Z
         meal:
           $ref: '#/components/schemas/mealType'
         recipe:
           type: string
+          description: |
+            The name of a Recipe used that links multiple related Foods in the meal
+          examples:
+            - White coffee
         food:
           type: string
+          description: |
+            The name of the Food as it was presented to the user when they selected it from the Source
+          examples:
+            - Instant Coffee Powder
         entered_quantity:
           type: number
+          description: |
+            The amount of the Food that the user recorded in the specified "entered_unit". Formatted according to the [JSON number standard](https://www.rfc-editor.org/rfc/rfc8259#page-7)
+          examples:
+            - 1
         entered_unit:
           type: string
+          description: |
+            The unit used when recording the quantity of Food. This is a free format string in the end-user's language
+          examples:
+            - tsp
         quantity:
           type: number
+          description: |
+            The amount of the Food in normalized units (grams for weight, milliliters for volume). Formatted according to the [JSON number standard](https://www.rfc-editor.org/rfc/rfc8259#page-7)
+          examples:
+            - 15
         unit:
-          enum:
-            - g
-            - ml
+          $ref: '#/components/schemas/unit'
         facets:
           type: array
+          description: |
+            An array of objects where the `code` property will be a facet code as defined in this schema. e.g. "proteins", "carbohydrates-total", "vitamin-b12", "energy-kj" and the `value` property gives the quantity of the facet
           items:
             type: object
             properties:
@@ -461,16 +588,45 @@ components:
                 $ref: '#/components/schemas/facetCode'
               value:
                 type: number
+                description: |
+                  The quantity of the facet in the specific meal which will be in grams in most cases but energy will be in kJ or kcal
             required:
               - code
               - value
             additionalProperties: false
+          examples:
+            -
+              - code: protein
+                value: 0
+              - code: iron
+                value: 0.02
+              - code: vitamin-b12
+                value: 1.2e-6
         source:
           $ref: '#/components/schemas/sourceType'
         location:
           type: string
+          description: |
+            The location code for the Source, e.g. for GTIN this would be the [Global Location Number](https://navigator.gs1.org/gdsn/class-details?name=GLN&version=12)
+          examples:
+            - 3014517900101
         code:
           type: string
+          description: |
+            The identifier for the Food in the specified Source
+          examples:
+            - 4056489440628
         image:
           type: string
+          description: |
+            URL to an image that was presented to the user when they selected the Food from the Source
+          examples:
+            - https://images.openfoodfacts.net/images/products/405/648/944/0628/front_en.26.400.jpg
       additionalProperties: true
+    unit:
+      title: unit
+      description: |
+        The normalized unit type. "g" for weight or "ml" for volume. This should match the unit used in the source.
+      enum:
+        - g
+        - ml
