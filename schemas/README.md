@@ -17,12 +17,12 @@
 {
   "columns": {
     "ColumnName1": {
-      "sequence": 0,
-      "type": "time"
+      "type": "time",
+      "sequence": 0
     },
     "ColumnName2": {
-      "sequence": 0,
-      "type": "time"
+      "type": "time",
+      "sequence": 0
     }
   },
   "locale": "fr-FR",
@@ -50,12 +50,12 @@ This operation does not require authentication
 {
   "columns": {
     "ColumnName1": {
-      "sequence": 0,
-      "type": "time"
+      "type": "time",
+      "sequence": 0
     },
     "ColumnName2": {
-      "sequence": 0,
-      "type": "time"
+      "type": "time",
+      "sequence": 0
     }
   },
   "locale": "fr-FR",
@@ -140,12 +140,12 @@ This operation does not require authentication
 {
   "columns": {
     "ColumnName1": {
-      "sequence": 0,
-      "type": "time"
+      "type": "time",
+      "sequence": 0
     },
     "ColumnName2": {
-      "sequence": 0,
-      "type": "time"
+      "type": "time",
+      "sequence": 0
     }
   },
   "locale": "fr-FR",
@@ -164,129 +164,115 @@ Applications may add their own global properties. It is suggested that each appl
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|columns|object|true|none|Object with a key for each column name used in the Meals CSV file|
-|» **additionalProperties**|[column](#schemacolumn)|false|none|none|
-|locale|string|true|none|none|
-|timezone|string|false|none|none|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|columns|object|true|Object with a key for each column name used in the Meals CSV file|
+|» **additionalProperties**|[columnDefinition](#schemacolumndefinition)|false|Maps the standard fields to the specified column name|
+|locale|string|true|none|
+|timezone|string|false|none|
 
-<h2 id="tocS_column">column</h2>
+<h2 id="tocS_columnDefinition">columnDefinition</h2>
 
-<a id="schemacolumn"></a>
-<a id="schema_column"></a>
-<a id="tocScolumn"></a>
-<a id="tocscolumn"></a>
-
-```json
-{
-  "sequence": 0,
-  "type": "time"
-}
-
-```
-
-### Properties
-
-oneOf
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[timeColumn](#schematimecolumn)|false|none|none|
-
-xor
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[mealColumn](#schemamealcolumn)|false|none|none|
-
-xor
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[recipeColumn](#schemarecipecolumn)|false|none|none|
-
-xor
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[foodColumn](#schemafoodcolumn)|false|none|none|
-
-xor
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[enteredQuantityColumn](#schemaenteredquantitycolumn)|false|none|none|
-
-xor
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[enteredUnitColumn](#schemaenteredunitcolumn)|false|none|none|
-
-xor
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[quantityColumn](#schemaquantitycolumn)|false|none|none|
-
-xor
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[unitColumn](#schemaunitcolumn)|false|none|none|
-
-xor
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[facetColumn](#schemafacetcolumn)|false|none|none|
-
-xor
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[sourceColumn](#schemasourcecolumn)|false|none|none|
-
-xor
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[codeColumn](#schemacodecolumn)|false|none|none|
-
-xor
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[imageColumn](#schemaimagecolumn)|false|none|none|
-
-xor
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[customColumn](#schemacustomcolumn)|false|none|Application properties that are specific to the individual meal. It is suggested that each application adds one code for each custom column using a URI owned by that application. This URI would ideally point to a JSON Schema document describing the structure of the custom type, but this is not essential.|
-
-<h2 id="tocS_baseColumn">baseColumn</h2>
-
-<a id="schemabasecolumn"></a>
-<a id="schema_baseColumn"></a>
-<a id="tocSbasecolumn"></a>
-<a id="tocsbasecolumn"></a>
+<a id="schemacolumndefinition"></a>
+<a id="schema_columnDefinition"></a>
+<a id="tocScolumndefinition"></a>
+<a id="tocscolumndefinition"></a>
 
 ```json
 {
+  "type": "time",
   "sequence": 0
 }
 
 ```
 
-baseColumn
+columnDefinition
+
+Maps the standard fields to the specified column name
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|sequence|integer|false|none|The column number when exporting as CSV|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|columnDefinition|any|false|Maps the standard fields to the specified column name|
+
+oneOf
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|*anonymous*|[timeColumn](#schematimecolumn)|false|none|
+
+xor
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|*anonymous*|[mealColumn](#schemamealcolumn)|false|none|
+
+xor
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|*anonymous*|[recipeColumn](#schemarecipecolumn)|false|none|
+
+xor
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|*anonymous*|[foodColumn](#schemafoodcolumn)|false|none|
+
+xor
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|*anonymous*|[enteredQuantityColumn](#schemaenteredquantitycolumn)|false|none|
+
+xor
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|*anonymous*|[enteredUnitColumn](#schemaenteredunitcolumn)|false|none|
+
+xor
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|*anonymous*|[quantityColumn](#schemaquantitycolumn)|false|none|
+
+xor
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|*anonymous*|[unitColumn](#schemaunitcolumn)|false|none|
+
+xor
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|*anonymous*|[facetColumn](#schemafacetcolumn)|false|none|
+
+xor
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|*anonymous*|[sourceColumn](#schemasourcecolumn)|false|none|
+
+xor
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|*anonymous*|[codeColumn](#schemacodecolumn)|false|none|
+
+xor
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|*anonymous*|[imageColumn](#schemaimagecolumn)|false|none|
+
+xor
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|*anonymous*|[customColumn](#schemacustomcolumn)|false|Application properties that are specific to the individual meal. It is suggested that each application adds one code for each custom column using a URI owned by that application. This URI would ideally point to a JSON Schema document describing the structure of the custom type, but this is not essential.|
 
 <h2 id="tocS_timeColumn">timeColumn</h2>
 
@@ -297,8 +283,8 @@ baseColumn
 
 ```json
 {
-  "sequence": 0,
-  "type": "time"
+  "type": "time",
+  "sequence": 0
 }
 
 ```
@@ -307,22 +293,10 @@ timeColumn
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|timeColumn|any|false|none|none|
-
-allOf
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[baseColumn](#schemabasecolumn)|false|none|none|
-
-and
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|object|false|none|none|
-|» type|any|false|none|none|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|type|"time"|true|none|
+|sequence|[sequence](#schemasequence)|false|The column number when exporting as CSV|
 
 <h2 id="tocS_mealColumn">mealColumn</h2>
 
@@ -333,12 +307,12 @@ and
 
 ```json
 {
-  "sequence": 0,
   "type": "meal",
   "values": {
     "property1": "breakfast",
     "property2": "breakfast"
-  }
+  },
+  "sequence": 0
 }
 
 ```
@@ -347,24 +321,12 @@ mealColumn
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|mealColumn|any|false|none|none|
-
-allOf
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[baseColumn](#schemabasecolumn)|false|none|none|
-
-and
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|object|false|none|none|
-|» type|any|false|none|none|
-|» values|object|false|none|none|
-|»» **additionalProperties**|[mealType](#schemamealtype)|false|none|none|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|type|"meal"|true|none|
+|values|object|true|none|
+|» **additionalProperties**|[mealType](#schemamealtype)|false|none|
+|sequence|[sequence](#schemasequence)|false|The column number when exporting as CSV|
 
 <h2 id="tocS_mealType">mealType</h2>
 
@@ -382,9 +344,9 @@ mealType
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|mealType|any|false|none|none|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|mealType|any|false|none|
 
 #### Enumerated Values
 
@@ -412,8 +374,8 @@ mealType
 
 ```json
 {
-  "sequence": 0,
-  "type": "recipe"
+  "type": "recipe",
+  "sequence": 0
 }
 
 ```
@@ -422,22 +384,10 @@ recipeColumn
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|recipeColumn|any|false|none|none|
-
-allOf
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[baseColumn](#schemabasecolumn)|false|none|none|
-
-and
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|object|false|none|none|
-|» type|any|false|none|none|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|type|"recipe"|true|none|
+|sequence|[sequence](#schemasequence)|false|The column number when exporting as CSV|
 
 <h2 id="tocS_foodColumn">foodColumn</h2>
 
@@ -448,8 +398,8 @@ and
 
 ```json
 {
-  "sequence": 0,
-  "type": "food"
+  "type": "food",
+  "sequence": 0
 }
 
 ```
@@ -458,22 +408,10 @@ foodColumn
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|foodColumn|any|false|none|none|
-
-allOf
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[baseColumn](#schemabasecolumn)|false|none|none|
-
-and
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|object|false|none|none|
-|» type|any|false|none|none|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|type|"food"|true|none|
+|sequence|[sequence](#schemasequence)|false|The column number when exporting as CSV|
 
 <h2 id="tocS_enteredQuantityColumn">enteredQuantityColumn</h2>
 
@@ -484,8 +422,8 @@ and
 
 ```json
 {
-  "sequence": 0,
-  "type": "entered_quantity"
+  "type": "entered_quantity",
+  "sequence": 0
 }
 
 ```
@@ -494,22 +432,10 @@ enteredQuantityColumn
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|enteredQuantityColumn|any|false|none|none|
-
-allOf
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[baseColumn](#schemabasecolumn)|false|none|none|
-
-and
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|object|false|none|none|
-|» type|any|false|none|none|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|type|"entered_quantity"|true|none|
+|sequence|[sequence](#schemasequence)|false|The column number when exporting as CSV|
 
 <h2 id="tocS_enteredUnitColumn">enteredUnitColumn</h2>
 
@@ -520,8 +446,8 @@ and
 
 ```json
 {
-  "sequence": 0,
-  "type": "entered_unit"
+  "type": "entered_unit",
+  "sequence": 0
 }
 
 ```
@@ -530,22 +456,10 @@ enteredUnitColumn
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|enteredUnitColumn|any|false|none|none|
-
-allOf
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[baseColumn](#schemabasecolumn)|false|none|none|
-
-and
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|object|false|none|none|
-|» type|any|false|none|none|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|type|"entered_unit"|true|none|
+|sequence|[sequence](#schemasequence)|false|The column number when exporting as CSV|
 
 <h2 id="tocS_quantityColumn">quantityColumn</h2>
 
@@ -556,8 +470,8 @@ and
 
 ```json
 {
-  "sequence": 0,
-  "type": "quantity"
+  "type": "quantity",
+  "sequence": 0
 }
 
 ```
@@ -566,22 +480,10 @@ quantityColumn
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|quantityColumn|any|false|none|none|
-
-allOf
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[baseColumn](#schemabasecolumn)|false|none|none|
-
-and
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|object|false|none|none|
-|» type|any|false|none|none|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|type|"quantity"|true|none|
+|sequence|[sequence](#schemasequence)|false|The column number when exporting as CSV|
 
 <h2 id="tocS_unitColumn">unitColumn</h2>
 
@@ -592,8 +494,8 @@ and
 
 ```json
 {
-  "sequence": 0,
-  "type": "unit"
+  "type": "unit",
+  "sequence": 0
 }
 
 ```
@@ -602,22 +504,10 @@ unitColumn
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|unitColumn|any|false|none|none|
-
-allOf
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[baseColumn](#schemabasecolumn)|false|none|none|
-
-and
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|object|false|none|none|
-|» type|any|false|none|none|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|type|"unit"|true|none|
+|sequence|[sequence](#schemasequence)|false|The column number when exporting as CSV|
 
 <h2 id="tocS_facetColumn">facetColumn</h2>
 
@@ -628,10 +518,10 @@ and
 
 ```json
 {
-  "sequence": 0,
   "type": "facet",
   "code": "acidity",
-  "factor": 0
+  "factor": 0,
+  "sequence": 0
 }
 
 ```
@@ -640,24 +530,12 @@ facetColumn
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|facetColumn|any|false|none|none|
-
-allOf
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[baseColumn](#schemabasecolumn)|false|none|none|
-
-and
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|object|false|none|none|
-|» type|any|false|none|none|
-|» code|[facetCode](#schemafacetcode)|true|none|none|
-|» factor|integer|false|none|none|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|type|"facet"|true|none|
+|code|[facetCode](#schemafacetcode)|true|none|
+|factor|integer|false|none|
+|sequence|[sequence](#schemasequence)|false|The column number when exporting as CSV|
 
 <h2 id="tocS_facetCode">facetCode</h2>
 
@@ -675,9 +553,9 @@ facetCode
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|facetCode|any|false|none|none|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|facetCode|any|false|none|
 
 #### Enumerated Values
 
@@ -841,7 +719,6 @@ facetCode
 
 ```json
 {
-  "sequence": 0,
   "type": "source",
   "values": {
     "property1": {
@@ -852,7 +729,8 @@ facetCode
       "source": "gtin",
       "location": "string"
     }
-  }
+  },
+  "sequence": 0
 }
 
 ```
@@ -861,24 +739,12 @@ sourceColumn
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|sourceColumn|any|false|none|none|
-
-allOf
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[baseColumn](#schemabasecolumn)|false|none|none|
-
-and
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|object|false|none|none|
-|» type|any|false|none|none|
-|» values|object|true|none|none|
-|»» **additionalProperties**|[sourceValue](#schemasourcevalue)|false|none|none|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|type|"source"|true|none|
+|values|object|true|none|
+|» **additionalProperties**|[sourceValue](#schemasourcevalue)|false|none|
+|sequence|[sequence](#schemasequence)|false|The column number when exporting as CSV|
 
 <h2 id="tocS_sourceValue">sourceValue</h2>
 
@@ -899,10 +765,10 @@ sourceValue
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|source|[sourceType](#schemasourcetype)|true|none|none|
-|location|string|false|none|none|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|source|[sourceType](#schemasourcetype)|true|none|
+|location|string|false|none|
 
 <h2 id="tocS_sourceType">sourceType</h2>
 
@@ -920,9 +786,9 @@ sourceType
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|sourceType|any|false|none|none|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|sourceType|any|false|none|
 
 #### Enumerated Values
 
@@ -940,8 +806,8 @@ sourceType
 
 ```json
 {
-  "sequence": 0,
-  "type": "code"
+  "type": "code",
+  "sequence": 0
 }
 
 ```
@@ -950,22 +816,10 @@ codeColumn
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|codeColumn|any|false|none|none|
-
-allOf
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[baseColumn](#schemabasecolumn)|false|none|none|
-
-and
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|object|false|none|none|
-|» type|any|false|none|none|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|type|"code"|true|none|
+|sequence|[sequence](#schemasequence)|false|The column number when exporting as CSV|
 
 <h2 id="tocS_imageColumn">imageColumn</h2>
 
@@ -976,8 +830,8 @@ and
 
 ```json
 {
-  "sequence": 0,
-  "type": "image"
+  "type": "image",
+  "sequence": 0
 }
 
 ```
@@ -986,22 +840,10 @@ imageColumn
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|imageColumn|any|false|none|none|
-
-allOf
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[baseColumn](#schemabasecolumn)|false|none|none|
-
-and
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|object|false|none|none|
-|» type|any|false|none|none|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|type|"image"|true|none|
+|sequence|[sequence](#schemasequence)|false|The column number when exporting as CSV|
 
 <h2 id="tocS_customColumn">customColumn</h2>
 
@@ -1012,9 +854,9 @@ and
 
 ```json
 {
-  "sequence": 0,
   "type": "custom",
-  "code": "string"
+  "code": "string",
+  "sequence": 0
 }
 
 ```
@@ -1025,19 +867,33 @@ Application properties that are specific to the individual meal. It is suggested
 
 ### Properties
 
-allOf
+|Name|Type|Required|Description|
+|---|---|---|---|
+|type|"custom"|true|none|
+|code|string|true|none|
+|sequence|[sequence](#schemasequence)|false|The column number when exporting as CSV|
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[baseColumn](#schemabasecolumn)|false|none|none|
+<h2 id="tocS_sequence">sequence</h2>
 
-and
+<a id="schemasequence"></a>
+<a id="schema_sequence"></a>
+<a id="tocSsequence"></a>
+<a id="tocssequence"></a>
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|object|false|none|none|
-|» type|any|false|none|none|
-|» code|string|true|none|none|
+```json
+0
+
+```
+
+Column sequence
+
+The column number when exporting as CSV
+
+### Properties
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|Column sequence|integer|false|The column number when exporting as CSV|
 
 <h2 id="tocS_meal">meal</h2>
 
@@ -1075,24 +931,24 @@ meal
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|id|string(uuid)|false|none|none|
-|time|string(date-time)|false|none|none|
-|meal|[mealType](#schemamealtype)|false|none|none|
-|recipe|string|false|none|none|
-|food|string|false|none|none|
-|entered_quantity|number|false|none|none|
-|entered_unit|string|false|none|none|
-|quantity|number|false|none|none|
-|unit|any|false|none|none|
-|facets|[object]|false|none|none|
-|» code|[facetCode](#schemafacetcode)|true|none|none|
-|» value|number|true|none|none|
-|source|[sourceType](#schemasourcetype)|false|none|none|
-|location|string|false|none|none|
-|code|string|false|none|none|
-|image|string|false|none|none|
+|Name|Type|Required|Description|
+|---|---|---|---|
+|id|string(uuid)|false|none|
+|time|string(date-time)|false|none|
+|meal|[mealType](#schemamealtype)|false|none|
+|recipe|string|false|none|
+|food|string|false|none|
+|entered_quantity|number|false|none|
+|entered_unit|string|false|none|
+|quantity|number|false|none|
+|unit|any|false|none|
+|facets|[object]|false|none|
+|» code|[facetCode](#schemafacetcode)|true|none|
+|» value|number|true|none|
+|source|[sourceType](#schemasourcetype)|false|none|
+|location|string|false|none|
+|code|string|false|none|
+|image|string|false|none|
 
 #### Enumerated Values
 

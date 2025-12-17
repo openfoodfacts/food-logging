@@ -54,7 +54,7 @@ components:
           description: |
             Object with a key for each column name used in the Meals CSV file
           additionalProperties:
-            $ref: '#/components/schemas/column'
+            $ref: '#/components/schemas/columnDefinition'
         locale:
           type: string
           pattern: ^[a-z]{2}-[A-Z]{2}$
@@ -69,7 +69,9 @@ components:
         - columns
         - locale
       additionalProperties: true
-    column:
+    columnDefinition:
+      title: columnDefinition
+      description: Maps the standard fields to the specified column name
       x-additionalPropertiesName: ColumnName
       oneOf:
         - $ref: '#/components/schemas/timeColumn'
@@ -85,36 +87,31 @@ components:
         - $ref: '#/components/schemas/codeColumn'
         - $ref: '#/components/schemas/imageColumn'
         - $ref: '#/components/schemas/customColumn'
-    baseColumn:
-      title: baseColumn
-      type: object
-      properties:
-        sequence:
-          title: Column sequence
-          description: The column number when exporting as CSV
-          type: integer
-      required:
-        - type
     timeColumn:
       title: timeColumn
-      allOf:
-        - $ref: '#/components/schemas/baseColumn'
-        - properties:
-            type:
-              const: time
-      unevaluatedProperties: false
+      properties:
+        type:
+          const: time
+        sequence:
+          $ref: '#/components/schemas/sequence'
+      required:
+        - type
+      additionalProperties: false
     mealColumn:
       title: mealColumn
-      allOf:
-        - $ref: '#/components/schemas/baseColumn'
-        - properties:
-            type:
-              const: meal
-            values:
-              type: object
-              additionalProperties:
-                $ref: '#/components/schemas/mealType'
-      unevaluatedProperties: false
+      properties:
+        type:
+          const: meal
+        values:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/mealType'
+        sequence:
+          $ref: '#/components/schemas/sequence'
+      required:
+        - type
+        - values
+      additionalProperties: false
     mealType:
       title: mealType
       enum:
@@ -132,67 +129,79 @@ components:
         - daily
     recipeColumn:
       title: recipeColumn
-      allOf:
-        - $ref: '#/components/schemas/baseColumn'
-        - properties:
-            type:
-              const: recipe
-      unevaluatedProperties: false
+      properties:
+        type:
+          const: recipe
+        sequence:
+          $ref: '#/components/schemas/sequence'
+      required:
+        - type
+      additionalProperties: false
     foodColumn:
       title: foodColumn
-      allOf:
-        - $ref: '#/components/schemas/baseColumn'
-        - properties:
-            type:
-              const: food
-      unevaluatedProperties: false
+      properties:
+        type:
+          const: food
+        sequence:
+          $ref: '#/components/schemas/sequence'
+      required:
+        - type
+      additionalProperties: false
     enteredQuantityColumn:
       title: enteredQuantityColumn
-      allOf:
-        - $ref: '#/components/schemas/baseColumn'
-        - properties:
-            type:
-              const: entered_quantity
-      unevaluatedProperties: false
+      properties:
+        type:
+          const: entered_quantity
+        sequence:
+          $ref: '#/components/schemas/sequence'
+      required:
+        - type
+      additionalProperties: false
     enteredUnitColumn:
       title: enteredUnitColumn
-      allOf:
-        - $ref: '#/components/schemas/baseColumn'
-        - properties:
-            type:
-              const: entered_unit
-      unevaluatedProperties: false
+      properties:
+        type:
+          const: entered_unit
+        sequence:
+          $ref: '#/components/schemas/sequence'
+      required:
+        - type
+      additionalProperties: false
     quantityColumn:
       title: quantityColumn
-      allOf:
-        - $ref: '#/components/schemas/baseColumn'
-        - properties:
-            type:
-              const: quantity
-      unevaluatedProperties: false
+      properties:
+        type:
+          const: quantity
+        sequence:
+          $ref: '#/components/schemas/sequence'
+      required:
+        - type
+      additionalProperties: false
     unitColumn:
       title: unitColumn
-      allOf:
-        - $ref: '#/components/schemas/baseColumn'
-        - properties:
-            type:
-              const: unit
-      unevaluatedProperties: false
+      properties:
+        type:
+          const: unit
+        sequence:
+          $ref: '#/components/schemas/sequence'
+      required:
+        - type
+      additionalProperties: false
     facetColumn:
       title: facetColumn
-      allOf:
-        - $ref: '#/components/schemas/baseColumn'
-        - properties:
-            type:
-              const: facet
-            code:
-              $ref: '#/components/schemas/facetCode'
-            factor:
-              type: integer
-          title: Facet
-          required:
-            - code
-      unevaluatedProperties: false
+      properties:
+        type:
+          const: facet
+        code:
+          $ref: '#/components/schemas/facetCode'
+        factor:
+          type: integer
+        sequence:
+          $ref: '#/components/schemas/sequence'
+      required:
+        - type
+        - code
+      additionalProperties: false
     facetCode:
       title: facetCode
       enum:
@@ -346,18 +355,19 @@ components:
         - zinc-sulphate-monohydrate
     sourceColumn:
       title: sourceColumn
-      allOf:
-        - $ref: '#/components/schemas/baseColumn'
-        - properties:
-            type:
-              const: source
-            values:
-              type: object
-              additionalProperties:
-                $ref: '#/components/schemas/sourceValue'
-          required:
-            - values
-      unevaluatedProperties: false
+      properties:
+        type:
+          const: source
+        values:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/sourceValue'
+        sequence:
+          $ref: '#/components/schemas/sequence'
+      required:
+        - type
+        - values
+      additionalProperties: false
     sourceValue:
       title: sourceValue
       type: object
@@ -375,34 +385,43 @@ components:
         - plu
     codeColumn:
       title: codeColumn
-      allOf:
-        - $ref: '#/components/schemas/baseColumn'
-        - properties:
-            type:
-              const: code
-      unevaluatedProperties: false
+      properties:
+        type:
+          const: code
+        sequence:
+          $ref: '#/components/schemas/sequence'
+      required:
+        - type
+      additionalProperties: false
     imageColumn:
       title: imageColumn
-      allOf:
-        - $ref: '#/components/schemas/baseColumn'
-        - properties:
-            type:
-              const: image
-      unevaluatedProperties: false
+      properties:
+        type:
+          const: image
+        sequence:
+          $ref: '#/components/schemas/sequence'
+      required:
+        - type
+      additionalProperties: false
     customColumn:
       title: customColumn
       description: |
         Application properties that are specific to the individual meal. It is suggested that each application adds one code for each custom column using a URI owned by that application. This URI would ideally point to a JSON Schema document describing the structure of the custom type, but this is not essential.
-      allOf:
-        - $ref: '#/components/schemas/baseColumn'
-        - properties:
-            type:
-              const: custom
-            code:
-              type: string
-          required:
-            - code
+      properties:
+        type:
+          const: custom
+        code:
+          type: string
+        sequence:
+          $ref: '#/components/schemas/sequence'
+      required:
+        - type
+        - code
       additionalProperties: true
+    sequence:
+      title: Column sequence
+      description: The column number when exporting as CSV
+      type: integer
     meal:
       type: object
       title: meal

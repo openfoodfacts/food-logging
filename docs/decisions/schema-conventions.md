@@ -39,3 +39,7 @@ It looks like the Python `datamodel-codegen` tool doesn't recognize additionalPr
 To work around this the documentation for additionalProperties is included in the root of the schema.
 
 Also it was found that widdershins coped better if the schema for additionalProperties was included as a reference rather than inline.
+
+## Inheritance
+
+Originally a baseColumn object was introduced to handle the common column properties (sequence). However the `datamodel-codegen` tool doesn't recognize `unevaluatedProperties` and such trivial inheritance also makes the auto-generated docs quite messy so instead the sequence is repeated on each column definition.
