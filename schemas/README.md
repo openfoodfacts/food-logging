@@ -1,15 +1,11 @@
 
 <h1 id="food-consumption-logging-data-exchange">Food Consumption Logging Data Exchange v0.0.1</h1>
 
-> Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
-
 The reason for developing a standard for food logging data exchange is to ensure that people are not locked in to a single application once they start logging food data. For example, they might want to switch to a different application for logging, use another application to analyze their food logging history or supply data to a third party, such as researchers or medical practitioners.
 
-<h1 id="food-consumption-logging-data-exchange-default">Default</h1>
+<h1 id="food-consumption-logging-data-exchange-default">Methods</h1>
 
-## get__metadata
-
-`GET /metadata`
+## GET /metadata
 
 > Example responses
 
@@ -39,9 +35,7 @@ The reason for developing a standard for food logging data exchange is to ensure
 This operation does not require authentication
 </aside>
 
-## put__metadata
-
-`PUT /metadata`
+## PUT /metadata
 
 > Body parameter
 
@@ -75,9 +69,7 @@ This operation does not require authentication
 This operation does not require authentication
 </aside>
 
-## post__meals
-
-`POST /meals`
+## POST /meals
 
 > Body parameter
 
@@ -140,6 +132,12 @@ This operation does not require authentication
 <a id="tocSmetadata"></a>
 <a id="tocsmetadata"></a>
 
+Metadata provides a translation between the human readable column names and enumerations used in a Meals CSV file and standardized representations of these. Applications with limited user-customization could potentially hard-code their Metadata (per user language supported) if their exports always include the same standard column names.
+
+The main component of the Metadata is the "columns" property which is a single object with a key for each column name mentioned in a Meals CSV file. The value associated with each column is an object whose "type" column will determine the standardized property the column represents. Additional attributes, specific to the type, will identify other data relevant to that property, e.g. the standard nutrient code and unit for a "facet" column.
+
+Applications may add their own global properties. It is suggested that each application adds just one root property using a URI owned by that application as the key name. This URI would ideally point to a JSON Schema document describing the structure of the custom properties, but this is not essential.
+
 ```json
 {
   "columns": {
@@ -154,15 +152,6 @@ This operation does not require authentication
 }
 
 ```
-
-metadata
-
-Metadata provides a translation between the human readable column names and enumerations used in a Meals CSV file and standardized representations of these. Applications with limited user-customization could potentially hard-code their Metadata (per user language supported) if their exports always include the same standard column names.
-
-The main component of the Metadata is the "columns" property which is a single object with a key for each column name mentioned in a Meals CSV file. The value associated with each column is an object whose "type" column will determine the standardized property the column represents. Additional attributes, specific to the type, will identify other data relevant to that property, e.g. the standard nutrient code and unit for a "facet" column.
-
-Applications may add their own global properties. It is suggested that each application adds just one root property using a URI owned by that application as the key name. This URI would ideally point to a JSON Schema document describing the structure of the custom properties, but this is not essential.
-
 ### Properties
 
 |Name|Type|Required|Description|
@@ -179,17 +168,14 @@ Applications may add their own global properties. It is suggested that each appl
 <a id="tocScolumndefinition"></a>
 <a id="tocscolumndefinition"></a>
 
+Maps the standard fields to the specified column name
+
 ```json
 {
   "type": "time"
 }
 
 ```
-
-columnDefinition
-
-Maps the standard fields to the specified column name
-
 ### Properties
 
 |Name|Type|Required|Description|
@@ -281,17 +267,14 @@ xor
 <a id="tocStimecolumn"></a>
 <a id="tocstimecolumn"></a>
 
+The time that the meal was consumed
+
 ```json
 {
   "type": "time"
 }
 
 ```
-
-timeColumn
-
-The time that the meal was consumed
-
 ### Properties
 
 |Name|Type|Required|Description|
@@ -306,6 +289,10 @@ The time that the meal was consumed
 <a id="tocSmealcolumn"></a>
 <a id="tocsmealcolumn"></a>
 
+The different meal type names used, keyed with the value used in the CSV file.
+
+Note the "daily" item refers to entries where the user has just recorded overall consumption throughout the day, e.g. 6 cups of coffee
+
 ```json
 {
   "type": "meal",
@@ -317,13 +304,6 @@ The time that the meal was consumed
 }
 
 ```
-
-mealColumn
-
-The different meal type names used, keyed with the value used in the CSV file.
-
-Note the "daily" item refers to entries where the user has just recorded overall consumption throughout the day, e.g. 6 cups of coffee
-
 ### Properties
 
 |Name|Type|Required|Description|
@@ -340,37 +320,27 @@ Note the "daily" item refers to entries where the user has just recorded overall
 <a id="tocSmealtype"></a>
 <a id="tocsmealtype"></a>
 
+Standardized identifier for the kind of meal, derived from [here](https://en.wikipedia.org/wiki/Outline_of_meals)
+
 ```json
 "breakfast"
 
 ```
 
-mealType
+## Enumerated Values
 
-Standardized identifier for the kind of meal, derived from [here](https://en.wikipedia.org/wiki/Outline_of_meals)
-
-### Properties
-
-|Name|Type|Required|Description|
-|---|---|---|---|
-|mealType|any|false|Standardized identifier for the kind of meal, derived from [here](https://en.wikipedia.org/wiki/Outline_of_meals)|
-
-#### Enumerated Values
-
-|Property|Value|
-|---|---|
-|mealType|breakfast|
-|mealType|second-breakfast|
-|mealType|brunch|
-|mealType|elevenses|
-|mealType|lunch|
-|mealType|tea|
-|mealType|dinner|
-|mealType|supper|
-|mealType|high-tea|
-|mealType|siu-yeh|
-|mealType|snack|
-|mealType|daily|
+* breakfast
+* second-breakfast
+* brunch
+* elevenses
+* lunch
+* tea
+* dinner
+* supper
+* high-tea
+* siu-yeh
+* snack
+* daily
 
 <h2 id="tocS_recipeColumn">recipeColumn</h2>
 
@@ -379,17 +349,14 @@ Standardized identifier for the kind of meal, derived from [here](https://en.wik
 <a id="tocSrecipecolumn"></a>
 <a id="tocsrecipecolumn"></a>
 
+The name of a Recipe used that links multiple related Foods in the Meal
+
 ```json
 {
   "type": "recipe"
 }
 
 ```
-
-recipeColumn
-
-The name of a Recipe used that links multiple related Foods in the Meal
-
 ### Properties
 
 |Name|Type|Required|Description|
@@ -404,17 +371,14 @@ The name of a Recipe used that links multiple related Foods in the Meal
 <a id="tocSfoodcolumn"></a>
 <a id="tocsfoodcolumn"></a>
 
+The name of the Food as it was presented to the user when they selected it from the Source
+
 ```json
 {
   "type": "food"
 }
 
 ```
-
-foodColumn
-
-The name of the Food as it was presented to the user when they selected it from the Source
-
 ### Properties
 
 |Name|Type|Required|Description|
@@ -429,17 +393,14 @@ The name of the Food as it was presented to the user when they selected it from 
 <a id="tocSenteredquantitycolumn"></a>
 <a id="tocsenteredquantitycolumn"></a>
 
+The amount of the Food that the user recorded in the specified "entered_unit". Formatted as a [JSON number](https://www.rfc-editor.org/rfc/rfc8259#page-7)
+
 ```json
 {
   "type": "entered_quantity"
 }
 
 ```
-
-enteredQuantityColumn
-
-The amount of the Food that the user recorded in the specified "entered_unit". Formatted as a [JSON number](https://www.rfc-editor.org/rfc/rfc8259#page-7)
-
 ### Properties
 
 |Name|Type|Required|Description|
@@ -454,17 +415,14 @@ The amount of the Food that the user recorded in the specified "entered_unit". F
 <a id="tocSenteredunitcolumn"></a>
 <a id="tocsenteredunitcolumn"></a>
 
+The unit used when recording the quantity of Food. This is a free format string in the end-user's language
+
 ```json
 {
   "type": "unit"
 }
 
 ```
-
-enteredUnitColumn
-
-The unit used when recording the quantity of Food. This is a free format string in the end-user's language
-
 ### Properties
 
 |Name|Type|Required|Description|
@@ -479,17 +437,14 @@ The unit used when recording the quantity of Food. This is a free format string 
 <a id="tocSquantitycolumn"></a>
 <a id="tocsquantitycolumn"></a>
 
+The amount of the Food in normalized units (grams for weight, milliliters for volume). Formatted as a [JSON number](https://www.rfc-editor.org/rfc/rfc8259#page-7)
+
 ```json
 {
   "type": "quantity"
 }
 
 ```
-
-quantityColumn
-
-The amount of the Food in normalized units (grams for weight, milliliters for volume). Formatted as a [JSON number](https://www.rfc-editor.org/rfc/rfc8259#page-7)
-
 ### Properties
 
 |Name|Type|Required|Description|
@@ -504,17 +459,14 @@ The amount of the Food in normalized units (grams for weight, milliliters for vo
 <a id="tocSunitcolumn"></a>
 <a id="tocsunitcolumn"></a>
 
+The normalized unit type. "g" for weight or "ml" for volume. Not localized. This should match the unit used in the Source.
+
 ```json
 {
   "type": "unit"
 }
 
 ```
-
-unitColumn
-
-The normalized unit type. "g" for weight or "ml" for volume. Not localized. This should match the unit used in the Source.
-
 ### Properties
 
 |Name|Type|Required|Description|
@@ -529,6 +481,8 @@ The normalized unit type. "g" for weight or "ml" for volume. Not localized. This
 <a id="tocSfacetcolumn"></a>
 <a id="tocsfacetcolumn"></a>
 
+A particular facet of the food, typically a nutrient
+
 ```json
 {
   "type": "facet",
@@ -536,11 +490,6 @@ The normalized unit type. "g" for weight or "ml" for volume. Not localized. This
 }
 
 ```
-
-facetColumn
-
-A particular facet of the food, typically a nutrient
-
 ### Properties
 
 |Name|Type|Required|Description|
@@ -557,173 +506,163 @@ A particular facet of the food, typically a nutrient
 <a id="tocSfacetcode"></a>
 <a id="tocsfacetcode"></a>
 
+Standard identifier for the facet, typically a nutrient
+
 ```json
 "acidity"
 
 ```
 
-facetCode
+## Enumerated Values
 
-Standard identifier for the facet, typically a nutrient
-
-### Properties
-
-|Name|Type|Required|Description|
-|---|---|---|---|
-|facetCode|any|false|Standard identifier for the facet, typically a nutrient|
-
-#### Enumerated Values
-
-|Property|Value|
-|---|---|
-|facetCode|acidity|
-|facetCode|added-salt|
-|facetCode|added-sugars|
-|facetCode|alcohol|
-|facetCode|alpha-linolenic-acid|
-|facetCode|ammonium-chloride|
-|facetCode|arachidic-acid|
-|facetCode|arachidonic-acid|
-|facetCode|bcaa|
-|facetCode|behenic-acid|
-|facetCode|beta-alanine|
-|facetCode|beta-carotene|
-|facetCode|beta-glucan|
-|facetCode|bicarbonate|
-|facetCode|biotin|
-|facetCode|butyric-acid|
-|facetCode|caffeine|
-|facetCode|calcium|
-|facetCode|calcium-iodate-anhydrous|
-|facetCode|capric-acid|
-|facetCode|caproic-acid|
-|facetCode|caprylic-acid|
-|facetCode|carbohydrates|
-|facetCode|carbohydrates-total|
-|facetCode|carbon-footprint|
-|facetCode|carnitine|
-|facetCode|casein|
-|facetCode|cassia-gum|
-|facetCode|cerotic-acid|
-|facetCode|chloride|
-|facetCode|chlorophyl|
-|facetCode|cholesterol|
-|facetCode|choline|
-|facetCode|choline-chloride|
-|facetCode|chromium|
-|facetCode|copper|
-|facetCode|copper-ii-sulphate-pentahydrate|
-|facetCode|creatine|
-|facetCode|dihomo-gamma-linolenic-acid|
-|facetCode|docosahexaenoic-acid|
-|facetCode|dry-residue|
-|facetCode|eicosapentaenoic-acid|
-|facetCode|elaidic-acid|
-|facetCode|energy|
-|facetCode|energy-from-fat|
-|facetCode|energy-kcal|
-|facetCode|energy-kj|
-|facetCode|erucic-acid|
-|facetCode|erythritol|
-|facetCode|fat|
-|facetCode|fiber|
-|facetCode|fluoride|
-|facetCode|folates|
-|facetCode|fructose|
-|facetCode|galactose|
-|facetCode|gamma-linolenic-acid|
-|facetCode|gamma-oryzanol|
-|facetCode|glucose|
-|facetCode|glycemic-index|
-|facetCode|gondoic-acid|
-|facetCode|hydrogencarbonate|
-|facetCode|inositol|
-|facetCode|insoluble-fiber|
-|facetCode|iodine|
-|facetCode|iron|
-|facetCode|iron-ii-sulphate-monohydrate|
-|facetCode|isomalt|
-|facetCode|l-arginine|
-|facetCode|l-citrulline|
-|facetCode|l-cysteine|
-|facetCode|l-glutamine|
-|facetCode|l-glutathione|
-|facetCode|l-isoleucine|
-|facetCode|l-leucine|
-|facetCode|l-valine|
-|facetCode|lactose|
-|facetCode|lauric-acid|
-|facetCode|lignoceric-acid|
-|facetCode|linoleic-acid|
-|facetCode|magnesium|
-|facetCode|maltitol|
-|facetCode|maltodextrins|
-|facetCode|maltose|
-|facetCode|manganese|
-|facetCode|manganous-sulphate-monohydrate|
-|facetCode|mead-acid|
-|facetCode|melatonin|
-|facetCode|melissic-acid|
-|facetCode|methylsulfonylmethane|
-|facetCode|molybdenum|
-|facetCode|monounsaturated-fat|
-|facetCode|montanic-acid|
-|facetCode|myristic-acid|
-|facetCode|nervonic-acid|
-|facetCode|nitrate|
-|facetCode|nitrite|
-|facetCode|nucleotides|
-|facetCode|oleic-acid|
-|facetCode|oligosaccharide|
-|facetCode|omega-3-fat|
-|facetCode|omega-6-fat|
-|facetCode|omega-9-fat|
-|facetCode|palmitic-acid|
-|facetCode|pantothenic-acid|
-|facetCode|ph|
-|facetCode|phosphorus|
-|facetCode|phylloquinone|
-|facetCode|polydextrose|
-|facetCode|polyols|
-|facetCode|polyunsaturated-fat|
-|facetCode|potassium|
-|facetCode|potassium-iodide|
-|facetCode|protein-value|
-|facetCode|proteins|
-|facetCode|psicose|
-|facetCode|salt|
-|facetCode|saturated-fat|
-|facetCode|selenium|
-|facetCode|serum-proteins|
-|facetCode|silica|
-|facetCode|sodium|
-|facetCode|sodium-selenite|
-|facetCode|soluble-fiber|
-|facetCode|sorbitol|
-|facetCode|spermidine|
-|facetCode|starch|
-|facetCode|stearic-acid|
-|facetCode|sucrose|
-|facetCode|sugars|
-|facetCode|sulphate|
-|facetCode|taurine|
-|facetCode|trans-fat|
-|facetCode|unsaturated-fat|
-|facetCode|vitamin-a|
-|facetCode|vitamin-b1|
-|facetCode|vitamin-b12|
-|facetCode|vitamin-b2|
-|facetCode|vitamin-b6|
-|facetCode|vitamin-b9|
-|facetCode|vitamin-c|
-|facetCode|vitamin-d|
-|facetCode|vitamin-e|
-|facetCode|vitamin-k|
-|facetCode|vitamin-pp|
-|facetCode|water|
-|facetCode|water-hardness|
-|facetCode|zinc|
-|facetCode|zinc-sulphate-monohydrate|
+* acidity
+* added-salt
+* added-sugars
+* alcohol
+* alpha-linolenic-acid
+* ammonium-chloride
+* arachidic-acid
+* arachidonic-acid
+* bcaa
+* behenic-acid
+* beta-alanine
+* beta-carotene
+* beta-glucan
+* bicarbonate
+* biotin
+* butyric-acid
+* caffeine
+* calcium
+* calcium-iodate-anhydrous
+* capric-acid
+* caproic-acid
+* caprylic-acid
+* carbohydrates
+* carbohydrates-total
+* carbon-footprint
+* carnitine
+* casein
+* cassia-gum
+* cerotic-acid
+* chloride
+* chlorophyl
+* cholesterol
+* choline
+* choline-chloride
+* chromium
+* copper
+* copper-ii-sulphate-pentahydrate
+* creatine
+* dihomo-gamma-linolenic-acid
+* docosahexaenoic-acid
+* dry-residue
+* eicosapentaenoic-acid
+* elaidic-acid
+* energy
+* energy-from-fat
+* energy-kcal
+* energy-kj
+* erucic-acid
+* erythritol
+* fat
+* fiber
+* fluoride
+* folates
+* fructose
+* galactose
+* gamma-linolenic-acid
+* gamma-oryzanol
+* glucose
+* glycemic-index
+* gondoic-acid
+* hydrogencarbonate
+* inositol
+* insoluble-fiber
+* iodine
+* iron
+* iron-ii-sulphate-monohydrate
+* isomalt
+* l-arginine
+* l-citrulline
+* l-cysteine
+* l-glutamine
+* l-glutathione
+* l-isoleucine
+* l-leucine
+* l-valine
+* lactose
+* lauric-acid
+* lignoceric-acid
+* linoleic-acid
+* magnesium
+* maltitol
+* maltodextrins
+* maltose
+* manganese
+* manganous-sulphate-monohydrate
+* mead-acid
+* melatonin
+* melissic-acid
+* methylsulfonylmethane
+* molybdenum
+* monounsaturated-fat
+* montanic-acid
+* myristic-acid
+* nervonic-acid
+* nitrate
+* nitrite
+* nucleotides
+* oleic-acid
+* oligosaccharide
+* omega-3-fat
+* omega-6-fat
+* omega-9-fat
+* palmitic-acid
+* pantothenic-acid
+* ph
+* phosphorus
+* phylloquinone
+* polydextrose
+* polyols
+* polyunsaturated-fat
+* potassium
+* potassium-iodide
+* protein-value
+* proteins
+* psicose
+* salt
+* saturated-fat
+* selenium
+* serum-proteins
+* silica
+* sodium
+* sodium-selenite
+* soluble-fiber
+* sorbitol
+* spermidine
+* starch
+* stearic-acid
+* sucrose
+* sugars
+* sulphate
+* taurine
+* trans-fat
+* unsaturated-fat
+* vitamin-a
+* vitamin-b1
+* vitamin-b12
+* vitamin-b2
+* vitamin-b6
+* vitamin-b9
+* vitamin-c
+* vitamin-d
+* vitamin-e
+* vitamin-k
+* vitamin-pp
+* water
+* water-hardness
+* zinc
+* zinc-sulphate-monohydrate
 
 <h2 id="tocS_sourceColumn">sourceColumn</h2>
 
@@ -731,6 +670,10 @@ Standard identifier for the facet, typically a nutrient
 <a id="schema_sourceColumn"></a>
 <a id="tocSsourcecolumn"></a>
 <a id="tocssourcecolumn"></a>
+
+The type of Food identifier used, keyed by the value used in the Meals CSV.
+
+The value has a source and a location code, e.g. for GTIN the location code would be the [Global Location Number](https://navigator.gs1.org/gdsn/class-details?name=GLN&version=12)
 
 ```json
 {
@@ -747,13 +690,6 @@ Standard identifier for the facet, typically a nutrient
 }
 
 ```
-
-sourceColumn
-
-The type of Food identifier used, keyed by the value used in the Meals CSV.
-
-The value has a source and a location code, e.g. for GTIN the location code would be the [Global Location Number](https://navigator.gs1.org/gdsn/class-details?name=GLN&version=12)
-
 ### Properties
 
 |Name|Type|Required|Description|
@@ -770,6 +706,8 @@ The value has a source and a location code, e.g. for GTIN the location code woul
 <a id="tocSsourcevalue"></a>
 <a id="tocssourcevalue"></a>
 
+Describes where the food code came from.
+
 ```json
 {
   "source": "gtin",
@@ -777,11 +715,6 @@ The value has a source and a location code, e.g. for GTIN the location code woul
 }
 
 ```
-
-sourceValue
-
-Describes where the food code came from.
-
 ### Properties
 
 |Name|Type|Required|Description|
@@ -796,27 +729,17 @@ Describes where the food code came from.
 <a id="tocSsourcetype"></a>
 <a id="tocssourcetype"></a>
 
+The type of Food identifier used
+
 ```json
 "gtin"
 
 ```
 
-sourceType
+## Enumerated Values
 
-The type of Food identifier used
-
-### Properties
-
-|Name|Type|Required|Description|
-|---|---|---|---|
-|sourceType|any|false|The type of Food identifier used|
-
-#### Enumerated Values
-
-|Property|Value|
-|---|---|
-|sourceType|gtin|
-|sourceType|plu|
+* gtin
+* plu
 
 <h2 id="tocS_codeColumn">codeColumn</h2>
 
@@ -825,17 +748,14 @@ The type of Food identifier used
 <a id="tocScodecolumn"></a>
 <a id="tocscodecolumn"></a>
 
+The identifier for the Food in the specified Source
+
 ```json
 {
   "type": "food"
 }
 
 ```
-
-codeColumn
-
-The identifier for the Food in the specified Source
-
 ### Properties
 
 |Name|Type|Required|Description|
@@ -850,17 +770,14 @@ The identifier for the Food in the specified Source
 <a id="tocSimagecolumn"></a>
 <a id="tocsimagecolumn"></a>
 
+URL to an image that was presented to the user when they selected the Food from the Source
+
 ```json
 {
   "type": "image"
 }
 
 ```
-
-imageColumn
-
-URL to an image that was presented to the user when they selected the Food from the Source
-
 ### Properties
 
 |Name|Type|Required|Description|
@@ -875,6 +792,8 @@ URL to an image that was presented to the user when they selected the Food from 
 <a id="tocScustomcolumn"></a>
 <a id="tocscustomcolumn"></a>
 
+Application properties that are specific to the individual meal. It is suggested that each application adds one code for each custom column using a URI owned by that application. This URI would ideally point to a JSON Schema document describing the structure of the custom type, but this is not essential.
+
 ```json
 {
   "type": "custom",
@@ -882,11 +801,6 @@ URL to an image that was presented to the user when they selected the Food from 
 }
 
 ```
-
-customColumn
-
-Application properties that are specific to the individual meal. It is suggested that each application adds one code for each custom column using a URI owned by that application. This URI would ideally point to a JSON Schema document describing the structure of the custom type, but this is not essential.
-
 ### Properties
 
 |Name|Type|Required|Description|
@@ -902,15 +816,14 @@ Application properties that are specific to the individual meal. It is suggested
 <a id="tocSsequence"></a>
 <a id="tocssequence"></a>
 
-```json
-0
-
-```
-
 Column sequence
 
 The column number when exporting as CSV
 
+```json
+0
+
+```
 ### Properties
 
 |Name|Type|Required|Description|
@@ -923,6 +836,10 @@ The column number when exporting as CSV
 <a id="schema_meal"></a>
 <a id="tocSmeal"></a>
 <a id="tocsmeal"></a>
+
+A specific instance of a food that has been consumed.
+
+Applications may add their own custom properties that are specific to the individual meal. It is suggested that each application adds one type for each custom column using a URI owned by that application as the key name. This URI would ideally point to a JSON Schema document describing the structure of the custom type, but this is not essential.
 
 ```json
 {
@@ -956,13 +873,6 @@ The column number when exporting as CSV
 }
 
 ```
-
-meal
-
-A specific instance of a food that has been consumed.
-
-Applications may add their own custom properties that are specific to the individual meal. It is suggested that each application adds one type for each custom column using a URI owned by that application as the key name. This URI would ideally point to a JSON Schema document describing the structure of the custom type, but this is not essential.
-
 ### Properties
 
 |Name|Type|Required|Description|
@@ -991,27 +901,15 @@ Applications may add their own custom properties that are specific to the indivi
 <a id="tocSunit"></a>
 <a id="tocsunit"></a>
 
+The normalized unit type. "g" for weight or "ml" for volume. This should match the unit used in the source.
+
 ```json
 "g"
 
 ```
 
-unit
+## Enumerated Values
 
-The normalized unit type. "g" for weight or "ml" for volume. This should match the unit used in the source.
-
-### Properties
-
-|Name|Type|Required|Description|
-|---|---|---|---|
-|unit|any|false|The normalized unit type. "g" for weight or "ml" for volume. This should match the unit used in the source.|
-
-#### Enumerated Values
-
-|Property|Value|
-|---|---|
-|unit|g|
-|unit|ml|
-
-undefined
+* g
+* ml
 
