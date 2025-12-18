@@ -3,7 +3,7 @@
 
 The reason for developing a standard for food logging data exchange is to ensure that people are not locked in to a single application once they start logging food data. For example, they might want to switch to a different application for logging, use another application to analyze their food logging history or supply data to a third party, such as researchers or medical practitioners.
 
-This document describes an API for storing food logging data and metadata. The metadata is also used to describe the structure of a Meals CSV file used for import / export operations.
+This document defines the specification for a web service API for storing food logging data and metadata. The metadata is also used to describe the structure of a Meals CSV file used for interactive import / export operations.
 
 Exports will be packaged in a zip file with an arbitrary name (determined by the user). Each zip file will contain the following:
 
@@ -12,7 +12,7 @@ Exports will be packaged in a zip file with an arbitrary name (determined by the
 
 ### meals.csv
 
-This is a CSV file to make it as simple as possible for moderately technical Consumers or delegated third-parties to analyze their own data in a spreadsheet or database. All column names should be human readable in the user's chosen language. A Metadata file will cross-reference the column names against pre-defined properties, like Meal time, Meal Type, Food and Nutrients.
+This is a CSV file to make it as simple as possible for moderately technical Consumers or delegated third-parties to analyze their own data in a spreadsheet or database. All column names should be human readable in the user's chosen language. The Metadata file will cross-reference the column names against pre-defined properties, like Meal time, Meal Type, Food and Nutrients.
 
 Foods will include the human readable name, e.g. "Baked Beans", that was presented to the user when they selected the Food.
 
@@ -392,7 +392,7 @@ Standardized identifier for the kind of meal, derived from [here](https://en.wik
 
 ```
 
-## Enumerated Values
+### Enumerated Values
 
 * breakfast
 * second-breakfast
@@ -578,7 +578,7 @@ Standard identifier for the facet, typically a nutrient
 
 ```
 
-## Enumerated Values
+### Enumerated Values
 
 * acidity
 * added-salt
@@ -801,7 +801,7 @@ The type of Food identifier used
 
 ```
 
-## Enumerated Values
+### Enumerated Values
 
 * gtin
 * plu
@@ -973,7 +973,7 @@ The normalized unit type. "g" for weight or "ml" for volume. This should match t
 
 ```
 
-## Enumerated Values
+### Enumerated Values
 
 * g
 * ml
