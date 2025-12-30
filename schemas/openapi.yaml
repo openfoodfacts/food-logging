@@ -344,7 +344,8 @@ components:
     facetCode:
       title: facetCode
       description: |
-        Standard identifier for the facet, typically a nutrient
+        Standard identifier for the facet, typically a nutrient. This list is derived from the Open Food Facts
+        [Nutrients](https://static.openfoodfacts.org/data/taxonomies/nutrients.json) taxonomy.
       enum:
         - acidity
         - added-salt

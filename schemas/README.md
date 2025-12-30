@@ -639,7 +639,7 @@ A particular facet of the food, typically a nutrient
 |Name|Type|Required|Description|
 |---|---|---|---|
 |type|"facet"|true|none|
-|code|[facetCode](#schemafacetcode)|true|Standard identifier for the facet, typically a nutrient|
+|code|[facetCode](#schemafacetcode)|true|Standard identifier for the facet, typically a nutrient. This list is derived from the Open Food Facts<br>[Nutrients](https://static.openfoodfacts.org/data/taxonomies/nutrients.json) taxonomy.|
 |factor|integer|false|Value that the quantity of the Facet in the Meals CSV file must be divided by in order to convert it to the unit defined for the Facet type. Note that most nutrients will have a units of "g" but energy will be in "kJ" or "kcal". For example, a factor of 1000 would be specified if the values in the Meals CSV are expressed in mg. Defaults to 1 if omitted.|
 |sequence|[sequence](#schemasequence)|false|The column number when exporting as CSV|
 
@@ -650,7 +650,8 @@ A particular facet of the food, typically a nutrient
 <a id="tocSfacetcode"></a>
 <a id="tocsfacetcode"></a>
 
-Standard identifier for the facet, typically a nutrient
+Standard identifier for the facet, typically a nutrient. This list is derived from the Open Food Facts
+[Nutrients](https://static.openfoodfacts.org/data/taxonomies/nutrients.json) taxonomy.
 
 ```json
 "acidity"
@@ -1080,7 +1081,7 @@ Applications may add their own custom properties that are specific to the indivi
 |quantity|number|false|The amount of the Food in normalized units (grams for weight, milliliters for volume). Formatted according to the [JSON number standard](https://www.rfc-editor.org/rfc/rfc8259#page-7)|
 |unit|[unit](#schemaunit)|false|The normalized unit type. "g" for weight or "ml" for volume. This should match the unit used in the source.|
 |facets|[object]|false|An array of objects where the `code` property will be a facet code as defined in this schema. e.g. "proteins", "carbohydrates-total", "vitamin-b12", "energy-kj" and the `value` property gives the quantity of the facet|
-|» code|[facetCode](#schemafacetcode)|true|Standard identifier for the facet, typically a nutrient|
+|» code|[facetCode](#schemafacetcode)|true|Standard identifier for the facet, typically a nutrient. This list is derived from the Open Food Facts<br>[Nutrients](https://static.openfoodfacts.org/data/taxonomies/nutrients.json) taxonomy.|
 |» value|number|true|The quantity of the facet in the specific meal which will be in grams in most cases but energy will be in kJ or kcal|
 |source|[sourceType](#schemasourcetype)|false|The type of Food identifier used|
 |location|string|false|The location code for the Source, e.g. for GTIN this would be the [Global Location Number](https://navigator.gs1.org/gdsn/class-details?name=GLN&version=12)|
