@@ -28,6 +28,8 @@ info:
     This is a JSON representation of the [metadata](#schemametadata) that describes the structure of the Meals CSV file.
 
   version: 0.0.1
+security:
+  - bearerAuth: []
 paths:
   /metadata:
     get:
@@ -512,7 +514,7 @@ components:
         - type
       additionalProperties: false
       examples:
-       - type: food
+        - type: food
     imageColumn:
       title: imageColumn
       description: |
@@ -629,13 +631,12 @@ components:
               - value
             additionalProperties: false
           examples:
-            -
-              - code: protein
-                value: 0
-              - code: iron
-                value: 0.02
-              - code: vitamin-b12
-                value: 1.2e-6
+            -   - code: protein
+                  value: 0
+                - code: iron
+                  value: 0.02
+                - code: vitamin-b12
+                  value: 1.2e-6
         source:
           $ref: '#/components/schemas/sourceType'
         location:
@@ -664,3 +665,7 @@ components:
       enum:
         - g
         - ml
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

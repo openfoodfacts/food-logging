@@ -26,6 +26,10 @@ It is suggested that fields of less interest to the Consumer, such as the Source
 
 This is a JSON representation of the [metadata](#schemametadata) that describes the structure of the Meals CSV file.
 
+# Authentication
+
+- HTTP Authentication, scheme: bearer
+
 <h1 id="food-consumption-logging-data-exchange-default">Methods</h1>
 
 ## GET /metadata
@@ -68,8 +72,8 @@ This is a JSON representation of the [metadata](#schemametadata) that describes 
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|[metadata](#schemametadata)|
 
-<aside class="success">
-This operation does not require authentication
+<aside class="warning">
+To perform this operation, you must be authenticated with a Bearer Token
 </aside>
 
 ## PUT /metadata
@@ -116,8 +120,8 @@ This operation does not require authentication
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|None|
 
-<aside class="success">
-This operation does not require authentication
+<aside class="warning">
+To perform this operation, you must be authenticated with a Bearer Token
 </aside>
 
 ## POST /meals
@@ -170,8 +174,8 @@ This operation does not require authentication
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|None|
 
-<aside class="success">
-This operation does not require authentication
+<aside class="warning">
+To perform this operation, you must be authenticated with a Bearer Token
 </aside>
 
 # Schemas
