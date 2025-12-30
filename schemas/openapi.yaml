@@ -57,10 +57,51 @@ paths:
         content:
           application/json:
             schema:
-              title: meals
-              type: array
-              items:
-                $ref: '#/components/schemas/meal'
+              $ref: '#/components/schemas/meals'
+      responses:
+        '200':
+          description: OK
+    get:
+      parameters:
+        - in: query
+          name: from_time
+          description: |
+            The earliest dated meal to return, specified in [ISO 8061](https://en.wikipedia.org/wiki/ISO_8601) format
+          required: true
+          schema:
+            type: string
+            format: date-time
+            examples:
+              - 2025-01-01T00:00:00Z
+        - in: query
+          name: to_time
+          description: |
+            The latest dated meal to return, specified in [ISO 8061](https://en.wikipedia.org/wiki/ISO_8601) format
+          required: true
+          schema:
+            type: string
+            format: date-time
+            examples:
+              - 2025-03-31T23:59:59Z
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/meals'
+    delete:
+      parameters:
+        - in: path
+          name: id
+          description: |
+            The id of the meal to be deleted
+          required: true
+          schema:
+            type: string
+            format: uuid
+            examples:
+              - f81d4fae-7dec-11d0-a765-00a0c91e6bf6
       responses:
         '200':
           description: OK
@@ -553,6 +594,13 @@ components:
       title: Column sequence
       description: The column number when exporting as CSV
       type: integer
+    meals:
+      title: meals
+      description: |
+        An array of meals.
+      type: array
+      items:
+        $ref: '#/components/schemas/meal'
     meal:
       type: object
       title: meal

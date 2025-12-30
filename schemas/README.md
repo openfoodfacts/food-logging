@@ -166,9 +166,84 @@ To perform this operation, you must be authenticated with a Bearer Token
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|body|body|[meal](#schemameal)|false|none|
+|body|body|[meals](#schemameals)|false|none|
 
 <h3 id="post__meals-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|None|
+
+<aside class="warning">
+To perform this operation, you must be authenticated with a Bearer Token
+</aside>
+
+## GET /meals
+
+<h3 id="get__meals-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|from_time|query|string(date-time)|true|The earliest dated meal to return, specified in [ISO 8061](https://en.wikipedia.org/wiki/ISO_8601) format|
+|to_time|query|string(date-time)|true|The latest dated meal to return, specified in [ISO 8061](https://en.wikipedia.org/wiki/ISO_8601) format|
+
+> Example responses
+
+> 200 Response
+
+```json
+[
+  {
+    "id": "f81d4fae-7dec-11d0-a765-00a0c91e6bf6",
+    "time": "2025-07-30T15:56:32Z",
+    "meal": "breakfast",
+    "recipe": "White coffee",
+    "food": "Instant Coffee Powder",
+    "entered_quantity": 1,
+    "entered_unit": "tsp",
+    "quantity": 15,
+    "unit": "g",
+    "facets": [
+      {
+        "code": "protein",
+        "value": 0
+      },
+      {
+        "code": "iron",
+        "value": 0.02
+      },
+      {
+        "code": "vitamin-b12",
+        "value": 0.0000012
+      }
+    ],
+    "source": "gtin",
+    "location": 3014517900101,
+    "code": 4056489440628,
+    "image": "https://images.openfoodfacts.net/images/products/405/648/944/0628/front_en.26.400.jpg"
+  }
+]
+```
+
+<h3 id="get__meals-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|[meals](#schemameals)|
+
+<aside class="warning">
+To perform this operation, you must be authenticated with a Bearer Token
+</aside>
+
+## DELETE /meals
+
+<h3 id="delete__meals-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|id|path|string(uuid)|true|The id of the meal to be deleted|
+
+<h3 id="delete__meals-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -898,6 +973,55 @@ The column number when exporting as CSV
 |Name|Type|Required|Description|
 |---|---|---|---|
 |Column sequence|integer|false|The column number when exporting as CSV|
+
+<h2 id="tocS_meals">meals</h2>
+
+<a id="schemameals"></a>
+<a id="schema_meals"></a>
+<a id="tocSmeals"></a>
+<a id="tocsmeals"></a>
+
+An array of meals.
+
+```json
+[
+  {
+    "id": "f81d4fae-7dec-11d0-a765-00a0c91e6bf6",
+    "time": "2025-07-30T15:56:32Z",
+    "meal": "breakfast",
+    "recipe": "White coffee",
+    "food": "Instant Coffee Powder",
+    "entered_quantity": 1,
+    "entered_unit": "tsp",
+    "quantity": 15,
+    "unit": "g",
+    "facets": [
+      {
+        "code": "protein",
+        "value": 0
+      },
+      {
+        "code": "iron",
+        "value": 0.02
+      },
+      {
+        "code": "vitamin-b12",
+        "value": 0.0000012
+      }
+    ],
+    "source": "gtin",
+    "location": 3014517900101,
+    "code": 4056489440628,
+    "image": "https://images.openfoodfacts.net/images/products/405/648/944/0628/front_en.26.400.jpg"
+  }
+]
+
+```
+### Properties
+
+|Name|Type|Required|Description|
+|---|---|---|---|
+|meals|[[meal](#schemameal)]|false|An array of meals.|
 
 <h2 id="tocS_meal">meal</h2>
 

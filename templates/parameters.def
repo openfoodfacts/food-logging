@@ -6,13 +6,6 @@
 {{~ data.parameters :p}}|{{=p.name}}|{{=p.in}}|{{=p.safeType}}|{{=p.required}}|{{=p.shortDesc || 'none'}}|
 {{~}}
 
-{{? data.longDescs }}
-#### Detailed descriptions
-{{~ data.parameters :p}}{{? p.shortDesc !== p.description}}
-**{{=p.name}}**: {{=p.description}}{{?}}
-{{~}}
-{{?}}
-
 {{~ data.parameters :p}}
 
 {{? p.schema && p.schema.enum }}
