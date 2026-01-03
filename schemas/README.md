@@ -865,7 +865,7 @@ Describes where the food code came from.
 
 |Name|Type|Required|Description|
 |---|---|---|---|
-|source|[sourceType](#schemasourcetype)|true|The type of Food identifier used.<br>  * gtin: A GS1 [Global Trade Item Number](https://www.gs1.org/standards/id-keys/gtin), i.e. a product bar code.<br>  * plu: International Federation for Produce Standards [Price Look Up code](https://www.ifpsglobal.com/plu-codes-search)<br><br>Further source types, such as [USDA Foundation Foods](https://fdc.nal.usda.gov/food-search?type=Foundation), may be added in the future as the standard develops.|
+|source|[sourceType](#schemasourcetype)|true|The type of Food identifier used. Depending on the source, the food code will be one of the following:<br>  * gtin: A GS1 [Global Trade Item Number](https://www.gs1.org/standards/id-keys/gtin), i.e. the number represented by the EAN or UPC product barcode.<br>  * plu: An International Federation for Produce Standards [Price Look Up code](https://www.ifpsglobal.com/plu-codes-search)<br><br>Further source types, such as [USDA Foundation Foods](https://fdc.nal.usda.gov/food-search?type=Foundation), may be added in the future as the standard develops.|
 |location|string|false|none|
 
 <h2 id="tocS_sourceType">sourceType</h2>
@@ -875,9 +875,9 @@ Describes where the food code came from.
 <a id="tocSsourcetype"></a>
 <a id="tocssourcetype"></a>
 
-The type of Food identifier used.
-  * gtin: A GS1 [Global Trade Item Number](https://www.gs1.org/standards/id-keys/gtin), i.e. a product bar code.
-  * plu: International Federation for Produce Standards [Price Look Up code](https://www.ifpsglobal.com/plu-codes-search)
+The type of Food identifier used. Depending on the source, the food code will be one of the following:
+  * gtin: A GS1 [Global Trade Item Number](https://www.gs1.org/standards/id-keys/gtin), i.e. the number represented by the EAN or UPC product barcode.
+  * plu: An International Federation for Produce Standards [Price Look Up code](https://www.ifpsglobal.com/plu-codes-search)
 
 Further source types, such as [USDA Foundation Foods](https://fdc.nal.usda.gov/food-search?type=Foundation), may be added in the future as the standard develops.
 
@@ -1081,7 +1081,7 @@ Applications may add their own custom properties that are specific to the indivi
 |facets|[object]|false|An array of objects where the `code` property will be a facet code as defined in this schema. e.g. "proteins", "carbohydrates-total", "vitamin-b12", "energy-kj" and the `value` property gives the quantity of the facet|
 |» code|[facetCode](#schemafacetcode)|true|Standard identifier for the facet, typically a nutrient. This list is derived from the Open Food Facts<br>[Nutrients](https://static.openfoodfacts.org/data/taxonomies/nutrients.json) taxonomy.|
 |» value|number|true|The quantity of the facet in the specific meal which will be in grams in most cases but energy will be in kJ or kcal|
-|source|[sourceType](#schemasourcetype)|false|The type of Food identifier used.<br>  * gtin: A GS1 [Global Trade Item Number](https://www.gs1.org/standards/id-keys/gtin), i.e. a product bar code.<br>  * plu: International Federation for Produce Standards [Price Look Up code](https://www.ifpsglobal.com/plu-codes-search)<br><br>Further source types, such as [USDA Foundation Foods](https://fdc.nal.usda.gov/food-search?type=Foundation), may be added in the future as the standard develops.|
+|source|[sourceType](#schemasourcetype)|false|The type of Food identifier used. Depending on the source, the food code will be one of the following:<br>  * gtin: A GS1 [Global Trade Item Number](https://www.gs1.org/standards/id-keys/gtin), i.e. the number represented by the EAN or UPC product barcode.<br>  * plu: An International Federation for Produce Standards [Price Look Up code](https://www.ifpsglobal.com/plu-codes-search)<br><br>Further source types, such as [USDA Foundation Foods](https://fdc.nal.usda.gov/food-search?type=Foundation), may be added in the future as the standard develops.|
 |location|string|false|The location code for the Source, e.g. for GTIN this would be the [Global Location Number](https://navigator.gs1.org/gdsn/class-details?name=GLN&version=12)|
 |code|string|false|The identifier for the Food in the specified Source|
 |image|string|false|URL to an image that was presented to the user when they selected the Food from the Source|

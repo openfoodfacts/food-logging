@@ -550,9 +550,9 @@ components:
     sourceType:
       title: sourceType
       description: |
-        The type of Food identifier used.
-          * gtin: A GS1 [Global Trade Item Number](https://www.gs1.org/standards/id-keys/gtin), i.e. a product bar code.
-          * plu: International Federation for Produce Standards [Price Look Up code](https://www.ifpsglobal.com/plu-codes-search)
+        The type of Food identifier used. Depending on the source, the food code will be one of the following:
+          * gtin: A GS1 [Global Trade Item Number](https://www.gs1.org/standards/id-keys/gtin), i.e. the number represented by the EAN or UPC product barcode.
+          * plu: An International Federation for Produce Standards [Price Look Up code](https://www.ifpsglobal.com/plu-codes-search)
 
         Further source types, such as [USDA Foundation Foods](https://fdc.nal.usda.gov/food-search?type=Foundation), may be added in the future as the standard develops.
       enum:
