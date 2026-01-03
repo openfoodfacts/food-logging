@@ -33,7 +33,8 @@ security:
 paths:
   /metadata:
     get:
-      description: ''
+      description: |
+        Get the metadata for the Consumer identified in the authorization header
       parameters: []
       responses:
         '200':
@@ -43,6 +44,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/metadata'
     put:
+      description: |
+        Store the metadata for the Consumer identified in the authorization header
       requestBody:
         content:
           application/json:
@@ -53,6 +56,8 @@ paths:
           description: OK
   /meals:
     post:
+      description: |
+        Creates meals from the supplied array in the HTTP request body
       requestBody:
         content:
           application/json:
@@ -62,6 +67,9 @@ paths:
         '200':
           description: OK
     get:
+      description: |
+        Returns an array of meals in the response body that were logged between mandatory "from_time" and "to_time" query parameters,
+        each specified in [ISO 8061](https://en.wikipedia.org/wiki/ISO_8601) format
       parameters:
         - in: query
           name: from_time
@@ -91,6 +99,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/meals'
     delete:
+      description: |
+        Deletes a meal item. The meal "id" is supplied in the path
       parameters:
         - in: path
           name: id
@@ -216,7 +226,8 @@ components:
     mealType:
       title: mealType
       description: |
-        Standardized identifier for the kind of meal, derived from [here](https://en.wikipedia.org/wiki/Outline_of_meals)
+        Standardized identifier for the kind of meal. This is not an exhaustive cultural meal taxonomy,
+        but a practical subset for common use cases, derived from [here](https://en.wikipedia.org/wiki/Outline_of_meals)
       enum:
         - breakfast
         - second-breakfast
@@ -539,7 +550,11 @@ components:
     sourceType:
       title: sourceType
       description: |
-        The type of Food identifier used
+        The type of Food identifier used.
+          * gtin: A GS1 [Global Trade Item Number](https://www.gs1.org/standards/id-keys/gtin), i.e. a product bar code.
+          * plu: International Federation for Produce Standards [Price Look Up code](https://www.ifpsglobal.com/plu-codes-search)
+
+        Further source types, such as [USDA Foundation Foods](https://fdc.nal.usda.gov/food-search?type=Foundation), may be added in the future as the standard develops.
       enum:
         - gtin
         - plu
@@ -609,6 +624,86 @@ components:
         A specific instance of a food that has been consumed.
 
         Applications may add their own custom properties that are specific to the individual meal. It is suggested that each application adds one type for each custom column using a URI owned by that application as the key name. This URI would ideally point to a JSON Schema document describing the structure of the custom type, but this is not essential.
+      examples:
+        - time: '2025-05-01T05:00:00Z'
+          meal: breakfast
+          food: Kelloggs Corn Flakes
+          entered_quantity: 1
+          entered_unit: serving
+          quantity: 30
+          unit: g
+          facets:
+            - code: proteins
+              value: 0.3
+            - code: carbohydrate
+              value: 24
+            - code: fat
+              value: 1
+          source: gtin
+          location: '3014517900101'
+          code: '5059319030487'
+          image: https://images.openfoodfacts.org/images/products/505/931/903/0487/front_en.3.400.jpg
+          https://openfoodfacts.org/green.json: 53
+        - time: '2025-05-01T05:00:00Z'
+          meal: breakfast
+          food: Full Fat Milk
+          entered_quantity: 0.5
+          entered_unit: pint
+          quantity: 284
+          unit: ml
+          facets:
+            - code: proteins
+              value: 3.1
+            - code: carbohydrate
+              value: 10.2
+            - code: fat
+              value: 4.3
+          source: gtin
+          location: '3014517900101'
+          code: '5060066960071'
+          image: https://images.openfoodfacts.org/images/products/506/006/696/0071/front_en.3.400.jpg
+          https://openfoodfacts.org/green.json: 31
+        - time: '2025-05-01T08:00:00Z'
+          meal: snack
+          recipe: White Coffee
+          food: Instant Coffee Powder
+          entered_quantity: 1
+          entered_unit: teaspoon
+          quantity: 4
+          unit: g
+          facets:
+            - code: proteins
+              value: 0
+            - code: carbohydrate
+              value: 0.1
+            - code: fat
+              value: 0
+          source: gtin
+          location: '3014517900101'
+          code: '4056489440628'
+          image: https://images.openfoodfacts.net/images/products/405/648/944/0628/front_en.26.400.jpg
+          https://openfoodfacts.org/green.json: 45
+        - time: '2025-05-01T08:00:00Z'
+          meal: snack
+          recipe: White Coffee
+          food: Full Fat Milk
+          entered_quantity: 20
+          entered_unit: ml
+          quantity: 20
+          unit: ml
+          facets:
+            - code: proteins
+              value: 1.3
+            - code: carbohydrate
+              value: 1.2
+            - code: fat
+              value: 1.2
+          source: gtin
+          location: '3014517900101'
+          code: '5060066960071'
+          image: https://images.openfoodfacts.org/images/products/506/006/696/0071/front_en.3.400.jpg
+          https://openfoodfacts.org/green.json: 31
+
       properties:
         id:
           type: string
@@ -716,5 +811,8 @@ components:
         - ml
   securitySchemes:
     bearerAuth:
+      description: |
+        APIs should be secured using OAuth using Bearer tokens supplied in the [HTTP Authorization Request Header](https://datatracker.ietf.org/doc/html/rfc6750#section-2.1).
+        The method of authentication and obtaining and renewing access tokens is beyond the scope of this specification.
       type: http
       scheme: bearer

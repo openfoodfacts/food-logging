@@ -28,11 +28,14 @@ This is a JSON representation of the [metadata](#schemametadata) that describes 
 
 # Authentication
 
-- HTTP Authentication, scheme: bearer
+- HTTP Authentication, scheme: bearer<br/>APIs should be secured using OAuth using Bearer tokens supplied in the [HTTP Authorization Request Header](https://datatracker.ietf.org/doc/html/rfc6750#section-2.1).
+The method of authentication and obtaining and renewing access tokens is beyond the scope of this specification.
 
 <h1 id="food-consumption-logging-data-exchange-default">Methods</h1>
 
 ## GET /metadata
+
+Get the metadata for the Consumer identified in the authorization header
 
 > Example responses
 
@@ -77,6 +80,8 @@ To perform this operation, you must be authenticated with a Bearer Token
 </aside>
 
 ## PUT /metadata
+
+Store the metadata for the Consumer identified in the authorization header
 
 > Body parameter
 
@@ -126,38 +131,39 @@ To perform this operation, you must be authenticated with a Bearer Token
 
 ## POST /meals
 
+Creates meals from the supplied array in the HTTP request body
+
 > Body parameter
 
 ```json
 [
   {
-    "id": "f81d4fae-7dec-11d0-a765-00a0c91e6bf6",
-    "time": "2025-07-30T15:56:32Z",
+    "time": "2025-05-01T05:00:00Z",
     "meal": "breakfast",
-    "recipe": "White coffee",
-    "food": "Instant Coffee Powder",
+    "food": "Kelloggs Corn Flakes",
     "entered_quantity": 1,
-    "entered_unit": "tsp",
-    "quantity": 15,
+    "entered_unit": "serving",
+    "quantity": 30,
     "unit": "g",
     "facets": [
       {
-        "code": "protein",
-        "value": 0
+        "code": "proteins",
+        "value": 0.3
       },
       {
-        "code": "iron",
-        "value": 0.02
+        "code": "carbohydrate",
+        "value": 24
       },
       {
-        "code": "vitamin-b12",
-        "value": 0.0000012
+        "code": "fat",
+        "value": 1
       }
     ],
     "source": "gtin",
-    "location": 3014517900101,
-    "code": 4056489440628,
-    "image": "https://images.openfoodfacts.net/images/products/405/648/944/0628/front_en.26.400.jpg"
+    "location": "3014517900101",
+    "code": "5059319030487",
+    "image": "https://images.openfoodfacts.org/images/products/505/931/903/0487/front_en.3.400.jpg",
+    "https://openfoodfacts.org/green.json": 53
   }
 ]
 ```
@@ -180,6 +186,9 @@ To perform this operation, you must be authenticated with a Bearer Token
 
 ## GET /meals
 
+Returns an array of meals in the response body that were logged between mandatory "from_time" and "to_time" query parameters,
+each specified in [ISO 8061](https://en.wikipedia.org/wiki/ISO_8601) format
+
 <h3 id="get__meals-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
@@ -194,33 +203,32 @@ To perform this operation, you must be authenticated with a Bearer Token
 ```json
 [
   {
-    "id": "f81d4fae-7dec-11d0-a765-00a0c91e6bf6",
-    "time": "2025-07-30T15:56:32Z",
+    "time": "2025-05-01T05:00:00Z",
     "meal": "breakfast",
-    "recipe": "White coffee",
-    "food": "Instant Coffee Powder",
+    "food": "Kelloggs Corn Flakes",
     "entered_quantity": 1,
-    "entered_unit": "tsp",
-    "quantity": 15,
+    "entered_unit": "serving",
+    "quantity": 30,
     "unit": "g",
     "facets": [
       {
-        "code": "protein",
-        "value": 0
+        "code": "proteins",
+        "value": 0.3
       },
       {
-        "code": "iron",
-        "value": 0.02
+        "code": "carbohydrate",
+        "value": 24
       },
       {
-        "code": "vitamin-b12",
-        "value": 0.0000012
+        "code": "fat",
+        "value": 1
       }
     ],
     "source": "gtin",
-    "location": 3014517900101,
-    "code": 4056489440628,
-    "image": "https://images.openfoodfacts.net/images/products/405/648/944/0628/front_en.26.400.jpg"
+    "location": "3014517900101",
+    "code": "5059319030487",
+    "image": "https://images.openfoodfacts.org/images/products/505/931/903/0487/front_en.3.400.jpg",
+    "https://openfoodfacts.org/green.json": 53
   }
 ]
 ```
@@ -236,6 +244,8 @@ To perform this operation, you must be authenticated with a Bearer Token
 </aside>
 
 ## DELETE /meals
+
+Deletes a meal item. The meal "id" is supplied in the path
 
 <h3 id="delete__meals-parameters">Parameters</h3>
 
@@ -454,7 +464,7 @@ Note the "daily" item refers to entries where the user has just recorded overall
 |---|---|---|---|
 |type|"meal"|true|none|
 |values|object|true|Object whose key is the value that appears in the CSV file|
-|» **additionalProperties**|[mealType](#schemamealtype)|false|Standardized identifier for the kind of meal, derived from [here](https://en.wikipedia.org/wiki/Outline_of_meals)|
+|» **additionalProperties**|[mealType](#schemamealtype)|false|Standardized identifier for the kind of meal. This is not an exhaustive cultural meal taxonomy,<br>but a practical subset for common use cases, derived from [here](https://en.wikipedia.org/wiki/Outline_of_meals)|
 |sequence|[sequence](#schemasequence)|false|The column number when exporting as CSV|
 
 <h2 id="tocS_mealType">mealType</h2>
@@ -464,7 +474,8 @@ Note the "daily" item refers to entries where the user has just recorded overall
 <a id="tocSmealtype"></a>
 <a id="tocsmealtype"></a>
 
-Standardized identifier for the kind of meal, derived from [here](https://en.wikipedia.org/wiki/Outline_of_meals)
+Standardized identifier for the kind of meal. This is not an exhaustive cultural meal taxonomy,
+but a practical subset for common use cases, derived from [here](https://en.wikipedia.org/wiki/Outline_of_meals)
 
 ```json
 "breakfast"
@@ -864,7 +875,7 @@ Describes where the food code came from.
 
 |Name|Type|Required|Description|
 |---|---|---|---|
-|source|[sourceType](#schemasourcetype)|true|The type of Food identifier used|
+|source|[sourceType](#schemasourcetype)|true|The type of Food identifier used.<br>  * gtin: A GS1 [Global Trade Item Number](https://www.gs1.org/standards/id-keys/gtin), i.e. a product bar code.<br>  * plu: International Federation for Produce Standards [Price Look Up code](https://www.ifpsglobal.com/plu-codes-search)<br><br>Further source types, such as [USDA Foundation Foods](https://fdc.nal.usda.gov/food-search?type=Foundation), may be added in the future as the standard develops.|
 |location|string|false|none|
 
 <h2 id="tocS_sourceType">sourceType</h2>
@@ -874,7 +885,11 @@ Describes where the food code came from.
 <a id="tocSsourcetype"></a>
 <a id="tocssourcetype"></a>
 
-The type of Food identifier used
+The type of Food identifier used.
+  * gtin: A GS1 [Global Trade Item Number](https://www.gs1.org/standards/id-keys/gtin), i.e. a product bar code.
+  * plu: International Federation for Produce Standards [Price Look Up code](https://www.ifpsglobal.com/plu-codes-search)
+
+Further source types, such as [USDA Foundation Foods](https://fdc.nal.usda.gov/food-search?type=Foundation), may be added in the future as the standard develops.
 
 ```json
 "gtin"
@@ -987,33 +1002,32 @@ An array of meals.
 ```json
 [
   {
-    "id": "f81d4fae-7dec-11d0-a765-00a0c91e6bf6",
-    "time": "2025-07-30T15:56:32Z",
+    "time": "2025-05-01T05:00:00Z",
     "meal": "breakfast",
-    "recipe": "White coffee",
-    "food": "Instant Coffee Powder",
+    "food": "Kelloggs Corn Flakes",
     "entered_quantity": 1,
-    "entered_unit": "tsp",
-    "quantity": 15,
+    "entered_unit": "serving",
+    "quantity": 30,
     "unit": "g",
     "facets": [
       {
-        "code": "protein",
-        "value": 0
+        "code": "proteins",
+        "value": 0.3
       },
       {
-        "code": "iron",
-        "value": 0.02
+        "code": "carbohydrate",
+        "value": 24
       },
       {
-        "code": "vitamin-b12",
-        "value": 0.0000012
+        "code": "fat",
+        "value": 1
       }
     ],
     "source": "gtin",
-    "location": 3014517900101,
-    "code": 4056489440628,
-    "image": "https://images.openfoodfacts.net/images/products/405/648/944/0628/front_en.26.400.jpg"
+    "location": "3014517900101",
+    "code": "5059319030487",
+    "image": "https://images.openfoodfacts.org/images/products/505/931/903/0487/front_en.3.400.jpg",
+    "https://openfoodfacts.org/green.json": 53
   }
 ]
 
@@ -1037,33 +1051,32 @@ Applications may add their own custom properties that are specific to the indivi
 
 ```json
 {
-  "id": "f81d4fae-7dec-11d0-a765-00a0c91e6bf6",
-  "time": "2025-07-30T15:56:32Z",
+  "time": "2025-05-01T05:00:00Z",
   "meal": "breakfast",
-  "recipe": "White coffee",
-  "food": "Instant Coffee Powder",
+  "food": "Kelloggs Corn Flakes",
   "entered_quantity": 1,
-  "entered_unit": "tsp",
-  "quantity": 15,
+  "entered_unit": "serving",
+  "quantity": 30,
   "unit": "g",
   "facets": [
     {
-      "code": "protein",
-      "value": 0
+      "code": "proteins",
+      "value": 0.3
     },
     {
-      "code": "iron",
-      "value": 0.02
+      "code": "carbohydrate",
+      "value": 24
     },
     {
-      "code": "vitamin-b12",
-      "value": 0.0000012
+      "code": "fat",
+      "value": 1
     }
   ],
   "source": "gtin",
-  "location": 3014517900101,
-  "code": 4056489440628,
-  "image": "https://images.openfoodfacts.net/images/products/405/648/944/0628/front_en.26.400.jpg"
+  "location": "3014517900101",
+  "code": "5059319030487",
+  "image": "https://images.openfoodfacts.org/images/products/505/931/903/0487/front_en.3.400.jpg",
+  "https://openfoodfacts.org/green.json": 53
 }
 
 ```
@@ -1073,7 +1086,7 @@ Applications may add their own custom properties that are specific to the indivi
 |---|---|---|---|
 |id|string(uuid)|false|A UUID string formatted according to [RFC 9562](https://datatracker.ietf.org/doc/html/rfc9562#name-uuid-format). Optional on new entries (will be generated by the receiving service)|
 |time|string(date-time)|false|The time that the Meal was consumed in UTC following the [ISO 8061](https://en.wikipedia.org/wiki/ISO_8601) format|
-|meal|[mealType](#schemamealtype)|false|Standardized identifier for the kind of meal, derived from [here](https://en.wikipedia.org/wiki/Outline_of_meals)|
+|meal|[mealType](#schemamealtype)|false|Standardized identifier for the kind of meal. This is not an exhaustive cultural meal taxonomy,<br>but a practical subset for common use cases, derived from [here](https://en.wikipedia.org/wiki/Outline_of_meals)|
 |recipe|string|false|The name of a Recipe used that links multiple related Foods in the meal|
 |food|string|false|The name of the Food as it was presented to the user when they selected it from the Source|
 |entered_quantity|number|false|The amount of the Food that the user recorded in the specified "entered_unit". Formatted according to the [JSON number standard](https://www.rfc-editor.org/rfc/rfc8259#page-7)|
@@ -1083,7 +1096,7 @@ Applications may add their own custom properties that are specific to the indivi
 |facets|[object]|false|An array of objects where the `code` property will be a facet code as defined in this schema. e.g. "proteins", "carbohydrates-total", "vitamin-b12", "energy-kj" and the `value` property gives the quantity of the facet|
 |» code|[facetCode](#schemafacetcode)|true|Standard identifier for the facet, typically a nutrient. This list is derived from the Open Food Facts<br>[Nutrients](https://static.openfoodfacts.org/data/taxonomies/nutrients.json) taxonomy.|
 |» value|number|true|The quantity of the facet in the specific meal which will be in grams in most cases but energy will be in kJ or kcal|
-|source|[sourceType](#schemasourcetype)|false|The type of Food identifier used|
+|source|[sourceType](#schemasourcetype)|false|The type of Food identifier used.<br>  * gtin: A GS1 [Global Trade Item Number](https://www.gs1.org/standards/id-keys/gtin), i.e. a product bar code.<br>  * plu: International Federation for Produce Standards [Price Look Up code](https://www.ifpsglobal.com/plu-codes-search)<br><br>Further source types, such as [USDA Foundation Foods](https://fdc.nal.usda.gov/food-search?type=Foundation), may be added in the future as the standard develops.|
 |location|string|false|The location code for the Source, e.g. for GTIN this would be the [Global Location Number](https://navigator.gs1.org/gdsn/class-details?name=GLN&version=12)|
 |code|string|false|The identifier for the Food in the specified Source|
 |image|string|false|URL to an image that was presented to the user when they selected the Food from the Source|
