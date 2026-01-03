@@ -477,11 +477,6 @@ Note the "daily" item refers to entries where the user has just recorded overall
 Standardized identifier for the kind of meal. This is not an exhaustive cultural meal taxonomy,
 but a practical subset for common use cases, derived from [here](https://en.wikipedia.org/wiki/Outline_of_meals)
 
-```json
-"breakfast"
-
-```
-
 ### Enumerated Values
 
 * breakfast
@@ -663,11 +658,6 @@ A particular facet of the food, typically a nutrient
 
 Standard identifier for the facet, typically a nutrient. This list is derived from the Open Food Facts
 [Nutrients](https://static.openfoodfacts.org/data/taxonomies/nutrients.json) taxonomy.
-
-```json
-"acidity"
-
-```
 
 ### Enumerated Values
 
@@ -891,11 +881,6 @@ The type of Food identifier used.
 
 Further source types, such as [USDA Foundation Foods](https://fdc.nal.usda.gov/food-search?type=Foundation), may be added in the future as the standard develops.
 
-```json
-"gtin"
-
-```
-
 ### Enumerated Values
 
 * gtin
@@ -1109,11 +1094,6 @@ Applications may add their own custom properties that are specific to the indivi
 <a id="tocsunit"></a>
 
 The normalized unit type. "g" for weight or "ml" for volume. This should match the unit used in the source.
-
-```json
-"g"
-
-```
 
 ### Enumerated Values
 

@@ -89,7 +89,7 @@ Base URLs:
 
 {{? block===blocks[0] }}
 {{= data.tags.section }}
-{{? data.options.yaml }}
+{{? enums.length === 0 }}{{? data.options.yaml }}
 ```yaml
 {{=data.utils.yaml.stringify(data.utils.getSample(schema,data.options,{quiet:true},data.api))}}
 {{??}}
@@ -97,7 +97,7 @@ Base URLs:
 {{=data.utils.safejson(data.utils.getSample(schema,data.options,{quiet:true},data.api),null,2)}}
 {{?}}
 ```
-{{? enums.length === 0 }}### Properties{{?}}
+### Properties{{?}}
 {{?}}
 
 {{? enums.length === 0 }}
